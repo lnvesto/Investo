@@ -1,0 +1,112 @@
+<div class="main-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content-wrapper">
+      <h1 class="hero-main-title scroll-fade-in">Secure Investments Through Blockchain Technology</h1>
+      <p class="hero-description scroll-fade-in">Investo connects visionary investors with transparent, decentralized opportunities using cutting-edge blockchain technology</p>
+      <div class="hero-action-buttons scroll-fade-in">
+        <button class="btn btn-primary" routerLink="/connect-wallet">Connect Wallet</button>
+        <button class="btn btn-secondary">Explore Assets</button>
+      </div>
+    </div>
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card scroll-fade-in" *ngFor="let stat of stats">
+            <div class="stat-number">{{stat.value}}</div>
+            <div class="stat-text">{{stat.label}}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section class="features-section">
+    <div class="container">
+      <div class="section-header text-center scroll-fade-in">
+        <h2>Our Key Features</h2>
+        <p>Discover why Investo leads the blockchain investment revolution</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card scroll-scale-in" *ngFor="let feature of features; let i = index">
+          <div class="feature-icon-wrapper">
+            <span class="material-icons">{{feature.icon}}</span>
+          </div>
+          <h3 class="feature-title">{{feature.title}}</h3>
+          <p class="feature-description">{{feature.description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="investment-options-section">
+    <div class="container">
+      <div class="investment-content">
+        <h1 class="scroll-fade-in">Choose Your Investment Path</h1>
+        <h2 class="scroll-fade-in">Multi-Chain. Multi-Asset. Full Control.</h2>
+        <p class="scroll-fade-in">Invest with crypto or fiat currencies through secure, transparent smart contracts</p>
+        <div class="investment-cards">
+          <div class="investment-card crypto-card scroll-slide-left">
+            <button class="btn btn-primary">Crypto Investments</button>
+            <p>Diversify your crypto portfolio with tokenized real-world assets, NFTs, and DeFi yields.</p>
+          </div>
+          <div class="investment-card fiat-card scroll-slide-right">
+            <button class="btn btn-primary">Fiat Investments</button>
+            <p>Use traditional currencies to invest in blockchain projects with automatic conversion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real Estate Section -->
+  <section id="real-estate" class="real-estate-section">
+    <div class="container">
+      <div class="real-estate-content">
+        <h1 class="scroll-fade-in">Featured Property Investments</h1>
+        <h2 class="scroll-fade-in">Discover Premium Real Estate Opportunities</h2>
+        <p class="scroll-fade-in">
+          Invest in carefully selected properties with high growth potential and steady yield. 
+          Each property is tokenized to enable fractional ownership and seamless blockchain investment.
+        </p>
+
+        <div class="real-estate-cards">
+          <div class="card-container scroll-fade-in" *ngFor="let realEstate of realEstateListings; let i = index">
+            <app-real-estate-card [realEstate]="realEstate"></app-real-estate-card>
+          </div>
+        </div>
+
+        <div class="view-more-container scroll-fade-in">
+          <button class="btn-secondary" (click)="scrollToTop()" routerLink="/state-page">View More Properties</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blockchain-section">
+    <div class="container">
+      <div class="blockchain-content">
+        <div class="blockchain-text scroll-slide-left">
+          <h1>Smart Contracts, Smarter Investments</h1>
+          <p>Our blockchain-powered platform automates investment processes through secure smart contracts, eliminating intermediaries and reducing costs while providing complete transparency and immutable record keeping.</p>
+        </div>
+        <div class="blockchain-visual scroll-slide-right">
+          <div class="blockchain-animation">
+            <img src="assets/images/blockchain-visual.svg" alt="Blockchain Visualization">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="scroll-fade-in">Ready to Invest in the Future?</h2>
+        <p class="scroll-fade-in">Join Investo's blockchain platform and access transparent investment opportunities</p>
+        <button class="btn btn-primary scroll-scale-in" routerLink="/sign-up" (click)="scrollToTop()">Try it out</button>
+      </div>
+    </div>
+  </section>
+</div>

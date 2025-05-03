@@ -1,0 +1,76 @@
+<div class="login-container">
+  <div class="login-card fade-in">
+    <div class="login-header">
+      <h1>Welcome Back</h1>
+      <p class="login-subtitle">Log in to your Investo account</p>
+    </div>
+    
+    <div class="alert error" *ngIf="errorMessage">
+      <span class="material-icons">error</span>
+      {{ errorMessage }}
+    </div>
+    
+    <div class="alert success" *ngIf="successMessage">
+      <span class="material-icons">check_circle</span>
+      {{ successMessage }}
+    </div>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email" 
+          class="form-control" 
+          placeholder="Enter your email"
+          [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+        >
+        <div class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email address</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          formControlName="password" 
+          class="form-control" 
+          placeholder="Enter your password"
+          [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        >
+        <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+      
+      <div class="form-options">
+        <div class="remember-me">
+          <input type="checkbox" id="rememberMe" formControlName="rememberMe">
+          <label for="rememberMe">Remember me</label>
+        </div>
+        <a href="#" class="forgot-password">Forgot password?</a>
+      </div>
+      
+      <button 
+        type="submit" 
+        class="login-button" 
+        [disabled]="isSubmitting || loginForm.invalid"
+      >
+        <span *ngIf="!isSubmitting">Log In</span>
+        <span *ngIf="isSubmitting">
+          <span class="material-icons spinning">sync</span>
+          Logging in...
+        </span>
+      </button>
+    </form>
+    
+    <div class="login-footer">
+      <p>Don't have an account? <a routerLink="/sign-up" class="signup-link">Sign Up</a></p>
+    </div>
+  </div>
+</div>

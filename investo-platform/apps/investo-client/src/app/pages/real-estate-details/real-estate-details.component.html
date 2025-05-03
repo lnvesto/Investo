@@ -1,0 +1,127 @@
+<div class="real-estate-details-container">
+  <div class="content-container" *ngIf="isLoading">
+    <p>Loading property details...</p>
+  </div>
+  
+  <div class="content-container" *ngIf="notFound">
+    <p>Property not found. <a routerLink="/">Return to home</a></p>
+  </div>
+
+  <div class="content-container" *ngIf="!isLoading && !notFound">
+    <div class="left-column">
+      <div class="image-gallery fade-in">
+        <div class="main-image">
+          <img [src]="realEstate.images[activeImageIndex].image_url" [alt]="realEstate.title">
+        </div>
+        <div class="thumbnail-container">
+          <div *ngFor="let image of realEstate.images; let i = index" 
+               class="thumbnail" 
+               [class.active]="i === activeImageIndex"
+               (click)="setActiveImage(i)">
+            <img [src]="image.image_url" [alt]="realEstate.title + ' thumbnail'">
+          </div>
+        </div>
+      </div>
+
+      <div class="property-details fade-in">
+        <h1>{{ realEstate.title }}</h1>
+        <div class="location">
+          <span class="material-icons">location_on</span>
+          {{ realEstate.location }}
+        </div>
+        
+        <div class="quick-stats fade-in">
+          <div class="stat-item">
+            <span class="stat-label">Area</span>
+            <span class="stat-value">{{ realEstate.area }} m²</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">ROI</span>
+            <span class="stat-value">{{ formatPercentage(realEstate.roi) }}</span>
+          </div>
+        </div>
+
+        <!-- Building Status Section -->
+        <div class="building-status fade-in" *ngIf="realEstate.buildingStatus">
+          <h3>Building Status</h3>
+          <div class="status-header">
+            <div class="status-badge" [class.completed]="realEstate.buildingStatus.status === 'Completed'">
+              {{ realEstate.buildingStatus.status }}
+            </div>
+            <div class="completion-date">
+              Expected completion: {{ realEstate.buildingStatus.completionDate | date:'MMMM yyyy' }}
+            </div>
+          </div>
+          
+          <div class="progress-container">
+            <div class="progress-percentage-text">{{ realEstate.buildingStatus.completionPercentage }}% completed</div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="realEstate.buildingStatus.completionPercentage"></div>
+            </div>
+          </div>
+          
+          <div class="construction-stages">
+            <div class="stage" *ngFor="let stage of realEstate.buildingStatus.stages" [class.completed]="stage.completed">
+              <div class="stage-indicator">
+                <div class="stage-icon">✓</div>
+              </div>
+              <div class="stage-details">
+                <div class="stage-name">{{ stage.name }}</div>
+                <div class="stage-description">{{ stage.description }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <h2>About this property</h2>
+        <p class="description">{{ realEstate.description }}</p>
+        
+        <!-- Features -->
+        <div class="features fade-in">
+          <h3>Features</h3>
+          <div class="feature-list">
+            <div class="feature-item" *ngFor="let feature of realEstate.features">
+              <span class="feature-icon">✓</span>
+              <span>{{ feature }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column with investment info -->
+    <div class="right-column">
+      <div class="investment-card fade-in">
+        <h2>Investment info</h2>
+        
+        <div class="price-info">
+          <div class="total-price">
+            <span class="price-label">Property value</span>
+            <span class="price-value">{{ formatCurrency(realEstate.price) }}</span>
+          </div>
+        </div>
+
+        <div class="funding-progress">
+          <div class="progress-info">
+            <div>
+              <span class="bold">{{ realEstate.investorCount }}</span> investors
+            </div>
+            <div>
+              <span class="bold">{{ formatCurrency(realEstate.currentFunding) }}</span> / {{ formatCurrency(realEstate.fundingGoal) }}
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="getProgressPercentage()"></div>
+          </div>
+          <div class="progress-percentage">{{ getProgressPercentage() | number:'1.0-0' }}%</div>
+        </div>
+        
+        <button class="invest-btn" (click)="navigateToInvest()">Invest now</button>
+        <button class="wishlist-btn">
+          <span class="material-icons">favorite_border</span>
+          Add to watchlist
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

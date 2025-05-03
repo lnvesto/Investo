@@ -1,0 +1,99 @@
+<div class="about-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content-wrapper">
+      <h1 class="hero-main-title scroll-fade-in">About Investo</h1>
+      <p class="hero-description scroll-fade-in">
+        We're transforming the world of investment through blockchain technology, 
+        creating transparent, accessible, and decentralized opportunities for everyone.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="mission-section">
+    <div class="container">
+      <div class="mission-content">
+        <div class="mission-text scroll-slide-left">
+          <h2>Our Mission & Vision</h2>
+          <p>At Investo, we're on a mission to democratize access to premium investment opportunities through blockchain technology. We believe that everyone should have access to high-quality investments, regardless of their financial background or status.</p>
+          <p>Our vision is to create a world where property ownership and investment are accessible, transparent, and efficient for everyone, leveraging the power of blockchain to remove traditional barriers to entry.</p>
+        </div>
+        <div class="mission-visual scroll-slide-right">
+          <div class="mission-animation">
+            <img src="assets/images/mission-visual.svg" alt="Mission Visualization">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="values-section">
+    <div class="container">
+      <div class="section-header text-center scroll-fade-in">
+        <h2>Our Core Values</h2>
+        <p>Principles that guide everything we do</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card scroll-scale-in" *ngFor="let value of values">
+          <div class="value-icon-wrapper">
+            <span class="material-icons">{{value.icon}}</span>
+          </div>
+          <h3 class="value-title">{{value.title}}</h3>
+          <p class="value-description">{{value.description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="timeline-section">
+    <div class="container">
+      <div class="section-header text-center scroll-fade-in">
+        <h2>Our Journey</h2>
+        <p>From a simple idea to revolutionize property investment to becoming a leading blockchain-based investment platform</p>
+      </div>
+      <div class="timeline">
+        <div class="milestone scroll-fade-in" *ngFor="let milestone of milestones; let i = index">
+          <div class="milestone-content">
+            <h3>{{ milestone.title }}</h3>
+            <p>{{ milestone.description }}</p>
+          </div>
+          <div class="milestone-year">{{ milestone.year }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners Section -->
+  <section class="partners-section">
+    <div class="container">
+      <div class="section-header text-center scroll-fade-in">
+        <h2>Our Partners</h2>
+        <p>We collaborate with leading organizations in blockchain technology and real estate to deliver the best possible investment experience</p>
+      </div>
+      <div class="partners-grid">
+        <div class="partner-card scroll-scale-in" *ngFor="let partner of partners">
+          <img [src]="partner.logo" [alt]="partner.name">
+          <h3>{{partner.name}}</h3>
+          <p>{{partner.description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="scroll-fade-in">Join Our Vision for the Future</h2>
+        <p class="scroll-fade-in">Be part of the revolution that's making property investment accessible, transparent, and secure for everyone through blockchain technology.</p>
+        <div class="cta-buttons">
+          <button class="btn btn-primary scroll-scale-in" routerLink="/sign-up" (click)="scrollToTop()">Get Started Today</button>
+          <button class="btn btn-secondary scroll-scale-in" routerLink="/contact">Contact Us</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

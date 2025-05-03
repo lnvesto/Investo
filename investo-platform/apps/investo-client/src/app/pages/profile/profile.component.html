@@ -1,0 +1,631 @@
+<main class="profile-container" role="main">
+  <!-- Loading state -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="loading-spinner"></div>
+    <p>Loading profile...</p>
+  </div>
+
+  <!-- Error message -->
+  <div class="error-container" *ngIf="errorMessage && !isLoading">
+    <div class="error-icon">
+      <span class="material-icons">error_outline</span>
+    </div>
+    <p>{{ errorMessage }}</p>
+    <button class="action-btn" (click)="loadUserProfile()">Try Again</button>
+  </div>
+
+  <!-- Profile content -->
+  <ng-container *ngIf="!isLoading && !errorMessage">
+    <!-- Profile Header -->
+    <header class="profile-header fade-in" role="banner">
+      <div class="container-wrapper">
+        <section class="user-info" aria-label="User Information">
+          <div class="avatar-container">
+            <img [src]="user.avatarUrl" [alt]="user.name" class="user-avatar" width="80" height="80" 
+                 (error)="onAvatarError($event)" #avatarImage>
+            <div class="avatar-fallback" *ngIf="avatarLoadError">
+              <span class="material-icons">person</span>
+            </div>
+            <div class="status-indicator" [class.verified]="user.kycVerified" title="KYC Verified" aria-label="KYC Verification Status"></div>
+          </div>
+          <div class="user-details">
+            <h1>{{ user.name }}</h1>
+            <div class="wallet-badge">
+              <span class="material-icons" aria-hidden="true">account_balance_wallet</span>
+              <span class="wallet-address">{{ truncateAddress(user.walletAddress) }}</span>
+              <button class="copy-btn" title="Copy to clipboard" (click)="copyToClipboard(user.walletAddress)" aria-label="Copy wallet address">
+                <span class="material-icons" aria-hidden="true">content_copy</span>
+              </button>
+            </div>
+            <div class="user-meta">
+              <span class="meta-item">
+                <span class="material-icons" aria-hidden="true">email</span>
+                {{ user.email }}
+              </span>
+              <span class="meta-item">
+                <span class="material-icons" aria-hidden="true">calendar_today</span>
+                Member since {{ formatDate(user.joinDate) }}
+              </span>
+            </div>
+          </div>
+          
+          <!-- Security badges -->
+          <div class="security-features" aria-label="Security Features">
+            <div class="security-badge" [class.active]="user.kycVerified" title="KYC Verified">
+              <span class="material-icons" aria-hidden="true">verified_user</span>
+              <span>KYC</span>
+            </div>
+            <div class="security-badge" [class.active]="user.twoFactorEnabled" title="Two-Factor Authentication" style="margin-top: 10px;">
+              <span class="material-icons" aria-hidden="true">security</span>
+              <span>2FA</span>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Only show navigation tabs for own profile -->
+        <div class="section-divider" *ngIf="isCurrentUser" aria-hidden="true"></div>
+        
+        <nav class="profile-nav" *ngIf="isCurrentUser" aria-label="Profile Navigation">
+          <button class="nav-btn" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')" aria-label="Overview">
+            <span class="material-icons" aria-hidden="true">dashboard</span>
+            Overview
+          </button>
+          <button class="nav-btn" [class.active]="activeTab === 'investments'" (click)="setActiveTab('investments')" aria-label="Investments">
+            <span class="material-icons" aria-hidden="true">real_estate_agent</span>
+            Investments
+          </button>
+          <button class="nav-btn" [class.active]="activeTab === 'wallet'" (click)="setActiveTab('wallet')" aria-label="Wallet">
+            <span class="material-icons" aria-hidden="true">account_balance_wallet</span>
+            Wallet
+          </button>
+          <button class="nav-btn" [class.active]="activeTab === 'settings'" (click)="setActiveTab('settings')" aria-label="Settings">
+            <span class="material-icons" aria-hidden="true">settings</span>
+            Settings
+          </button>
+        </nav>
+      </div>
+    </header>
+    
+    <!-- Profile content will be conditionally displayed here -->
+    <!-- Public profile view for non-owner -->
+    <section class="profile-content fade-in" *ngIf="!isCurrentUser">
+      <div class="content-container">
+        <div class="section-heading">
+          <h2>{{ user.name }}'s Public Profile</h2>
+          <div class="heading-underline" aria-hidden="true"></div>
+        </div>
+        
+        <div class="user-public-stats scroll-fade-in animate">
+          <p class="public-note">This is a public profile view. Only limited information is available.</p>
+          
+          <!-- Public investments stats could be shown here if applicable -->
+          <div class="public-investments" *ngIf="false">
+            <h3>Public Investments</h3>
+            <!-- Public investments would be displayed here -->
+          </div>
+          
+          <!-- Connect button -->
+          <div class="connect-actions">
+            <button class="action-btn">
+              <span class="material-icons">person_add</span>
+              Connect
+            </button>
+            <button class="action-btn secondary">
+              <span class="material-icons">message</span>
+              Message
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Personal profile sections (only visible to the profile owner) -->
+    <section class="profile-content fade-in" *ngIf="isCurrentUser && activeTab === 'overview'" aria-label="Overview">
+      <div class="content-container">
+        <div class="stats-grid" role="grid">
+          <div class="stat-card scroll-fade-in animate" role="gridcell">
+            <div class="stat-icon">
+              <span class="material-icons" aria-hidden="true">paid</span>
+            </div>
+            <div class="stat-info">
+              <h3>Total Invested</h3>
+              <div class="stat-value">{{ formatCurrency(stats.totalInvested) }}</div>
+            </div>
+          </div>
+          
+          <div class="stat-card scroll-fade-in animate" role="gridcell">
+            <div class="stat-icon">
+              <span class="material-icons" aria-hidden="true">trending_up</span>
+            </div>
+            <div class="stat-info">
+              <h3>Total Returns</h3>
+              <div class="stat-value">{{ formatCurrency(stats.totalReturns) }}</div>
+            </div>
+          </div>
+          
+          <div class="stat-card scroll-fade-in animate" role="gridcell">
+            <div class="stat-icon">
+              <span class="material-icons" aria-hidden="true">domain</span>
+            </div>
+            <div class="stat-info">
+              <h3>Active Investments</h3>
+              <div class="stat-value">{{ stats.activeInvestments }}</div>
+            </div>
+          </div>
+          
+          <div class="stat-card scroll-fade-in animate" role="gridcell">
+            <div class="stat-icon">
+              <span class="material-icons" aria-hidden="true">insights</span>
+            </div>
+            <div class="stat-info">
+              <h3>Average ROI</h3>
+              <div class="stat-value">{{ stats.averageROI }}%</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="dashboard-row">
+          <div class="dashboard-card investment-performance scroll-slide-left animate">
+            <div class="card-header">
+              <h2>Your Investment Score</h2>
+            </div>
+            <div class="score-container">
+              <div class="score-circle">
+                <svg width="160" height="160" viewBox="0 0 160 160" aria-label="Investment Score">
+                  <circle cx="80" cy="80" r="70" fill="none" stroke="#1a2030" stroke-width="10"/>
+                  <circle cx="80" cy="80" r="70" fill="none" stroke="#5096ff" stroke-width="10" 
+                          stroke-dasharray="439.6" [attr.stroke-dashoffset]="439.6 - (439.6 * stats.investmentScore / 100)"/>
+                </svg>
+                <div class="score-value">{{ stats.investmentScore }}</div>
+              </div>
+              <div class="score-details">
+                <div class="score-label">Excellent</div>
+                <p class="score-description">
+                  Your investment portfolio is performing well above average. 
+                  Keep up the good strategy!
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="dashboard-card recent-activity scroll-slide-right animate">
+            <div class="card-header">
+              <h2>Recent Activity</h2>
+              <a routerLink="/transactions" class="view-all-link">View All</a>
+            </div>
+            
+            <div class="transaction-list" role="list">
+              <div class="transaction-item" *ngFor="let transaction of recentTransactions" role="listitem">
+                <div class="transaction-icon" [ngClass]="getTransactionClass(transaction.type)">
+                  <span class="material-icons" aria-hidden="true">{{ getTransactionIcon(transaction.type) }}</span>
+                </div>
+                <div class="transaction-details">
+                  <div class="transaction-title">{{ transaction.details }}</div>
+                  <div class="transaction-date">{{ formatDate(transaction.date) }}</div>
+                </div>
+                <div class="transaction-amount" [ngClass]="{'positive': transaction.type === 'return' || transaction.type === 'deposit' || transaction.type === 'reward', 
+                                                         'negative': transaction.type === 'withdrawal' || transaction.type === 'investment'}">
+                  {{ (transaction.type === 'return' || transaction.type === 'deposit' || transaction.type === 'reward' ? '+' : '-') + formatCurrency(transaction.amount) }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <h2>Upcoming Payouts</h2>
+          <div class="heading-underline" aria-hidden="true"></div>
+        </div>
+        
+        <div class="dashboard-card upcoming-payouts scroll-fade-in animate">
+          <div class="payouts-list" role="list">
+            <div class="payout-item" *ngFor="let investment of activeInvestmentsWithPayouts" role="listitem">
+              <div class="payout-property">
+                <img [src]="investment.imageUrl" [alt]="investment.propertyName" class="property-thumbnail" width="80" height="60">
+                <div class="property-info">
+                  <div class="property-name">{{ investment.propertyName }}</div>
+                  <div class="property-location">
+                    <span class="material-icons" aria-hidden="true">location_on</span>
+                    {{ investment.location }}
+                  </div>
+                </div>
+              </div>
+              <div class="payout-details">
+                <div class="payout-amount">
+                  <div class="amount-label">Expected Payout</div>
+                  <div class="amount-value">{{ formatCurrency(investment.investedAmount * investment.roi / 100 / 12) }}</div>
+                </div>
+                <div class="payout-date">
+                  <div class="date-label">Date</div>
+                  <div class="date-value">{{ formatDate(investment.nextPayout!) }}</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="no-payouts" *ngIf="!hasActiveInvestmentsWithPayouts">
+              <span class="material-icons" aria-hidden="true">event_busy</span>
+              <p>No upcoming payouts</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="profile-content fade-in" *ngIf="isCurrentUser && activeTab === 'investments'" aria-label="Investments">
+      <div class="content-container">
+        <div class="section-heading">
+          <h2>Your Investments</h2>
+          <div class="heading-underline" aria-hidden="true"></div>
+        </div>
+        
+        <div class="filter-controls scroll-fade-in animate">
+          <div class="filter-buttons" role="group" aria-label="Investment Filters">
+            <button class="filter-btn" [class.active]="investmentFilter === 'all'" (click)="setInvestmentFilter('all')" aria-label="Show all investments">
+              All
+            </button>
+            <button class="filter-btn" [class.active]="investmentFilter === 'active'" (click)="setInvestmentFilter('active')" aria-label="Show active investments">
+              Active
+            </button>
+            <button class="filter-btn" [class.active]="investmentFilter === 'pending'" (click)="setInvestmentFilter('pending')" aria-label="Show pending investments">
+              Pending
+            </button>
+            <button class="filter-btn" [class.active]="investmentFilter === 'completed'" (click)="setInvestmentFilter('completed')" aria-label="Show completed investments">
+              Completed
+            </button>
+          </div>
+          
+
+        </div>
+        
+        <!-- Card View -->
+        <div class="investment-grid" *ngIf="viewMode === 'cards'" role="grid">
+          <div class="investment-card scroll-scale-in animate" *ngFor="let investment of getFilteredInvestments()" role="gridcell">
+            <div class="investment-status" [ngClass]="getStatusClass(investment.status)">
+              {{ investment.status }}
+            </div>
+            <div class="investment-image">
+              <img [src]="investment.imageUrl" [alt]="investment.propertyName" width="300" height="200">
+            </div>
+            <div class="investment-content">
+              <h3>{{ investment.propertyName }}</h3>
+              <div class="investment-location">
+                <span class="material-icons" aria-hidden="true">location_on</span>
+                {{ investment.location }}
+              </div>
+              
+              <div class="investment-details">
+                <div class="detail-item">
+                  <div class="detail-label">Invested</div>
+                  <div class="detail-value">{{ formatCurrency(investment.investedAmount) }}</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Current Value</div>
+                  <div class="detail-value">{{ formatCurrency(investment.currentValue) }}</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">ROI</div>
+                  <div class="detail-value">{{ investment.roi }}%</div>
+                </div>
+              </div>
+              
+              <div class="investment-performance" *ngIf="investment.status === 'active'">
+                <div class="performance-change" [class.positive]="investment.currentValue > investment.investedAmount" 
+                    [class.negative]="investment.currentValue < investment.investedAmount">
+                  {{ ((investment.currentValue - investment.investedAmount) / investment.investedAmount * 100).toFixed(1) }}%
+                </div>
+              </div>
+              
+              <div class="investment-actions">
+                <button class="action-btn primary" [routerLink]="['/investments', investment.id]" aria-label="View investment details">
+                  <span class="material-icons" aria-hidden="true">visibility</span>
+                  Details
+                </button>
+                <button class="action-btn secondary" *ngIf="investment.status === 'active'" aria-label="Trade investment tokens">
+                  <span class="material-icons" aria-hidden="true">swap_horiz</span>
+                  Trade
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="no-investments scroll-fade-in animate" *ngIf="getFilteredInvestments().length === 0">
+            <span class="material-icons" aria-hidden="true">real_estate_agent</span>
+            <p>No {{ investmentFilter !== 'all' ? investmentFilter : '' }} investments found</p>
+            <button class="action-btn" routerLink="/investments">Explore Investment Opportunities</button>
+          </div>
+        </div>
+        
+        <!-- List View -->
+        <div class="investments-table scroll-fade-in animate" *ngIf="viewMode === 'list'" role="table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Property</th>
+                <th scope="col">Location</th>
+                <th scope="col">Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Current Value</th>
+                <th scope="col">ROI</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let investment of getFilteredInvestments()">
+                <td class="property-cell">
+                  <img [src]="investment.imageUrl" [alt]="investment.propertyName" class="property-thumbnail" width="60" height="40">
+                  {{ investment.propertyName }}
+                </td>
+                <td>{{ investment.location }}</td>
+                <td>{{ formatDate(investment.investmentDate) }}</td>
+                <td>{{ formatCurrency(investment.investedAmount) }}</td>
+                <td>{{ formatCurrency(investment.currentValue) }}</td>
+                <td>{{ investment.roi }}%</td>
+                <td>
+                  <span class="status-badge" [ngClass]="getStatusClass(investment.status)">
+                    {{ investment.status }}
+                  </span>
+                </td>
+                <td class="actions-cell">
+                  <button class="table-action-btn" [routerLink]="['/investments', investment.id]" title="View Details" aria-label="View investment details">
+                    <span class="material-icons" aria-hidden="true">visibility</span>
+                  </button>
+                  <button class="table-action-btn" *ngIf="investment.status === 'active'" title="Trade Tokens" aria-label="Trade investment tokens">
+                    <span class="material-icons" aria-hidden="true">swap_horiz</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <div class="no-investments animate" *ngIf="getFilteredInvestments().length === 0">
+            <span class="material-icons" aria-hidden="true">real_estate_agent</span>
+            <p>No {{ investmentFilter !== 'all' ? investmentFilter : '' }} investments found</p>
+            <button class="action-btn" routerLink="/investments">Explore Investment Opportunities</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="profile-content fade-in" *ngIf="isCurrentUser && activeTab === 'wallet'" aria-label="Wallet">
+      <div class="content-container">
+        <div class="wallet-overview">
+          <div class="wallet-card scroll-slide-left animate">
+            <div class="wallet-balance">
+              <h3>Available Balance</h3>
+              <div class="balance-amount">{{ formatCurrency(walletBalance) }}</div>
+            </div>
+            <div class="wallet-actions">
+              <button class="wallet-btn deposit" aria-label="Deposit funds">
+                <span class="material-icons" aria-hidden="true">add_circle</span>
+                Deposit
+              </button>
+              <button class="wallet-btn withdraw" aria-label="Withdraw funds">
+                <span class="material-icons" aria-hidden="true">remove_circle</span>
+                Withdraw
+              </button>
+            </div>
+          </div>
+          
+          <div class="token-card scroll-slide-right animate">
+            <div class="token-balance">
+              <div class="token-icon">
+                <span class="material-icons" aria-hidden="true">token</span>
+              </div>
+              <div class="token-info">
+                <h3>Your Tokens</h3>
+                <div class="token-amount">{{ availableTokens }} INVST</div>
+                <div class="token-value">≈ {{ formatCurrency(availableTokens * tokenPrice) }}</div>
+              </div>
+            </div>
+            <div class="token-actions">
+              <button class="token-btn" aria-label="Trade tokens">
+                <span class="material-icons" aria-hidden="true">swap_horiz</span>
+                Trade
+              </button>
+              <button class="token-btn" aria-label="Stake tokens">
+                <span class="material-icons" aria-hidden="true">savings</span>
+                Stake
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="dashboard-card wallet-transactions scroll-fade-in animate">
+          <div class="card-header">
+            <h2>Transaction History</h2>
+            <div class="transaction-filter">
+              <select class="filter-select" aria-label="Filter transactions">
+                <option value="all">All Transactions</option>
+                <option value="deposit">Deposits</option>
+                <option value="withdrawal">Withdrawals</option>
+                <option value="investment">Investments</option>
+                <option value="return">Returns</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="transaction-list extended" role="list">
+            <div class="transaction-item" *ngFor="let transaction of walletTransactions" role="listitem">
+              <div class="transaction-icon" [ngClass]="getTransactionClass(transaction.type)">
+                <span class="material-icons" aria-hidden="true">{{ getTransactionIcon(transaction.type) }}</span>
+              </div>
+              <div class="transaction-details">
+                <div class="transaction-title">{{ transaction.details }}</div>
+                <div class="transaction-date">{{ formatDate(transaction.date) }}</div>
+              </div>
+              <div class="transaction-status" [ngClass]="getStatusClass(transaction.status)">
+                {{ transaction.status }}
+              </div>
+              <div class="transaction-amount" [ngClass]="{'positive': transaction.type === 'return' || transaction.type === 'deposit' || transaction.type === 'reward', 
+                                                       'negative': transaction.type === 'withdrawal' || transaction.type === 'investment'}">
+                {{ (transaction.type === 'return' || transaction.type === 'deposit' || transaction.type === 'reward' ? '+' : '-') + formatCurrency(transaction.amount) }}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="blockchain-info-card scroll-scale-in animate">
+          <div class="card-header">
+            <h2>Blockchain Activity</h2>
+          </div>
+          <div class="blockchain-content">
+            <div class="wallet-address-info">
+              <div class="qr-code">
+                <!-- Placeholder for QR code image -->
+                <div class="qr-placeholder" aria-hidden="true"></div>
+              </div>
+              <div class="address-details">
+                <h3>Your Blockchain Address</h3>
+                <div class="address-value">
+                  {{ user.walletAddress }}
+                  <button class="copy-btn" title="Copy to clipboard" (click)="copyToClipboard(user.walletAddress)" aria-label="Copy wallet address">
+                    <span class="material-icons" aria-hidden="true">content_copy</span>
+                  </button>
+                </div>
+                <p class="address-note">
+                  This is your blockchain wallet address. Use it to receive tokens or track your investments on the blockchain.
+                </p>
+                <button class="view-explorer-btn" aria-label="View on blockchain explorer">
+                  <span class="material-icons" aria-hidden="true">open_in_new</span>
+                  View on Explorer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="profile-content fade-in" *ngIf="isCurrentUser && activeTab === 'settings'" aria-label="Settings">
+      <div class="content-container">
+        <div class="settings-grid">
+          <div class="settings-card scroll-slide-left animate">
+            <div class="card-header">
+              <h2>Profile Settings</h2>
+            </div>
+            
+            <form class="settings-form">
+              <div class="form-group">
+                <label for="nameInput">Full Name</label>
+                <input type="text" id="nameInput" [value]="user.name" class="form-control">
+              </div>
+              
+              <div class="form-group">
+                <label for="emailInput">Email Address</label>
+                <input type="email" id="emailInput" [value]="user.email" class="form-control">
+              </div>
+              
+              <div class="form-group">
+                <label for="phoneInput">Phone Number</label>
+                <input type="tel" id="phoneInput" placeholder="+1 (123) 456-7890" class="form-control">
+              </div>
+              
+              <div class="avatar-settings">
+                <label>Profile Photo</label>
+                <div class="avatar-preview">
+                  <div class="settings-avatar" >
+                    <img [src]="user.avatarUrl" [alt]="user.name" (error)="onAvatarError($event)" #avatarImage>
+                  </div>
+                  <div class="avatar-actions">
+                    <button class="avatar-btn upload">
+                      <span class="material-icons" aria-hidden="true">file_upload</span>
+                      Upload
+                    </button>
+                    <button class="avatar-btn remove">
+                      <span class="material-icons" aria-hidden="true">delete</span>
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <button class="save-btn" type="submit">
+                <span class="material-icons" aria-hidden="true">save</span>
+                Save Changes
+              </button>
+            </form>
+          </div>
+          
+          <div class="settings-card scroll-slide-right animate">
+            <div class="card-header">
+              <h2>Security Settings</h2>
+            </div>
+            
+            <div class="settings-form">
+              <div class="security-section">
+                <div class="security-setting">
+                  <div class="setting-info">
+                    <h3>Change Password</h3>
+                    <p>Update your account password regularly to maintain security</p>
+                  </div>
+                  <button class="settings-action-btn" aria-label="Change password">
+                    <span class="material-icons" aria-hidden="true">lock</span>
+                    Change
+                  </button>
+                </div>
+                
+                <div class="security-setting">
+                  <div class="setting-info">
+                    <h3>Two-Factor Authentication</h3>
+                    <p>Add an extra layer of security to your account</p>
+                    <div class="setting-status" [class.enabled]="user.twoFactorEnabled">
+                      {{ user.twoFactorEnabled ? 'Enabled' : 'Disabled' }}
+                    </div>
+                  </div>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="twoFactorToggle" [checked]="user.twoFactorEnabled" aria-label="Toggle two-factor authentication">
+                    <label for="twoFactorToggle"></label>
+                  </div>
+                </div>
+                
+                <div class="security-setting">
+                  <div class="setting-info">
+                    <h3>KYC Verification</h3>
+                    <p>Verify your identity to unlock all platform features</p>
+                    <div class="setting-status" [class.enabled]="user.kycVerified">
+                      {{ user.kycVerified ? 'Verified' : 'Not Verified' }}
+                    </div>
+                  </div>
+                  <button class="settings-action-btn" *ngIf="!user.kycVerified" aria-label="Start KYC verification">
+                    <span class="material-icons" aria-hidden="true">verified_user</span>
+                    Verify
+                  </button>
+                  <div class="verified-badge" *ngIf="user.kycVerified" aria-label="KYC Verified">
+                    <span class="material-icons" aria-hidden="true">check_circle</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="security-section">
+                <h3 class="section-title">Wallet Security</h3>
+                
+                <div class="security-setting">
+                  <div class="setting-info">
+                    <h3>Connected Wallet</h3>
+                    <p>{{ truncateAddress(user.walletAddress) }}</p>
+                  </div>
+                  <button class="settings-action-btn" aria-label="Change connected wallet">
+                    <span class="material-icons" aria-hidden="true">sync</span>
+                    Change
+                  </button>
+                </div>
+                
+                <div class="security-setting">
+                  <div class="setting-info">
+                    <h3>Transaction Authentication</h3>
+                    <p>Require additional authentication for transactions</p>
+                  </div>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="transactionAuthToggle" checked aria-label="Toggle transaction authentication">
+                    <label for="transactionAuthToggle"></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+</main>

@@ -1,0 +1,693 @@
+@import 'variables';
+
+.footer {
+  position: relative;
+  background-color: #000000;
+  color: #fff;
+  font-family: $font-family;
+  z-index: 1;
+  width: 100%;
+  overflow: hidden;
+  
+  // Decorative wave at the top of footer - modified to match main page style
+
+
+  // Footer content container
+  .footer-container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 50px 20px 20px;
+    position: relative;
+    z-index: 2;
+    background-color: #000000;
+    
+    @media (max-width: $mobile) {
+      padding: 30px 15px 15px;
+      .logo{
+        margin-bottom: 35px !important;   
+      }
+    }
+
+    // Updated glowing elements to match main page
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      z-index: 0;
+      opacity: 0.15;
+      
+      &-1 {
+        top: 20%;
+        right: 10%;
+        width: 350px;
+        height: 350px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+        animation: pulse 8s infinite alternate;
+      }
+      
+      &-2 {
+        bottom: 30%;
+        left: 5%;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+        animation: pulse 6s infinite alternate-reverse;
+      }
+      
+      @keyframes pulse {
+        0% {
+          opacity: 0.05;
+          transform: scale(0.9);
+        }
+        100% {
+          opacity: 0.1;
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+  
+  // Footer content grid
+  .footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 30px;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 30px;
+    
+    @media (max-width: $breakpoint-lg) {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+
+      .footer-branding {
+        grid-column: 1 / -1;
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
+        
+        .social-links {
+          justify-content: center;
+        }
+        
+        .logo::after {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        
+        .footer-description {
+          margin: 0 auto 20px;
+        }
+      }
+    }
+    
+    @media (max-width: $mobile) {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      padding-bottom: 30px;
+      text-align: center;
+
+      .footer-branding {
+        .social-links {
+          justify-content: center;
+        }
+
+        .logo::after {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .footer-description {
+          opacity: 0.6;
+        }
+      }
+
+      .footer-links {
+        h3 {
+          text-align: center;
+          font-size: 0.9rem;
+          opacity: 0.9;
+
+          &:after {
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+
+        ul li a {
+          opacity: 0.6;
+          font-size: 0.8rem;
+        }
+
+        .contact-item {
+          justify-content: center;
+          opacity: 0.6;
+          font-size: 0.8rem;
+        }
+      }
+
+      .newsletter {
+        p {
+          opacity: 0.6;
+        }
+
+        .newsletter-form {
+          input {
+            opacity: 0.8;
+          }
+        }
+      }
+
+      .footer-bottom {
+        .copyright {
+          opacity: 0.5;
+        }
+
+        .footer-menu a {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+  
+  // Footer branding section - updated to match main page
+  .footer-branding {
+    .logo {
+      display: inline-block;
+      margin-bottom: 25px;
+      position: relative;
+      transition: all 0.3s ease;
+      
+      img {
+        height: 26px;
+        width: auto;
+        filter: brightness(0) invert(1); /* Make the logo white */
+      }
+      
+      &:hover {
+        transform: translateY(-3px);
+      }
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background: linear-gradient(90deg, #fff, #ccc);
+        transition: width 0.3s ease;
+      }
+      
+      &:hover::after {
+        width: 80px;
+      }
+    }
+    
+    .footer-description {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+      max-width: 280px;
+      letter-spacing: 0.2px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 18px;
+      
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.8);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        position: relative;
+        
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: #fff;
+          transform: translateY(-5px);
+          box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+          
+          &::before {
+            opacity: 1;
+          }
+        }
+        
+        @media (max-width: $mobile) {
+          width: 34px;
+          height: 34px;
+          
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+  
+  // Footer links columns - updated to match main page
+  .footer-links {
+    h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      position: relative;
+      padding-bottom: 8px;
+      color: #fff;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 30px;
+        height: 2px;
+        background: linear-gradient(90deg, #ffffff, #cccccc);
+        transition: width 0.3s ease;
+      }
+      
+      &:hover:after {
+        width: 50px;
+      }
+    }
+    
+    @media (max-width: $mobile) {
+      h3 {
+        text-align: center;
+        font-size: 0.9rem;
+        opacity: 0.9;
+
+        &:after {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+
+      .contact-item {
+        justify-content: center;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      
+      li {
+        a {
+          color: rgba(255, 255, 255, 0.7);
+          text-decoration: none;
+          transition: all 0.3s ease;
+          display: inline-block;
+          padding: 4px 0;
+          position: relative;
+          font-size: 0.85rem;
+          letter-spacing: 0.2px;
+          font-weight: 400;
+          
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #fff;
+            transition: width 0.3s ease;
+          }
+          
+          &:hover {
+            color: #fff;
+            transform: translateX(5px);
+            
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+
+        @media (max-width: $mobile) {
+          text-align: center;
+
+          a:hover {
+            transform: translateY(-3px);
+          }
+        }
+      }
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      transition: all 0.3s ease;
+      font-size: 0.85rem;
+      letter-spacing: 0.2px;
+      font-weight: 400;
+      
+      svg {
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
+        color: rgba(255, 255, 255, 0.8);
+        transition: transform 0.3s ease;
+        flex-shrink: 0;
+      }
+      
+      &:hover {
+        color: rgba(255, 255, 255, 0.9);
+        transform: translateX(5px);
+        
+        svg {
+          transform: scale(1.15);
+          color: #fff;
+        }
+      }
+      
+      @media (max-width: $mobile) {
+        svg {
+          width: 14px;
+          height: 14px;
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+  
+  // Newsletter subscription - updated to match main page style
+  .newsletter {
+    margin: 40px 0 30px;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(20, 20, 20, 0.5);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    @media (max-width: $breakpoint-lg) {
+      margin: 40px auto 30px;
+    }
+
+    @media (max-width: $mobile) {
+      padding: 20px;
+      margin: 30px auto;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.05), transparent 60%);
+      z-index: 0;
+    }
+    
+    h3 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+    }
+    
+    p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 20px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+      font-size: 0.85rem;
+      letter-spacing: 0.2px;
+    }
+    
+    .newsletter-form {
+      display: flex;
+      margin-top: 25px;
+      
+      @media (max-width: $mobile) {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      input {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 10px 15px;
+        border-radius: 50px 0 0 50px;
+        color: #fff;
+        font-size: 0.85rem;
+        outline: none;
+        transition: all 0.3s ease;
+        letter-spacing: 0.3px;
+        
+        &:focus {
+          border-color: rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.1);
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.4);
+        }
+        
+        &.error {
+          border-color: rgba(255, 0, 0, 0.3);
+          box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+        }
+
+        @media (max-width: $mobile) {
+          border-radius: 50px;
+          text-align: center;
+          padding: 12px 15px;
+        }
+      }
+      
+      button {
+        padding: 10px 20px;
+        border-radius: 0 50px 50px 0;
+        background: linear-gradient(90deg, #ffffff, #cccccc);
+        color: #000;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transition: 0.5s;
+        }
+        
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 25px rgba(255, 255, 255, 0.5);
+          
+          &::before {
+            left: 100%;
+          }
+        }
+
+        @media (max-width: $mobile) {
+          border-radius: 50px;
+          width: 100%;
+          padding: 12px 20px;
+        }
+      }
+    }
+    
+    .newsletter-message {
+      margin-top: 15px;
+      
+      .success-message,
+      .error-message {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        animation: fadeSlideIn 0.3s ease-out forwards;
+        letter-spacing: 0.2px;
+        
+        svg {
+          width: 16px;
+          height: 16px;
+          margin-right: 8px;
+          flex-shrink: 0;
+        }
+      }
+      
+      .success-message {
+        background: rgba(76, 175, 80, 0.15);
+        color: #4CAF50;
+        border: 1px solid rgba(76, 175, 80, 0.3);
+      }
+      
+      .error-message {
+        background: rgba(244, 67, 54, 0.15);
+        color: #F44336;
+        border: 1px solid rgba(244, 67, 54, 0.3);
+      }
+    }
+    
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+  
+  // Footer bottom section - updated to match main page
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+    margin-top: 20px;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 15%;
+      right: 15%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    }
+    
+    .footer-bottom-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      @media (max-width: $mobile) {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+    }
+    
+    .copyright {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.8rem;
+      letter-spacing: 0.3px;
+      
+      a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-weight: 500;
+        
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+    
+    .footer-menu {
+      display: flex;
+      gap: 25px;
+      
+      @media (max-width: $mobile) {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+      }
+      
+      a {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.8rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;
+        letter-spacing: 0.3px;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: #fff;
+          transition: width 0.3s ease;
+        }
+        
+        &:hover {
+          color: #fff;
+          
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Приховати елементи з класом .hide-mobile на мобільних
+@media (max-width: $mobile) {
+  .hide-mobile {
+    display: none !important;
+  }
+}

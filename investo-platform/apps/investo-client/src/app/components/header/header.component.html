@@ -1,0 +1,178 @@
+<header class="header" [class.scrolled]="isScrolled || isDarkPage">
+  <div class="container">
+    <div class="header-content">
+      <a routerLink="/" class="logo">
+        <img src="assets/images/Investo.png" alt="INVESTO Logo" class="logo-img">
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <nav class="nav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a routerLink="/state-page" class="nav-link" (click)="scrollToTop()">Investments</a>
+          </li>
+          
+          <li class="nav-item">
+            <a routerLink="/about" class="nav-link" (click)="scrollToTop()">About</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/contact" class="nav-link" (click)="scrollToTop()">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/watchlist" class="nav-link" (click)="scrollToTop()">Watchlist</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Desktop user menu -->
+        <ng-container *ngIf="authService.isLoggedIn">
+          <a class="wallet-button" routerLink="/connect-wallet">
+            <span class="wallet-icon">
+              <span class="material-icons">account_balance_wallet</span>
+            </span>
+            <span class="wallet-label">Connect Wallet</span>
+          </a>
+          
+          <!-- User account button and menu -->
+          <div class="user-account" [class.active]="isUserMenuOpen">
+            <button class="account-button" (click)="toggleUserMenu($event)">
+              <div class="avatar-wrapper">
+                <span class="material-icons">person</span>
+              </div>
+              <span class="user-name">{{ authService.currentUserValue?.fullName || 'User' }}</span>
+              <span class="material-icons dropdown-icon">expand_more</span>
+            </button>
+            
+            <!-- User dropdown menu -->
+            <div class="account-dropdown">
+              <div class="user-info">
+                <div class="user-avatar">
+                  <span class="material-icons">person</span>
+                </div>
+                <div class="user-details">
+                  <div class="user-fullname">{{ authService.currentUserValue?.fullName || 'User' }}</div>
+                  <div class="user-status"><span class="status-dot"></span>Online</div>
+                </div>
+              </div>
+              
+              <div class="menu-links">
+                <a routerLink="/profile" class="menu-link">
+                  <span class="material-icons">account_circle</span>
+                  <span>My Profile</span>
+                </a>
+                <a routerLink="/dashboard" class="menu-link">
+                  <span class="material-icons">dashboard</span>
+                  <span>Dashboard</span>
+                </a>
+                <a routerLink="/investments" class="menu-link">
+                  <span class="material-icons">real_estate_agent</span>
+                  <span>My Investments</span>
+                </a>
+                <div class="menu-divider"></div>
+                <a routerLink="/settings" class="menu-link">
+                  <span class="material-icons">settings</span>
+                  <span>Settings</span>
+                </a>
+                <a href="javascript:void(0)" (click)="logout()" class="menu-link logout-link">
+                  <span class="material-icons">logout</span>
+                  <span>Logout</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        
+        <!-- Show login/signup for unauthenticated users -->
+        <ng-container *ngIf="!authService.isLoggedIn">
+          <a class="btn btn-glass" routerLink="/login" (click)="scrollToTop()">
+            <span class="material-icons">login</span>
+            <span>Login</span>
+          </a>
+          <a class="btn btn-glow" routerLink="/sign-up" (click)="scrollToTop()">
+            <span class="material-icons">person_add</span>
+            <span>Sign Up</span>
+          </a>
+        </ng-container>
+        
+        <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle menu">
+          <span class="material-icons">menu</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu (Outside header for better positioning) -->
+<div class="mobile-menu" [class.active]="isMenuOpen">
+  <div class="mobile-menu-backdrop" (click)="closeMenu()"></div>
+  <div class="mobile-menu-container">
+    <div class="mobile-nav-header">
+      <a routerLink="/" class="logo">
+        <img src="assets/images/Investo.png" alt="INVESTO Logo" class="logo-img">
+      </a>
+      <button class="close-menu" (click)="closeMenu()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    
+    <nav class="mobile-nav">
+      <ul class="mobile-nav-list">
+        <li class="mobile-nav-item">
+          <a routerLink="/state-page" class="mobile-nav-link" (click)="closeMenuIfMobile() " (click)="scrollToTop()">Investments</a>
+        </li>
+        <li class="mobile-nav-item">
+          <a routerLink="/about" class="mobile-nav-link" (click)="closeMenuIfMobile()" (click)="scrollToTop()">About</a>
+        </li>
+        <li class="mobile-nav-item">
+          <a routerLink="/contact" class="mobile-nav-link" (click)="closeMenuIfMobile()" (click)="scrollToTop()">Contact</a>
+        </li>
+        <li class="mobile-nav-item">
+          <a routerLink="/watchlist" class="mobile-nav-link" (click)="closeMenuIfMobile()" (click)="scrollToTop()" >Watchlist</a>
+        </li>
+      </ul>
+    </nav>
+    
+    <div class="mobile-auth" *ngIf="!authService.isLoggedIn">
+      <button class="mobile-btn login" routerLink="/login" (click)="closeMenuIfMobile()" (click)="scrollToTop()">
+        <span class="material-icons">login</span>
+        <span>Login</span>
+      </button>
+      <button class="mobile-btn signup" routerLink="/sign-up" (click)="closeMenuIfMobile()" (click)="scrollToTop()">
+        <span class="material-icons">person_add</span>
+        <span>Sign Up</span>
+      </button>
+    </div>
+    
+    <div class="mobile-user-area" *ngIf="authService.isLoggedIn">
+      <div class="mobile-user-info">
+        <div class="mobile-avatar">
+          <span class="material-icons">person</span>
+        </div>
+        <div class="mobile-user-name">
+          <span>{{ authService.currentUserValue?.fullName || 'User' }}</span>
+          <small *ngIf="authService.isLoggedIn">Active</small>
+        </div>
+      </div>
+      
+      <div class="mobile-user-links">
+        <a routerLink="/profile" class="mobile-user-link" (click)="closeMenuIfMobile()">
+          <span class="material-icons">account_circle</span>
+          <span>Profile</span>
+        </a>
+        <a routerLink="/connect-wallet" class="mobile-user-link" (click)="closeMenuIfMobile()">
+          <span class="material-icons">account_balance_wallet</span>
+          <span>Connect Wallet</span>
+        </a>
+        <a routerLink="/settings" class="mobile-user-link" (click)="closeMenuIfMobile()">
+          <span class="material-icons">settings</span>
+          <span>Settings</span>
+        </a>
+        <a href="javascript:void(0)" class="mobile-user-link logout" (click)="logout()">
+          <span class="material-icons">logout</span>
+          <span>Logout</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
