@@ -17,6 +17,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Check git status
+        run: |
+          git status
+          git branch -a
+          echo "Current directory: $(pwd)"
+          ls -la
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -39,6 +49,8 @@ jobs:
           
           # Create an assets list for debugging
           find . -type f > assets-list.txt
+          echo "Content of build directory:"
+          ls -la
 
       - name: Check assets structure
         run: |
@@ -57,10 +69,23 @@ jobs:
           # Copy images from source if they're missing
           mkdir -p investo-platform/dist/apps/investo-client/browser/assets/images
           cp -r investo-platform/apps/investo-client/src/assets/images/* investo-platform/dist/apps/investo-client/browser/assets/images/ || true
+          
+          echo "After copying assets:"
+          find investo-platform/dist/apps/investo-client/browser/assets -type f | sort
+
+      - name: Debug Token Permissions
+        run: |
+          echo "GitHub Token permissions check"
+          if [ -n "${{ github.token }}" ]; then
+            echo "Token is available"
+          else
+            echo "Token is NOT available"
+          fi
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: investo-platform/dist/apps/investo-client/browser
           branch: gh-pages
-          clean: false  # Changed to false to avoid removing any files that might be needed
+          clean: false
+          token: ${{ github.token }}
