@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Investo</title>
+  <base href="./">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="text/javascript">
+    // Код для підтримки маршрутизації Angular на GitHub Pages
+    (function(l) {
+      if (l.search[1] === '/' ) {
+        var decoded = l.search.slice(1).split('&').map(function(s) { 
+          return s.replace(/~and~/g, '&')
+        }).join('?');
+        window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+        );
+      }
+    }(window.location))
+
+    // Блокування перенаправлень на investo.io
+    (function() {
+      // Зберігаємо оригінальні методи
+      var originalPushState = history.pushState;
+      var originalReplaceState = history.replaceState;
+      var originalAssign = window.location.assign;
+      var originalReplace = window.location.replace;
+      
+      // Перехоплюємо History API
+      history.pushState = function() {
+        var url = arguments[2];
+        if (url && typeof url === 'string' && url.includes('investo.io')) {
+          console.warn('Заблоковано перенаправлення на: ' + url);
+          return;
+        }
+        return originalPushState.apply(this, arguments);
+      };
+      
+      history.replaceState = function() {
+        var url = arguments[2];
+        if (url && typeof url === 'string' && url.includes('investo.io')) {
+          console.warn('Заблоковано перенаправлення на: ' + url);
+          return;
+        }
+        return originalReplaceState.apply(this, arguments);
+      };
+      
+      // Перехоплюємо window.location методи
+      window.location.assign = function(url) {
+        if (url && typeof url === 'string' && url.includes('investo.io')) {
+          console.warn('Заблоковано перенаправлення на: ' + url);
+          return;
+        }
+        return originalAssign.call(window.location, url);
+      };
+      
+      window.location.replace = function(url) {
+        if (url && typeof url === 'string' && url.includes('investo.io')) {
+          console.warn('Заблоковано перенаправлення на: ' + url);
+          return;
+        }
+        return originalReplace.call(window.location, url);
+      };
+      
+      // Перехоплюємо window.open
+      var originalWindowOpen = window.open;
+      window.open = function(url) {
+        if (url && typeof url === 'string' && url.includes('investo.io')) {
+          console.warn('Заблоковано відкриття в новому вікні: ' + url);
+          return null;
+        }
+        return originalWindowOpen.apply(this, arguments);
+      };
+      
+      console.log('Блокувальник перенаправлень активовано');
+    })();
+  </script>
+<link rel="stylesheet" href="styles.b9a9caef748a773e.css">
+</head>
+<body>
+  <app-root></app-root>
+<script src="runtime.f2d8ecea5867a069.js" type="module"></script>
+<script src="polyfills.ba6be0ce6f970b6a.js" type="module"></script>
+<script src="main.ec33024a63f994ab.js" type="module"></script>
+</body>
+</html>
