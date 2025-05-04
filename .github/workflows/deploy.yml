@@ -8,25 +8,15 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
-
-env:
-  BUILD_PATH: "investo-platform/dist/apps/investo-client/browser"
 
 jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -41,20 +31,14 @@ jobs:
       - name: Build
         run: cd investo-platform && npx nx build investo-client --configuration=production
         
-      - name: Modify index.html for GitHub Pages
+      - name: Prepare for GitHub Pages
         run: |
-          cd ${{ env.BUILD_PATH }}
+          cd investo-platform/dist/apps/investo-client/browser
           sed -i 's|<base href="/">|<base href="./">|g' index.html
           cp index.html 404.html
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ${{ env.BUILD_PATH }}
-
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: investo-platform/dist/apps/investo-client/browser
+          branch: gh-pages
