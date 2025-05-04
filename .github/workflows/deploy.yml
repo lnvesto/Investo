@@ -6,6 +6,12 @@ on:
       - main
   workflow_dispatch:
 
+# Додаємо глобальні дозволи для workflow
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -13,7 +19,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
           persist-credentials: true
 
@@ -30,12 +35,14 @@ jobs:
       - name: Build
         run: cd investo-platform && npx nx build investo-client --configuration=production
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: investo-platform/dist/apps/investo-client/browser
           branch: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # Додаємо ім'я та email для коміту
+          clean: true
           git-config-name: GitHub Actions
           git-config-email: github-actions@github.com
