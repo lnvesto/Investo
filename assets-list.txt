@@ -1,4 +1,3 @@
-./main.ec33024a63f994ab.js
 ./3rdpartylicenses.txt
 ./runtime.f2d8ecea5867a069.js
 ./assets/fonts/ClashDisplay-Extralight.woff2
@@ -23,10 +22,11 @@
 ./assets/images/trustwallet.svg
 ./assets/images/Investo.png
 ./assets/images/coinbase.svg
-./styles.b9a9caef748a773e.css
 ./environments/environment.prod.ts
 ./environments/environment.ts
 ./index.html
 ./polyfills.ba6be0ce6f970b6a.js
+./main.855aa7849bc19bae.js
 ./404.html
+./styles.5067da93e3cbc3b6.css
 ./assets-list.txt
