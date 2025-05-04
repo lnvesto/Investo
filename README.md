@@ -52,6 +52,6 @@
 ## 📢 Контакти
 
 - 📧 Email: support@rebuildplatform.ua
-- 🌐 Сайт: [kostyshyn-max.github.io/investo-app](https://kostyshyn-max.github.io/investo-app/)
+- 🌐 Сайт: [https://lnvesto.github.io/Investo/#/](https://lnvesto.github.io/Investo/#/)
 
 ---
