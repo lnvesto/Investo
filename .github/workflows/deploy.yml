@@ -29,16 +29,38 @@ jobs:
         run: cd investo-platform && npm ci
 
       - name: Build
-        run: cd investo-platform && npx nx build investo-client --configuration=production
+        run: cd investo-platform && npx nx build investo-client --configuration=production --base-href=./
         
       - name: Prepare for GitHub Pages
         run: |
           cd investo-platform/dist/apps/investo-client/browser
           sed -i 's|<base href="/">|<base href="./">|g' index.html
           cp index.html 404.html
+          
+          # Create an assets list for debugging
+          find . -type f > assets-list.txt
+
+      - name: Check assets structure
+        run: |
+          echo "Checking assets structure..."
+          cd investo-platform/dist/apps/investo-client/browser
+          find . -name "*.woff" -o -name "*.woff2" -o -name "*.svg" -o -name "*.png"
+          echo "Listing directories..."
+          find . -type d
+          
+      - name: Copy missing assets if needed
+        run: |
+          # Copy fonts from source if they're missing
+          mkdir -p investo-platform/dist/apps/investo-client/browser/assets/fonts
+          cp -r investo-platform/apps/investo-client/src/assets/fonts/* investo-platform/dist/apps/investo-client/browser/assets/fonts/ || true
+          
+          # Copy images from source if they're missing
+          mkdir -p investo-platform/dist/apps/investo-client/browser/assets/images
+          cp -r investo-platform/apps/investo-client/src/assets/images/* investo-platform/dist/apps/investo-client/browser/assets/images/ || true
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: investo-platform/dist/apps/investo-client/browser
           branch: gh-pages
+          clean: false  # Changed to false to avoid removing any files that might be needed
