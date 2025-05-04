@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          persist-credentials: true
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -31,3 +35,7 @@ jobs:
         with:
           folder: investo-platform/dist/apps/investo-client/browser
           branch: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Додаємо ім'я та email для коміту
+          git-config-name: GitHub Actions
+          git-config-email: github-actions@github.com
