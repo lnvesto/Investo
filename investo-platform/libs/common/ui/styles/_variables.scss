@@ -14,11 +14,22 @@ $container-max-width: 1200px;
 // Breakpoints
 $mobile: 768px;
 $tablet: 1024px;
-// Colors
+
+// Theme Colors
 $primary-color: #0042d1;
 $secondary-color: #1e40af;
-$text-color: #1f2937;
+$accent-color: #5096ff;
+$dark-bg: #000000;
+$dark-card-bg: #1a1a1a;
+$dark-card-bg-gradient: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+$text-color-dark: #ffffff;
+$text-color-light: #1f2937;
 $light-bg: #f3f4f6;
+
+// Set the default theme to dark
+$bg-color: $dark-bg;
+$text-color: $text-color-dark;
+$card-bg: $dark-card-bg;
 
 // Typography
 $font-size-base: 16px;
@@ -32,4 +43,4 @@ $container-padding: 2rem;
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
-$breakpoint-xl: 1200px; 
+$breakpoint-xl: 1200px;

@@ -1,0 +1,121 @@
+// Animation Keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(150, 150);
+    opacity: 0;
+  }
+}
+
+// Animation Classes
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.slide-left {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+// Scroll Animation Classes
+.scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale-in {
+  // Default state is visible for better tab switching
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.8s cubic-bezier(0.15, 0.85, 0.45, 1);
+  
+  // Add delayed animation when the class is added
+  &.animate {
+    animation-duration: 0.8s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.15, 0.85, 0.45, 1);
+  }
+}
+
+// Apply specific animations to each type
+.scroll-fade-in.animate {
+  animation-name: fadeIn;
+}
+
+.scroll-slide-left.animate {
+  animation-name: slideInLeft;
+}
+
+.scroll-slide-right.animate {
+  animation-name: slideInRight;
+}
+
+.scroll-scale-in.animate {
+  animation-name: scaleIn;
+}

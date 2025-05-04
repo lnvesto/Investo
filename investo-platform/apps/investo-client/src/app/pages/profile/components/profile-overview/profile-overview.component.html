@@ -1,0 +1,128 @@
+<div class="content-container">
+  <div class="stats-grid" role="grid">
+    <div class="stat-card scroll-fade-in animate" role="gridcell">
+      <div class="stat-icon">
+        <span class="material-icons" aria-hidden="true">paid</span>
+      </div>
+      <div class="stat-info">
+        <h3>Total Invested</h3>
+        <div class="stat-value">{{ utils.formatCurrency(stats.totalInvested) }}</div>
+      </div>
+    </div>
+    
+    <div class="stat-card scroll-fade-in animate" role="gridcell">
+      <div class="stat-icon">
+        <span class="material-icons" aria-hidden="true">trending_up</span>
+      </div>
+      <div class="stat-info">
+        <h3>Total Returns</h3>
+        <div class="stat-value">{{ utils.formatCurrency(stats.totalReturns) }}</div>
+      </div>
+    </div>
+    
+    <div class="stat-card scroll-fade-in animate" role="gridcell">
+      <div class="stat-icon">
+        <span class="material-icons" aria-hidden="true">domain</span>
+      </div>
+      <div class="stat-info">
+        <h3>Active Investments</h3>
+        <div class="stat-value">{{ stats.activeInvestments }}</div>
+      </div>
+    </div>
+    
+    <div class="stat-card scroll-fade-in animate" role="gridcell">
+      <div class="stat-icon">
+        <span class="material-icons" aria-hidden="true">insights</span>
+      </div>
+      <div class="stat-info">
+        <h3>Average ROI</h3>
+        <div class="stat-value">{{ stats.averageROI }}%</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="dashboard-row">
+    <div class="dashboard-card investment-performance scroll-slide-left animate">
+      <div class="card-header">
+        <h2>Your Investment Score</h2>
+      </div>
+      <div class="score-container">
+        <div class="score-circle">
+          <svg width="160" height="160" viewBox="0 0 160 160" aria-label="Investment Score">
+            <circle cx="80" cy="80" r="70" fill="none" stroke="#1a2030" stroke-width="10"/>
+            <circle cx="80" cy="80" r="70" fill="none" stroke="#5096ff" stroke-width="10" 
+                    stroke-dasharray="439.6" [attr.stroke-dashoffset]="439.6 - (439.6 * stats.investmentScore / 100)"/>
+          </svg>
+          <div class="score-value">{{ stats.investmentScore }}</div>
+        </div>
+        <div class="score-details">
+          <div class="score-label">Excellent</div>
+          <p class="score-description">
+            Your investment portfolio is performing well above average. 
+            Keep up the good strategy!
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dashboard-card recent-activity scroll-slide-right animate">
+      <div class="card-header">
+        <h2>Recent Activity</h2>
+        <a routerLink="/transactions" class="view-all-link">View All</a>
+      </div>
+      
+      <div class="transaction-list" role="list">
+        <div class="transaction-item" *ngFor="let transaction of recentTransactions" role="listitem">
+          <div class="transaction-icon" [ngClass]="utils.getTransactionClass(transaction.type)">
+            <span class="material-icons" aria-hidden="true">{{ utils.getTransactionIcon(transaction.type) }}</span>
+          </div>
+          <div class="transaction-details">
+            <div class="transaction-title">{{ transaction.details }}</div>
+            <div class="transaction-date">{{ utils.formatDate(transaction.date) }}</div>
+          </div>
+          <div class="transaction-amount" [ngClass]="{'positive': transaction.type === 'return' || transaction.type === 'deposit' || transaction.type === 'reward', 
+                                                'negative': transaction.type === 'withdrawal' || transaction.type === 'investment'}">
+            {{ (transaction.type === 'return' || transaction.type === 'deposit' || transaction.type === 'reward' ? '+' : '-') + utils.formatCurrency(transaction.amount) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">
+    <h2>Upcoming Payouts</h2>
+    <div class="heading-underline" aria-hidden="true"></div>
+  </div>
+  
+  <div class="dashboard-card upcoming-payouts scroll-fade-in animate">
+    <div class="payouts-list" role="list">
+      <div class="payout-item" *ngFor="let investment of activeInvestmentsWithPayouts" role="listitem">
+        <div class="payout-property">
+          <img [src]="investment.imageUrl" [alt]="investment.propertyName" class="property-thumbnail" width="80" height="60">
+          <div class="property-info">
+            <div class="property-name">{{ investment.propertyName }}</div>
+            <div class="property-location">
+              <span class="material-icons" aria-hidden="true">location_on</span>
+              {{ investment.location }}
+            </div>
+          </div>
+        </div>
+        <div class="payout-details">
+          <div class="payout-amount">
+            <div class="amount-label">Expected Payout</div>
+            <div class="amount-value">{{ utils.formatCurrency(investment.investedAmount * investment.roi / 100 / 12) }}</div>
+          </div>
+          <div class="payout-date">
+            <div class="date-label">Date</div>
+            <div class="date-value">{{ utils.formatDate(investment.nextPayout!) }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="no-payouts" *ngIf="!hasActiveInvestmentsWithPayouts">
+        <span class="material-icons" aria-hidden="true">event_busy</span>
+        <p>No upcoming payouts</p>
+      </div>
+    </div>
+  </div>
+</div>

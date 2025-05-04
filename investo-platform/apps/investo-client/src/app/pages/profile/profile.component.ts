@@ -1,4 +1,4 @@
-import { ViewChild, ElementRef } from '@angular/core';
+import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
@@ -9,47 +9,28 @@ import { of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { RealEstateService } from '../../services/real-estate.service';
 import { RealEstate } from '../../models/real-estate.model';
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  avatarUrl: string;
-  walletAddress: string;
-  kycVerified: boolean;
-  twoFactorEnabled: boolean;
-  joinDate: Date;
-  isPublicProfile?: boolean;
-}
-
-interface Investment {
-  id: number;
-  propertyName: string;
-  location: string;
-  imageUrl: string;
-  investedAmount: number;
-  currentValue: number;
-  roi: number;
-  status: 'active' | 'pending' | 'completed';
-  investmentDate: Date;
-}
-
-interface Transaction {
-  type: 'deposit' | 'withdrawal' | 'investment' | 'return' | 'reward';
-  details: string;
-  date: Date;
-  amount: number;
-  status: 'completed' | 'pending' | 'failed';
-}
+import { ProfileUtilsService } from './services/profile-utils.service';
+import { ProfileOverviewComponent } from './components/profile-overview/profile-overview.component';
+import { ProfileInvestmentsComponent } from './components/profile-investments/profile-investments.component';
+import { ProfileWalletComponent } from './components/profile-wallet/profile-wallet.component';
+import { ProfileSettingsComponent } from './components/profile-settings/profile-settings.component';
+import { User, Investment, Transaction, ProfileStats } from './models/profile.model';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [
+    CommonModule, 
+    RouterModule,
+    ProfileOverviewComponent,
+    ProfileInvestmentsComponent,
+    ProfileWalletComponent,
+    ProfileSettingsComponent
+  ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, AfterViewInit {
   user: User = {
     id: 0,
     name: '',
@@ -69,8 +50,8 @@ export class ProfileComponent implements OnInit {
   avatarLoadError = false;
   @ViewChild('avatarImage') avatarImage!: ElementRef;
 
-  // Mock data for UI display
-  stats = {
+  // Data for child components
+  stats: ProfileStats = {
     totalInvested: 25000,
     totalReturns: 2750,
     activeInvestments: 3,
@@ -78,10 +59,10 @@ export class ProfileComponent implements OnInit {
     investmentScore: 87
   };
 
-  recentTransactions = [
-    { type: 'deposit', details: 'Deposit to wallet', date: new Date(2023, 3, 15), amount: 5000 },
-    { type: 'investment', details: 'Investment in Property A', date: new Date(2023, 3, 14), amount: 2500 },
-    { type: 'return', details: 'Return from Property B', date: new Date(2023, 3, 12), amount: 350 }
+  recentTransactions: Transaction[] = [
+    { type: 'deposit', details: 'Deposit to wallet', date: new Date(2023, 3, 15), amount: 5000, status: 'completed' },
+    { type: 'investment', details: 'Investment in Property A', date: new Date(2023, 3, 14), amount: 2500, status: 'completed' },
+    { type: 'return', details: 'Return from Property B', date: new Date(2023, 3, 12), amount: 350, status: 'completed' }
   ];
 
   activeInvestmentsWithPayouts: any[] = [];
@@ -89,9 +70,6 @@ export class ProfileComponent implements OnInit {
   walletBalance = 7500;
   availableTokens = 250;
   tokenPrice = 12.75;
-  
-  viewMode = 'cards';
-  investmentFilter = 'all';
   
   hasActiveInvestmentsWithPayouts = true;
   walletTransactions: Transaction[] = [];
@@ -104,10 +82,12 @@ export class ProfileComponent implements OnInit {
     private apiService: ApiService,
     private realEstateService: RealEstateService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public utils: ProfileUtilsService
   ) {}
   
   ngOnInit(): void {
+    this.checkScrollAnimation();
     // Get user ID from route parameters
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
@@ -148,6 +128,32 @@ export class ProfileComponent implements OnInit {
     this.loadRealEstateData();
   }
   
+  ngAfterViewInit() {
+    window.addEventListener('scroll', this.checkScrollAnimation);
+    
+    setTimeout(() => {
+      this.checkScrollAnimation();
+    }, 100);
+  }
+
+  checkScrollAnimation = () => {
+    const animatedElements = document.querySelectorAll(
+      '.scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale-in'
+    );
+    
+    animatedElements.forEach((element) => {
+      const elementPosition = element.getBoundingClientRect();
+      
+      const isInViewport = 
+        elementPosition.top < window.innerHeight - 100 && 
+        elementPosition.bottom >= 0;
+      
+      if (isInViewport) {
+        element.classList.add('animate');
+      }
+    });
+  }
+
   loadUserProfile(): void {
     this.isLoading = true;
     this.errorMessage = '';
@@ -212,6 +218,15 @@ export class ProfileComponent implements OnInit {
       
       // Update hasActiveInvestmentsWithPayouts
       this.hasActiveInvestmentsWithPayouts = this.activeInvestmentsWithPayouts.length > 0;
+
+      // Generate some wallet transactions
+      this.walletTransactions = [
+        { type: 'deposit', details: 'Deposit to wallet', date: new Date(2023, 3, 20), amount: 2500, status: 'completed' },
+        { type: 'withdrawal', details: 'Withdrawal to bank account', date: new Date(2023, 3, 18), amount: 1200, status: 'completed' },
+        { type: 'investment', details: 'Investment in Property A', date: new Date(2023, 3, 16), amount: 3000, status: 'completed' },
+        { type: 'return', details: 'Return from Property B', date: new Date(2023, 3, 14), amount: 450, status: 'completed' },
+        { type: 'deposit', details: 'Deposit to wallet', date: new Date(2023, 3, 10), amount: 5000, status: 'completed' }
+      ];
       
       // Update stats based on investments
       if (this.investments.length > 0) {
@@ -246,73 +261,8 @@ export class ProfileComponent implements OnInit {
     };
   }
 
-  // Helper methods to display user information
-  truncateAddress(address: string): string {
-    if (!address) return '';
-    return address.substring(0, 6) + '...' + address.substring(address.length - 4);
-  }
-
-  formatDate(date: Date): string {
-    if (!date) return '';
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
-  }
-
-  formatCurrency(amount: number): string {
-    return new Intl.NumberFormat('en-US', { 
-      style: 'currency', 
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0 
-    }).format(amount);
-  }
-
-  copyToClipboard(text: string): void {
-    navigator.clipboard.writeText(text).then(() => {
-      // Optional: Show a toast notification
-      console.log('Copied to clipboard');
-    });
-  }
-
   setActiveTab(tab: string): void {
     this.activeTab = tab;
-  }
-
-  setInvestmentFilter(filter: string): void {
-    this.investmentFilter = filter;
-  }
-
-  setViewMode(mode: string): void {
-    this.viewMode = mode;
-  }
-
-  getFilteredInvestments(): Investment[] {
-    if (this.investmentFilter === 'all') {
-      return this.investments;
-    }
-    return this.investments.filter(investment => investment.status === this.investmentFilter);
-  }
-  
-  getStatusClass(status: string): string {
-    return `status-${status.toLowerCase()}`;
-  }
-
-  getTransactionClass(type: string): string {
-    return type.toLowerCase();
-  }
-
-  getTransactionIcon(type: string): string {
-    switch (type) {
-      case 'deposit': return 'add_circle';
-      case 'withdrawal': return 'remove_circle';
-      case 'investment': return 'real_estate_agent';
-      case 'return': return 'trending_up';
-      case 'reward': return 'stars';
-      default: return 'swap_horiz';
-    }
   }
 
   onAvatarError(event: Event): void {
@@ -320,8 +270,6 @@ export class ProfileComponent implements OnInit {
     if (this.avatarImage) {
       this.avatarImage.nativeElement.style.display = 'none';
     }
-
   }
-
 }
 

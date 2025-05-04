@@ -1,0 +1,98 @@
+<div class="content-container">
+  <div class="section-heading">
+    <h2>Your Investments</h2>
+    <div class="heading-underline" aria-hidden="true"></div>
+  </div>
+  
+  <div class="filter-controls scroll-fade-in animate">
+    <div class="filter-buttons" role="group" aria-label="Investment Filters">
+      <button class="filter-btn" [class.active]="investmentFilter === 'all'" (click)="setInvestmentFilter('all')" aria-label="Show all investments">
+        All
+      </button>
+      <button class="filter-btn" [class.active]="investmentFilter === 'active'" (click)="setInvestmentFilter('active')" aria-label="Show active investments">
+        Active
+      </button>
+      <button class="filter-btn" [class.active]="investmentFilter === 'pending'" (click)="setInvestmentFilter('pending')" aria-label="Show pending investments">
+        Pending
+      </button>
+      <button class="filter-btn" [class.active]="investmentFilter === 'completed'" (click)="setInvestmentFilter('completed')" aria-label="Show completed investments">
+        Completed
+      </button>
+    </div>
+    
+    <div class="view-options">
+      <button class="view-btn" [class.active]="viewMode === 'cards'" (click)="setViewMode('cards')" aria-label="Switch to card view">
+        <span class="material-icons" aria-hidden="true">grid_view</span>
+      </button>
+      <button class="view-btn" [class.active]="viewMode === 'list'" (click)="setViewMode('list')" aria-label="Switch to list view">
+        <span class="material-icons" aria-hidden="true">view_list</span>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Card View -->
+  <div class="investment-grid" *ngIf="viewMode === 'cards'" role="grid">
+    <app-real-estate-card 
+      *ngFor="let investment of getFilteredInvestments()" 
+      [realEstate]="convertToRealEstate(investment)"
+      class="scroll-scale-in animate"
+      role="gridcell">
+    </app-real-estate-card>
+    
+    <div class="no-investments scroll-fade-in animate" *ngIf="getFilteredInvestments().length === 0">
+      <span class="material-icons" aria-hidden="true">real_estate_agent</span>
+      <p>No {{ investmentFilter !== 'all' ? investmentFilter : '' }} investments found</p>
+      <button class="action-btn" routerLink="/investments">Explore Investment Opportunities</button>
+    </div>
+  </div>
+  
+  <!-- List View -->
+  <div class="investments-table scroll-fade-in animate" *ngIf="viewMode === 'list'" role="table">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Property</th>
+          <th scope="col">Location</th>
+          <th scope="col">Date</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Current Value</th>
+          <th scope="col">ROI</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let investment of getFilteredInvestments()">
+          <td class="property-cell">
+            <img [src]="investment.imageUrl" [alt]="investment.propertyName" class="property-thumbnail" width="60" height="40">
+            {{ investment.propertyName }}
+          </td>
+          <td>{{ investment.location }}</td>
+          <td>{{ utils.formatDate(investment.investmentDate) }}</td>
+          <td>{{ utils.formatCurrency(investment.investedAmount) }}</td>
+          <td>{{ utils.formatCurrency(investment.currentValue) }}</td>
+          <td>{{ investment.roi }}%</td>
+          <td>
+            <span class="status-badge" [ngClass]="utils.getStatusClass(investment.status)">
+              {{ investment.status }}
+            </span>
+          </td>
+          <td class="actions-cell">
+            <button class="table-action-btn" [routerLink]="['/investments', investment.id]" title="View Details" aria-label="View investment details">
+              <span class="material-icons" aria-hidden="true">visibility</span>
+            </button>
+            <button class="table-action-btn" *ngIf="investment.status === 'active'" title="Trade Tokens" aria-label="Trade investment tokens">
+              <span class="material-icons" aria-hidden="true">swap_horiz</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="no-investments animate" *ngIf="getFilteredInvestments().length === 0">
+      <span class="material-icons" aria-hidden="true">real_estate_agent</span>
+      <p>No {{ investmentFilter !== 'all' ? investmentFilter : '' }} investments found</p>
+      <button class="action-btn" routerLink="/investments">Explore Investment Opportunities</button>
+    </div>
+  </div>
+</div>

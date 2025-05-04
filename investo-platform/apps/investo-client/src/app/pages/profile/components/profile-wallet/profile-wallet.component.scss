@@ -1,0 +1,383 @@
+@import 'variables';
+@import 'animations';
+
+// Profile wallet component styles
+.content-container {
+  padding: 2rem;
+  max-width: $container-max-width;
+  margin: 0 auto;
+}
+
+.wallet-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.wallet-card {
+  background: $dark-card-bg;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 25px rgba(80, 150, 255, 0.15);
+  }
+  
+  .wallet-balance {
+    margin-bottom: 1.5rem;
+    
+    h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 0.5rem;
+    }
+    
+    .balance-amount {
+      font-size: 2rem;
+      font-weight: 600;
+      color: $text-color-dark;
+      background: linear-gradient(90deg, $text-color-dark 0%, rgba(255, 255, 255, 0.8) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+  
+  .wallet-actions {
+    display: flex;
+    gap: 1rem;
+    
+    .wallet-btn {
+      flex: 1;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      
+      &.deposit {
+        background: linear-gradient(135deg, $primary-color 0%, $accent-color 100%);
+        color: $text-color-dark;
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(80, 150, 255, 0.3);
+        }
+      }
+      
+      &.withdraw {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.7);
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: $text-color-dark;
+        }
+      }
+      
+      .material-icons {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+.token-card {
+  background: $dark-card-bg;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 25px rgba(80, 150, 255, 0.15);
+  }
+  
+  .token-balance {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    
+    .token-icon {
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      
+      .material-icons {
+        font-size: 1.5rem;
+        color: $accent-color;
+      }
+    }
+    
+    .token-info {
+      flex: 1;
+      
+      h3 {
+        font-size: 1rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 0.25rem;
+      }
+      
+      .token-amount {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $text-color-dark;
+        margin-bottom: 0.25rem;
+      }
+      
+      .token-value {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+  
+  .token-actions {
+    display: flex;
+    gap: 1rem;
+    
+    .token-btn {
+      flex: 1;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: $text-color-dark;
+      }
+      
+      .material-icons {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+.wallet-transactions {
+  background: $dark-card-bg;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  
+  .card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $text-color-dark;
+      margin: 0;
+    }
+    
+    .transaction-filter {
+      .filter-select {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+        
+        &:focus {
+          outline: none;
+          border-color: $accent-color;
+        }
+      }
+    }
+  }
+  
+  .transaction-list {
+    padding: 1.5rem;
+    
+    .transaction-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      .transaction-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        margin-right: 1rem;
+        
+        &.deposit {
+          background: rgba(16, 185, 129, 0.1);
+          
+          .material-icons {
+            color: #10b981;
+          }
+        }
+        
+        &.withdrawal {
+          background: rgba(239, 68, 68, 0.1);
+          
+          .material-icons {
+            color: #ef4444;
+          }
+        }
+        
+        &.investment {
+          background: rgba(80, 150, 255, 0.1);
+          
+          .material-icons {
+            color: $accent-color;
+          }
+        }
+        
+        &.return {
+          background: rgba(245, 158, 11, 0.1);
+          
+          .material-icons {
+            color: #f59e0b;
+          }
+        }
+        
+        .material-icons {
+          font-size: 1.25rem;
+        }
+      }
+      
+      .transaction-details {
+        flex: 1;
+        
+        .transaction-title {
+          font-size: 0.95rem;
+          font-weight: 500;
+          color: $text-color-dark;
+          margin-bottom: 0.25rem;
+        }
+        
+        .transaction-date {
+          font-size: 0.8rem;
+          color: rgba(255, 255, 255, 0.5);
+        }
+      }
+      
+      .transaction-status {
+        margin: 0 1rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        
+        &.status-completed {
+          background: rgba(16, 185, 129, 0.1);
+          color: #10b981;
+        }
+        
+        &.status-pending {
+          background: rgba(245, 158, 11, 0.1);
+          color: #f59e0b;
+        }
+        
+        &.status-failed {
+          background: rgba(239, 68, 68, 0.1);
+          color: #ef4444;
+        }
+      }
+      
+      .transaction-amount {
+        font-weight: 600;
+        
+        &.positive {
+          color: #10b981;
+        }
+        
+        &.negative {
+          color: #ef4444;
+        }
+      }
+    }
+    
+    .no-transactions {
+      padding: 4rem 2rem;
+      text-align: center;
+      
+      .material-icons {
+        font-size: 3rem;
+        color: rgba(255, 255, 255, 0.2);
+        margin-bottom: 1rem;
+      }
+      
+      p {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: $breakpoint-lg) {
+  .wallet-overview {
+    grid-template-columns: 1fr;
+  }
+  
+  .wallet-transactions {
+    .transaction-item {
+      flex-wrap: wrap;
+      gap: 1rem;
+      
+      .transaction-status {
+        margin: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .content-container {
+    padding: 1rem;
+  }
+  
+  .wallet-card, .token-card {
+    .wallet-actions, .token-actions {
+      flex-direction: column;
+    }
+  }
+}

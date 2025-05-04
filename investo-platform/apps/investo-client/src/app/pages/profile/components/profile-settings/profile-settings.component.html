@@ -1,0 +1,151 @@
+<div class="content-container">
+  <div class="settings-grid">
+    <div class="settings-card scroll-slide-left animate">
+      <div class="card-header">
+        <h2>Profile Settings</h2>
+      </div>
+      
+      <form class="settings-form">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" [value]="user.name" class="form-control">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" [value]="user.email" class="form-control">
+        </div>
+        
+        <div class="form-group">
+          <label for="profilePrivacy">Profile Privacy</label>
+          <select id="profilePrivacy" class="form-control">
+            <option value="public" [selected]="user.isPublicProfile">Public Profile</option>
+            <option value="private" [selected]="!user.isPublicProfile">Private Profile</option>
+          </select>
+          <p class="input-help">
+            Public profiles allow other users to see your investment activity.
+          </p>
+        </div>
+        
+        <div class="avatar-section">
+          <h3>Profile Picture</h3>
+          <div class="avatar-container">
+            <div class="avatar-preview">
+              <img [src]="user.avatarUrl" [alt]="user.name + '\'s avatar'" class="avatar-image" (error)="onAvatarError($event)" #avatarImage>
+              <div class="avatar-placeholder" [style.display]="avatarLoadError ? 'flex' : 'none'">
+                <span class="material-icons">person</span>
+              </div>
+            </div>
+            <div class="avatar-actions">
+              <button type="button" class="avatar-btn upload">
+                <span class="material-icons" aria-hidden="true">file_upload</span>
+                Upload
+              </button>
+              <button type="button" class="avatar-btn remove">
+                <span class="material-icons" aria-hidden="true">delete</span>
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <button type="submit" class="save-btn">
+          <span class="material-icons" aria-hidden="true">save</span>
+          Save Changes
+        </button>
+      </form>
+    </div>
+    
+    <div class="settings-card scroll-slide-right animate">
+      <div class="card-header">
+        <h2>Security Settings</h2>
+      </div>
+      
+      <div class="settings-form">
+        <div class="security-section">
+          <div class="security-setting">
+            <div class="setting-info">
+              <h3>Change Password</h3>
+              <p>Update your account password regularly to maintain security</p>
+            </div>
+            <button class="settings-action-btn" aria-label="Change password">
+              <span class="material-icons" aria-hidden="true">sync</span>
+              Change
+            </button>
+          </div>
+          
+          <div class="security-setting">
+            <div class="setting-info">
+              <h3>Transaction Authentication</h3>
+              <p>Require additional authentication for transactions</p>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="transactionAuthToggle" checked aria-label="Toggle transaction authentication">
+              <label for="transactionAuthToggle"></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="settings-card scroll-slide-left animate">
+      <div class="card-header">
+        <h2>KYC Verification</h2>
+      </div>
+      
+      <div class="settings-content">
+        <div class="kyc-status">
+          <div class="setting-info">
+            <h3>Identity Verification</h3>
+            <p>Complete KYC verification to unlock all platform features</p>
+            <div class="setting-status" [class.enabled]="user.kycVerified">
+              {{ user.kycVerified ? 'Verified' : 'Not Verified' }}
+            </div>
+          </div>
+          <button class="settings-action-btn" *ngIf="!user.kycVerified" aria-label="Start KYC verification">
+            <span class="material-icons" aria-hidden="true">verified_user</span>
+            Verify
+          </button>
+          <div class="verified-badge" *ngIf="user.kycVerified" aria-label="KYC Verified">
+            <span class="material-icons" aria-hidden="true">check_circle</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="settings-card scroll-slide-right animate">
+      <div class="card-header">
+        <h2>Wallet Security</h2>
+      </div>
+      
+      <div class="settings-content">
+        <div class="security-setting">
+          <div class="setting-info">
+            <h3>Connected Wallet</h3>
+            <p>{{ utils.truncateAddress(user.walletAddress) }}</p>
+          </div>
+          <button class="settings-action-btn" aria-label="Change connected wallet">
+            <span class="material-icons" aria-hidden="true">link</span>
+            Connect New
+          </button>
+        </div>
+        
+        <div class="wallet-address-display">
+          <div class="address-display">
+            <span class="address-value">{{ user.walletAddress }}</span>
+            <button class="copy-btn" title="Copy to clipboard" (click)="utils.copyToClipboard(user.walletAddress)" aria-label="Copy wallet address">
+              <span class="material-icons" aria-hidden="true">content_copy</span>
+            </button>
+          </div>
+          <p class="address-note">
+            This is your blockchain wallet address. Use it to receive tokens or track your investments on the blockchain.
+          </p>
+          <button class="view-explorer-btn" aria-label="View on blockchain explorer">
+            <span class="material-icons" aria-hidden="true">open_in_new</span>
+            View on Explorer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

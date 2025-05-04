@@ -1,0 +1,82 @@
+<div class="content-container">
+  <div class="wallet-overview">
+    <div class="wallet-card scroll-slide-left animate">
+      <div class="wallet-balance">
+        <h3>Available Balance</h3>
+        <div class="balance-amount">{{ utils.formatCurrency(walletBalance) }}</div>
+      </div>
+      <div class="wallet-actions">
+        <button class="wallet-btn deposit" aria-label="Deposit funds">
+          <span class="material-icons" aria-hidden="true">add_circle</span>
+          Deposit
+        </button>
+        <button class="wallet-btn withdraw" aria-label="Withdraw funds">
+          <span class="material-icons" aria-hidden="true">remove_circle</span>
+          Withdraw
+        </button>
+      </div>
+    </div>
+    
+    <div class="token-card scroll-slide-right animate">
+      <div class="token-balance">
+        <div class="token-icon">
+          <span class="material-icons" aria-hidden="true">token</span>
+        </div>
+        <div class="token-info">
+          <h3>Your Tokens</h3>
+          <div class="token-amount">{{ availableTokens }} INVST</div>
+          <div class="token-value">≈ {{ utils.formatCurrency(availableTokens * tokenPrice) }}</div>
+        </div>
+      </div>
+      <div class="token-actions">
+        <button class="token-btn" aria-label="Trade tokens">
+          <span class="material-icons" aria-hidden="true">swap_horiz</span>
+          Trade
+        </button>
+        <button class="token-btn" aria-label="Stake tokens">
+          <span class="material-icons" aria-hidden="true">savings</span>
+          Stake
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="dashboard-card wallet-transactions scroll-fade-in animate">
+    <div class="card-header">
+      <h2>Transaction History</h2>
+      <div class="transaction-filter">
+        <select class="filter-select" aria-label="Filter transactions">
+          <option value="all">All Transactions</option>
+          <option value="deposit">Deposits</option>
+          <option value="withdrawal">Withdrawals</option>
+          <option value="investment">Investments</option>
+          <option value="return">Returns</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="transaction-list extended" role="list">
+      <div class="transaction-item" *ngFor="let transaction of walletTransactions" role="listitem">
+        <div class="transaction-icon" [ngClass]="utils.getTransactionClass(transaction.type)">
+          <span class="material-icons" aria-hidden="true">{{ utils.getTransactionIcon(transaction.type) }}</span>
+        </div>
+        <div class="transaction-details">
+          <div class="transaction-title">{{ transaction.details }}</div>
+          <div class="transaction-date">{{ utils.formatDate(transaction.date) }}</div>
+        </div>
+        <div class="transaction-status" [ngClass]="utils.getStatusClass(transaction.status)">
+          {{ transaction.status }}
+        </div>
+        <div class="transaction-amount" [ngClass]="{'positive': transaction.type === 'return' || transaction.type === 'deposit' || transaction.type === 'reward', 
+                                             'negative': transaction.type === 'withdrawal' || transaction.type === 'investment'}">
+          {{ (transaction.type === 'return' || transaction.type === 'deposit' || transaction.type === 'reward' ? '+' : '-') + utils.formatCurrency(transaction.amount) }}
+        </div>
+      </div>
+      
+      <div class="no-transactions" *ngIf="walletTransactions.length === 0">
+        <span class="material-icons" aria-hidden="true">receipt_long</span>
+        <p>No transactions to display</p>
+      </div>
+    </div>
+  </div>
+</div>

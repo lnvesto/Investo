@@ -50,7 +50,15 @@ html, body {
   font-size: $font-size-base;
   line-height: $line-height-base;
   color: $text-color;
-  background-color: $light-bg;
+  background-color: $bg-color;
+}
+
+body {
+  min-height: 100vh;
+}
+
+main {
+  padding-top: 80px; 
 }
 
 // Common styles
@@ -87,8 +95,24 @@ a {
 button {
   font-family: inherit;
   cursor: pointer;
+  border: none;
+  outline: none;
 }
 
-button {
-    cursor: pointer;
-  }
+// Common card styles
+.card {
+  background: $card-bg;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+// Dark text for light backgrounds, light text for dark backgrounds
+.dark-theme {
+  color: $text-color-dark;
+  background-color: $dark-bg;
+}
+
+.light-theme {
+  color: $text-color-light;
+  background-color: $light-bg;
+}
