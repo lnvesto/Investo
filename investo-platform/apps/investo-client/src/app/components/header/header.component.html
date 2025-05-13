@@ -5,7 +5,7 @@
         <img src="assets/images/Investo.png" alt="INVESTO Logo" class="logo-img">
       </a>
       
-      <!-- Desktop Navigation -->
+      
       <nav class="nav">
         <ul class="nav-list">
           <li class="nav-item">
@@ -25,7 +25,7 @@
       </nav>
 
       <div class="header-actions">
-        <!-- Desktop user menu -->
+        
         <ng-container *ngIf="authService.isLoggedIn">
           <a class="wallet-button" routerLink="/connect-wallet">
             <span class="wallet-icon">
@@ -34,30 +34,30 @@
             <span class="wallet-label">Connect Wallet</span>
           </a>
           
-          <!-- User account button and menu -->
+          
           <div class="user-account" [class.active]="isUserMenuOpen">
             <button class="account-button" (click)="toggleUserMenu($event)">
               <div class="avatar-wrapper">
                 <span class="material-icons">person</span>
               </div>
-              <span class="user-name">{{ authService.currentUserValue?.fullName || 'User' }}</span>
+              <span class="user-name">{{ authService.currentUserValue?.FirstName || 'User' }} {{ authService.currentUserValue?.LastName || '' }}</span>
               <span class="material-icons dropdown-icon">expand_more</span>
             </button>
             
-            <!-- User dropdown menu -->
+            
             <div class="account-dropdown">
               <div class="user-info">
                 <div class="user-avatar">
                   <span class="material-icons">person</span>
                 </div>
                 <div class="user-details">
-                  <div class="user-fullname">{{ authService.currentUserValue?.fullName || 'User' }}</div>
+                  <div class="user-fullname">{{ authService.currentUserValue?.FirstName || 'User' }} {{ authService.currentUserValue?.LastName || '' }}</div>
                   <div class="user-status"><span class="status-dot"></span>Online</div>
                 </div>
               </div>
               
               <div class="menu-links">
-                <a routerLink="/profile" class="menu-link">
+                <a [routerLink]="['/profile', authService.currentUserValue?.id]" class="menu-link">
                   <span class="material-icons">account_circle</span>
                   <span>My Profile</span>
                 </a>
@@ -83,7 +83,7 @@
           </div>
         </ng-container>
         
-        <!-- Show login/signup for unauthenticated users -->
+        
         <ng-container *ngIf="!authService.isLoggedIn">
           <a class="btn btn-glass" routerLink="/login" (click)="scrollToTop()">
             <span class="material-icons">login</span>
@@ -103,7 +103,7 @@
   </div>
 </header>
 
-<!-- Mobile Menu (Outside header for better positioning) -->
+
 <div class="mobile-menu" [class.active]="isMenuOpen">
   <div class="mobile-menu-backdrop" (click)="closeMenu()"></div>
   <div class="mobile-menu-container">
@@ -150,13 +150,13 @@
           <span class="material-icons">person</span>
         </div>
         <div class="mobile-user-name">
-          <span>{{ authService.currentUserValue?.fullName || 'User' }}</span>
+          <span>{{ authService.currentUserValue?.FirstName || 'User' }} {{ authService.currentUserValue?.LastName || '' }}</span>
           <small *ngIf="authService.isLoggedIn">Active</small>
         </div>
       </div>
       
       <div class="mobile-user-links">
-        <a routerLink="/profile" class="mobile-user-link" (click)="closeMenuIfMobile()">
+        <a [routerLink]="['/profile', authService.currentUserValue?.id]" class="mobile-user-link" (click)="closeMenuIfMobile()">
           <span class="material-icons">account_circle</span>
           <span>Profile</span>
         </a>

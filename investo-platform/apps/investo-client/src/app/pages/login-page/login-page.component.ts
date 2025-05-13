@@ -16,6 +16,8 @@ export class LoginPageComponent implements OnInit {
   isSubmitting = false;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  returnUrl: string = '/';
+  showPassword = false;
   
   constructor(
     private fb: FormBuilder,
@@ -31,13 +33,17 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Check for registration success message
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';    
     this.route.queryParams.subscribe(params => {
       if (params['registered'] === 'true') {
         this.successMessage = 'Registration successful! Please log in to continue.';
         if (params['email']) {
           this.loginForm.patchValue({ email: params['email'] });
         }
+      }
+      
+      if (params['email']) {
+        this.loginForm.patchValue({ email: params['email'] });
       }
     });
   }
@@ -60,11 +66,8 @@ export class LoginPageComponent implements OnInit {
     
     this.authService.login(credentials).subscribe({
       next: (response) => {
-        if (response.success) {
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.errorMessage = response.message;
-        }
+        console.log('Login successful, navigating to:', this.returnUrl);
+        this.router.navigateByUrl(this.returnUrl);
         this.isSubmitting = false;
       },
       error: (err) => {
@@ -82,5 +85,9 @@ export class LoginPageComponent implements OnInit {
         this.markFormGroupTouched(control as FormGroup);
       }
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }

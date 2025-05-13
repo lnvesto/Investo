@@ -34,14 +34,24 @@
       
       <div class="form-group">
         <label for="password">Password</label>
-        <input 
-          type="password" 
-          id="password" 
-          formControlName="password" 
-          class="form-control" 
-          placeholder="Enter your password"
-          [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
-        >
+        <div class="password-input-container">
+          <input 
+            [type]="showPassword ? 'text' : 'password'"
+            id="password" 
+            formControlName="password" 
+            class="form-control" 
+            placeholder="Enter your password"
+            [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          >
+          <button 
+            type="button" 
+            class="password-toggle" 
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+          >
+            <span class="material-icons">{{ showPassword ? 'visibility_off' : 'visibility' }}</span>
+          </button>
+        </div>
         <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
           <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
           <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
@@ -53,7 +63,7 @@
           <input type="checkbox" id="rememberMe" formControlName="rememberMe">
           <label for="rememberMe">Remember me</label>
         </div>
-        <a href="#" class="forgot-password">Forgot password?</a>
+        <a routerLink="/password-reset" [queryParams]="{email: loginForm.get('email')?.value}" class="forgot-password">Forgot password?</a>
       </div>
       
       <button 
