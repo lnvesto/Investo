@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-connect-wallet',
@@ -10,6 +11,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './connect-wallet.component.scss'
 })
 export class ConnectWalletComponent {
+  constructor(public authService: AuthService) {}
+
   walletProviders = [
     {
       name: 'MetaMask',
@@ -44,17 +47,16 @@ export class ConnectWalletComponent {
   walletAddress: string = '';
   
   connectWallet(walletName: string) {
-    // In a real app, this would integrate with actual wallet providers
+    
     this.connectingWallet = walletName;
     
-    // Simulate connection process with timeout
+    
     setTimeout(() => {
-      // Generate a random wallet address for demo purposes
+
       const randomWalletAddress = '0x' + Array(40).fill(0).map(() => 
         Math.floor(Math.random() * 16).toString(16)
       ).join('');
       
-      // 90% success rate for demo
       const isSuccessful = Math.random() > 0.1;
       
       if (isSuccessful) {
@@ -62,7 +64,7 @@ export class ConnectWalletComponent {
         this.connectionSuccess = true;
         this.walletAddress = randomWalletAddress;
         
-        // Hide success message after a delay
+        
         setTimeout(() => {
           this.connectionSuccess = false;
         }, 3000);
@@ -70,7 +72,7 @@ export class ConnectWalletComponent {
         this.connectionError = true;
         this.connectingWallet = null;
         
-        // Hide error message after a delay
+        
         setTimeout(() => {
           this.connectionError = false;
         }, 3000);
@@ -79,7 +81,7 @@ export class ConnectWalletComponent {
   }
   
   disconnectWallet() {
-    // Simulate disconnection with timeout
+    
     this.connectingWallet = null;
     
     setTimeout(() => {
@@ -95,6 +97,5 @@ export class ConnectWalletComponent {
   
   copyToClipboard() {
     navigator.clipboard.writeText(this.walletAddress);
-    // In a real app, you would show a copy success message
   }
 }

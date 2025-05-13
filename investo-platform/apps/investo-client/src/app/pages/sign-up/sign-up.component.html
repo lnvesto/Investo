@@ -12,18 +12,34 @@
     
     <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="signup-form">
       <div class="form-group">
-        <label for="fullName">Full Name</label>
+        <label for="FirstName">First Name</label>
         <input 
           type="text" 
-          id="fullName" 
-          formControlName="fullName" 
+          id="FirstName" 
+          formControlName="FirstName" 
           class="form-control" 
-          placeholder="Enter your full name"
-          [class.is-invalid]="signUpForm.get('fullName')?.invalid && signUpForm.get('fullName')?.touched"
+          placeholder="Enter your first name"
+          [class.is-invalid]="signUpForm.get('FirstName')?.invalid && signUpForm.get('FirstName')?.touched"
         >
-        <div class="error-message" *ngIf="signUpForm.get('fullName')?.invalid && signUpForm.get('fullName')?.touched">
-          <span *ngIf="signUpForm.get('fullName')?.errors?.['required']">Full name is required</span>
-          <span *ngIf="signUpForm.get('fullName')?.errors?.['minlength']">Full name must be at least 2 characters</span>
+        <div class="error-message" *ngIf="signUpForm.get('FirstName')?.invalid && signUpForm.get('FirstName')?.touched">
+          <span *ngIf="signUpForm.get('FirstName')?.errors?.['required']">First name is required</span>
+          <span *ngIf="signUpForm.get('FirstName')?.errors?.['minlength']">First name must be at least 3 characters</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="LastName">Last Name</label>
+        <input 
+          type="text" 
+          id="LastName" 
+          formControlName="LastName" 
+          class="form-control" 
+          placeholder="Enter your last name"
+          [class.is-invalid]="signUpForm.get('LastName')?.invalid && signUpForm.get('LastName')?.touched"
+        >
+        <div class="error-message" *ngIf="signUpForm.get('LastName')?.invalid && signUpForm.get('LastName')?.touched">
+          <span *ngIf="signUpForm.get('LastName')?.errors?.['required']">Last name is required</span>
+          <span *ngIf="signUpForm.get('LastName')?.errors?.['minlength']">Last name must be at least 2 characters</span>
         </div>
       </div>
       
@@ -45,14 +61,24 @@
       
       <div class="form-group">
         <label for="password">Password</label>
-        <input 
-          type="password" 
-          id="password" 
-          formControlName="password" 
-          class="form-control" 
-          placeholder="Create a password"
-          [class.is-invalid]="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched"
-        >
+        <div class="password-input-container">
+          <input 
+            [type]="showPassword ? 'text' : 'password'"
+            id="password" 
+            formControlName="password" 
+            class="form-control" 
+            placeholder="Create a password"
+            [class.is-invalid]="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched"
+          >
+          <button 
+            type="button" 
+            class="password-toggle" 
+            (click)="togglePasswordVisibility('password')"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+          >
+            <span class="material-icons">{{ showPassword ? 'visibility_off' : 'visibility' }}</span>
+          </button>
+        </div>
         <div class="error-message" *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched">
           <span *ngIf="signUpForm.get('password')?.errors?.['required']">Password is required</span>
           <span *ngIf="signUpForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
@@ -61,14 +87,24 @@
       
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
-        <input 
-          type="password" 
-          id="confirmPassword" 
-          formControlName="confirmPassword" 
-          class="form-control" 
-          placeholder="Confirm your password"
-          [class.is-invalid]="signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched"
-        >
+        <div class="password-input-container">
+          <input 
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            id="confirmPassword" 
+            formControlName="confirmPassword" 
+            class="form-control" 
+            placeholder="Confirm your password"
+            [class.is-invalid]="signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched"
+          >
+          <button 
+            type="button" 
+            class="password-toggle" 
+            (click)="togglePasswordVisibility('confirmPassword')"
+            [attr.aria-label]="showConfirmPassword ? 'Hide password' : 'Show password'"
+          >
+            <span class="material-icons">{{ showConfirmPassword ? 'visibility_off' : 'visibility' }}</span>
+          </button>
+        </div>
         <div class="error-message" *ngIf="signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched">
           <span *ngIf="signUpForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
           <span *ngIf="signUpForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
@@ -82,9 +118,9 @@
             <input 
               type="radio" 
               id="investor" 
-              formControlName="userType" 
-              value="0"
-              [class.is-invalid]="signUpForm.get('userType')?.invalid && signUpForm.get('userType')?.touched"
+              formControlName="userTypeId" 
+              value="2"
+              [class.is-invalid]="signUpForm.get('userTypeId')?.invalid && signUpForm.get('userTypeId')?.touched"
             >
             <label for="investor">
               <span class="material-icons">trending_up</span>
@@ -95,9 +131,9 @@
             <input 
               type="radio" 
               id="propertyOwner" 
-              formControlName="userType" 
-              value="1"
-              [class.is-invalid]="signUpForm.get('userType')?.invalid && signUpForm.get('userType')?.touched"
+              formControlName="userTypeId" 
+              value="3"
+              [class.is-invalid]="signUpForm.get('userTypeId')?.invalid && signUpForm.get('userTypeId')?.touched"
             >
             <label for="propertyOwner">
               <span class="material-icons">home</span>
@@ -105,8 +141,8 @@
             </label>
           </div>
         </div>
-        <div class="error-message" *ngIf="signUpForm.get('userType')?.invalid && signUpForm.get('userType')?.touched">
-          <span *ngIf="signUpForm.get('userType')?.errors?.['required']">Please select your user type</span>
+        <div class="error-message" *ngIf="signUpForm.get('userTypeId')?.invalid && signUpForm.get('userTypeId')?.touched">
+          <span *ngIf="signUpForm.get('userTypeId')?.errors?.['required']">Please select your user type</span>
         </div>
       </div>
       

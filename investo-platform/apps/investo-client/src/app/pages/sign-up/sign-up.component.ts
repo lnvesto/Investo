@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { UserType } from '../../models/user-type.enum';
-import { AuthResponse } from '../../models/auth-response.interface';
+import { userTypeId } from '../../models/user-type.enum';
+import { AuthResponse } from '../../models/auth.types';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,7 +18,9 @@ export class SignUpComponent implements OnInit {
   isSubmitting = false;
   errorMessage: string | null = null;
   validationErrors: string[] = [];
-  UserType = UserType;
+  userTypeId = userTypeId;
+  showPassword = false;
+  showConfirmPassword = false;
   
   constructor(
     private fb: FormBuilder,
@@ -26,11 +28,12 @@ export class SignUpComponent implements OnInit {
     private router: Router
   ) {
     this.signUpForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(3)]],
+      FirstName: ['', [Validators.required, Validators.minLength(3)]],
+      LastName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
-      userType: ['0', Validators.required], // Default to Investor (0)
+      userTypeId: ['2', Validators.required], 
       agreeTerms: [false, Validators.requiredTrue]
     }, {
       validators: this.passwordsMatchValidator
@@ -38,7 +41,7 @@ export class SignUpComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    // Additional initialization logic if needed
+    
   }
   
   passwordsMatchValidator(formGroup: FormGroup) {
@@ -54,42 +57,58 @@ export class SignUpComponent implements OnInit {
   }
   
   onSubmit(): void {
-    if (this.signUpForm.valid) {
-      const formData = {
-        ...this.signUpForm.value,
-        userType: parseInt(this.signUpForm.value.userType, 10) // Convert string to number
-      };
-      
-      this.authService.register(formData).subscribe({
-        next: (response) => {
-          if (response.success) {
-            // If no token is returned, redirect to login
-            if (!response.token) {
+    if (this.signUpForm.invalid) {
+      this.markFormGroupTouched(this.signUpForm);
+      return;
+    }
+
+    this.isSubmitting = true;
+    this.errorMessage = null;
+    
+    const formData = {
+      ...this.signUpForm.value,
+      userTypeId: parseInt(this.signUpForm.value.userTypeId, 10)
+    };
+    
+    this.authService.register(formData).subscribe({
+      next: (response) => {
+        if (response.token) {
+          
+          const loginCredentials = {
+            email: formData.email,
+            password: formData.password
+          };
+          
+          this.authService.login(loginCredentials).subscribe({
+            next: () => {
+              this.router.navigate(['/']);
+            },
+            error: (error) => {
+              console.error('Auto-login after registration failed:', error);
               this.router.navigate(['/login'], { 
                 queryParams: { 
                   registered: 'true',
-                  email: response.email 
+                  email: formData.email 
                 }
               });
-            } else {
-              // Store user data in localStorage only if token is present
-              localStorage.setItem('currentUser', JSON.stringify({
-                email: response.email,
-                fullName: response.fullName,
-                userType: response.userType,
-                token: response.token
-              }));
-              this.router.navigate(['/dashboard']);
             }
-          } else {
-            this.errorMessage = response.message || 'Registration failed';
-          }
-        },
-        error: (error) => {
-          this.errorMessage = error.error?.message || 'An error occurred during registration';
+          });
+        } else {
+          
+          this.router.navigate(['/login'], { 
+            queryParams: { 
+              registered: 'true',
+              email: formData.email 
+            }
+          });
         }
-      });
-    }
+      },
+      error: (error) => {
+        console.error('Registration error:', error);
+        this.errorMessage = error.error?.message || 'An error occurred during registration';
+        this.isSubmitting = false;
+      }
+    });
   }
   
   private markFormGroupTouched(formGroup: FormGroup) {
@@ -99,5 +118,13 @@ export class SignUpComponent implements OnInit {
         this.markFormGroupTouched(control as FormGroup);
       }
     });
+  }
+
+  togglePasswordVisibility(field: 'password' | 'confirmPassword'): void {
+    if (field === 'password') {
+      this.showPassword = !this.showPassword;
+    } else {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    }
   }
 }
