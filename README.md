@@ -52,6 +52,6 @@
 ## 📢 Контакти
 
 - 📧 Email: support@rebuildplatform.ua
-- 🌐 Сайт: [https://lnvesto.github.io/Investo/#/](https://lnvesto.github.io/Investo/#/)
+- 🌐 Сайт: [https://lnvesto.github.io/Investo/#/](https://lnvesto.github.io/Investo/)
 
 ---
