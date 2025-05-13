@@ -35,6 +35,12 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: './investo-platform/yarn.lock'
 
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Use correct Yarn version
+        run: corepack prepare yarn@4.1.1 --activate
+
       - name: Install dependencies
         run: |
           cd investo-platform
@@ -42,7 +48,6 @@ jobs:
 
       - name: Build
         run: cd investo-platform && yarn nx build investo-client --configuration=production --base-href=./ --skip-nx-cache
-
         
       - name: Prepare for GitHub Pages
         run: |
@@ -91,4 +96,4 @@ jobs:
           folder: investo-platform/dist/apps/investo-client/browser
           branch: gh-pages
           clean: false
-          token: ${{ github.token }} 
+          token: ${{ github.token }}
