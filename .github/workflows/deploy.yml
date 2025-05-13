@@ -41,6 +41,9 @@ jobs:
       - name: Use correct Yarn version
         run: corepack prepare yarn@4.1.1 --activate
 
+      - name: Check Yarn version
+        run: yarn --version
+
       - name: Install dependencies
         run: |
           cd investo-platform
