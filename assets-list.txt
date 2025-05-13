@@ -1,7 +1,6 @@
 ./index.html
 ./styles.5067da93e3cbc3b6.css
 ./3rdpartylicenses.txt
-./main.b5a31d4955807ffa.js
 ./environments/environment.ts
 ./environments/environment.prod.ts
 ./404.html
@@ -30,3 +29,4 @@
 ./assets/images/walletconnect.svg
 ./assets/images/trustwallet.svg
 ./assets-list.txt
+./main.3eba10bba3aad7f9.js
