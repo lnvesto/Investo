@@ -32,14 +32,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: './investo-platform/package-lock.json'
+          cache: 'yarn'
+          cache-dependency-path: './investo-platform/yarn.lock'
 
       - name: Install dependencies
-        run: cd investo-platform && npm ci
+        run: |
+          cd investo-platform
+          yarn install
 
       - name: Build
-        run: cd investo-platform && npx nx build investo-client --configuration=production --base-href=./
+        run: cd investo-platform && yarn nx build investo-client --configuration=production --base-href=./ --skip-nx-cache
         
       - name: Prepare for GitHub Pages
         run: |
