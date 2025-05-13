@@ -7,6 +7,7 @@ import { RealEstateFormComponent } from './pages/real-estate-form/real-estate-fo
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ConnectWalletComponent } from './pages/connect-wallet/connect-wallet.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 import { authGuard } from './guards/auth.guard';
 import { RealEstatesPageComponent } from './pages/real-estates-page/real-estates-page.component';
 import { AboutComponent } from './pages/about/about.component';
@@ -19,14 +20,9 @@ export const routes: Routes = [
     component: InvestNowPageComponent,
     canActivate: [() => authGuard()]
   },
-
   { path: 'realestate/add', component: RealEstateFormComponent },
   { path: 'login', component: LoginPageComponent },
-  { 
-    path: 'profile', 
-    component: ProfileComponent,
-    canActivate: [() => authGuard()]
-  },
+  { path: 'password-reset', component: PasswordResetComponent },
   { 
     path: 'profile/:id', 
     component: ProfileComponent,

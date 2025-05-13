@@ -1,4 +1,4 @@
-export enum UserType {
-    Investor = 0,
-    PropertyOwner = 1
+export enum userTypeId {
+    Investor = 2,
+    PropertyOwner = 3
 } 

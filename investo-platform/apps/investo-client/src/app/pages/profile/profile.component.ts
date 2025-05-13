@@ -32,17 +32,18 @@ import { User, Investment, Transaction, ProfileStats } from './models/profile.mo
 })
 export class ProfileComponent implements OnInit, AfterViewInit {
   user: User = {
-    id: 0,
+    id: '',
     name: '',
     email: '',
     avatarUrl: 'assets/images/avatar-placeholder.png',
     walletAddress: '0x0000000000000000000000000000000000000000',
     kycVerified: false,
     twoFactorEnabled: false,
-    joinDate: new Date()
+    joinDate: new Date(),
+    isPublicProfile: false
   };
   
-  userId: number | null = null;
+  userId: string | null = null;
   isCurrentUser: boolean = true;
   isLoading: boolean = true;
   errorMessage: string = '';
@@ -50,7 +51,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   avatarLoadError = false;
   @ViewChild('avatarImage') avatarImage!: ElementRef;
 
-  // Data for child components
+
   stats: ProfileStats = {
     totalInvested: 25000,
     totalReturns: 2750,
@@ -88,15 +89,15 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   
   ngOnInit(): void {
     this.checkScrollAnimation();
-    // Get user ID from route parameters
+    
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       
       if (idParam) {
-        // Parse the ID to number
-        this.userId = parseInt(idParam, 10);
         
-        // Check if we're viewing the current logged-in user's profile
+        this.userId = idParam;
+        
+        
         this.authService.currentUser$.subscribe(currentUser => {
           if (currentUser) {
             this.isCurrentUser = currentUser.id === this.userId;
@@ -104,27 +105,27 @@ export class ProfileComponent implements OnInit, AfterViewInit {
             this.isCurrentUser = false;
           }
           
-          // Load user profile data
+          
           this.loadUserProfile();
         });
       } else {
-        // No ID parameter means we're viewing our own profile
+        
         this.isCurrentUser = true;
         
-        // Get current user information and load profile data
+        
         this.authService.currentUser$.subscribe(currentUser => {
           if (currentUser) {
-            this.userId = currentUser.id;
+            this.userId = currentUser.id || null;
             this.loadUserProfile();
           } else {
-            // User is not logged in, redirect to login
+            
             this.router.navigate(['/login']);
           }
         });
       }
     });
     
-    // Load real estate data
+    
     this.loadRealEstateData();
   }
   
@@ -192,34 +193,34 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.realEstateService.getAllRealEstate().subscribe(data => {
       this.realEstateList = data;
       
-      // Convert real estate data to investments format
+      
       this.investments = this.realEstateList.slice(0, 5).map(property => ({
-        id: property.id,
+        id: property.id.toString(),
         propertyName: property.title,
         location: property.location,
         imageUrl: property.images && property.images.length > 0 ? property.images[0].image_url : 'assets/images/property-placeholder.jpg',
-        investedAmount: property.minInvestment ? property.minInvestment * 2 : 5000, // Simulated investment amount
+        investedAmount: property.minInvestment ? property.minInvestment * 2 : 5000, 
         currentValue: property.minInvestment ? property.minInvestment * 2 * (1 + property.roi / 100) : 5500,
         roi: property.roi,
         status: 'active',
-        investmentDate: new Date(Date.now() - Math.random() * 10000000000) // Random date within last few months
+        investmentDate: new Date(Date.now() - Math.random() * 10000000000) 
       }));
       
-      // Update active investments with payouts
+      
       this.activeInvestmentsWithPayouts = this.realEstateList.slice(0, 3).map(property => ({
-        id: property.id,
+        id: property.id.toString(),
         propertyName: property.title,
         location: property.location,
         imageUrl: property.images && property.images.length > 0 ? property.images[0].image_url : 'assets/images/property-placeholder.jpg',
         investedAmount: property.minInvestment ? property.minInvestment * 2 : 5000,
         roi: property.roi,
-        nextPayout: new Date(Date.now() + Math.random() * 30 * 24 * 60 * 60 * 1000) // Random date in next 30 days
+        nextPayout: new Date(Date.now() + Math.random() * 30 * 24 * 60 * 60 * 1000) 
       }));
       
-      // Update hasActiveInvestmentsWithPayouts
+      
       this.hasActiveInvestmentsWithPayouts = this.activeInvestmentsWithPayouts.length > 0;
 
-      // Generate some wallet transactions
+      
       this.walletTransactions = [
         { type: 'deposit', details: 'Deposit to wallet', date: new Date(2023, 3, 20), amount: 2500, status: 'completed' },
         { type: 'withdrawal', details: 'Withdrawal to bank account', date: new Date(2023, 3, 18), amount: 1200, status: 'completed' },
@@ -228,7 +229,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         { type: 'deposit', details: 'Deposit to wallet', date: new Date(2023, 3, 10), amount: 5000, status: 'completed' }
       ];
       
-      // Update stats based on investments
+      
       if (this.investments.length > 0) {
         const totalInvested = this.investments.reduce((sum, inv) => sum + inv.investedAmount, 0);
         const totalCurrentValue = this.investments.reduce((sum, inv) => sum + inv.currentValue, 0);
@@ -241,7 +242,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
           totalReturns,
           activeInvestments,
           averageROI: Math.round(averageROI),
-          investmentScore: 80 + Math.round(Math.random() * 20) // Random score between 80-100
+          investmentScore: 80 + Math.round(Math.random() * 20) 
         };
       }
     });
