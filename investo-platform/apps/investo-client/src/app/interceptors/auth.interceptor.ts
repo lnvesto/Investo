@@ -1,41 +1,48 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { LoadingService } from '../services/loading.service';
+import { ErrorHandlerService } from '../services/error-handler.service';
+import { catchError, finalize, throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  // Покращена налагоджувальна інформація
-  console.log(`Request to: ${req.url}`);
+  const authService = inject(AuthService);
+  const loadingService = inject(LoadingService);
+  const errorHandler = inject(ErrorHandlerService);
   
-  // Get the auth token from localStorage
-  const userJson = localStorage.getItem('currentUser');
-  
-  // Skip interceptor for login and register requests to avoid circular issues
-  if (req.url.includes('/auth/login') || req.url.includes('/auth/register')) {
+  if (req.url.includes('/login') || req.url.includes('/register')) {
     return next(req);
   }
   
-  if (userJson) {
-    try {
-      const user = JSON.parse(userJson);
-      // Clone the request and add the authorization header
-      if (user.token) {
-        console.log(`Adding auth token to request: ${req.url}`);
-        console.log(`Token: ${user.token.substring(0, 20)}...`); // Безпечний вивід частини токена
-        
-        const authReq = req.clone({
-          setHeaders: {
-            Authorization: `Bearer ${user.token}`
-          }
-        });
-        return next(authReq);
-      } else {
-        console.warn(`No token found for user when making request to: ${req.url}`);
+  loadingService.show();
+  
+  const token = authService.getAuthToken();
+  
+  if (token) {
+    console.log(`Adding auth token to request: ${req.url}`);
+    
+    const authReq = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
       }
-    } catch (e) {
-      console.error('Error parsing user data from localStorage:', e);
-      localStorage.removeItem('currentUser');
-    }
-  } else {
-    console.warn(`No user data in localStorage when making request to: ${req.url}`);
+    });
+    
+    return next(authReq).pipe(
+      finalize(() => loadingService.hide()),
+      catchError(error => {
+        if (error.status === 401) {
+          authService.logout();
+        }
+        errorHandler.handleError(error);
+        return throwError(() => error);
+      })
+    );
   }
   
-  return next(req);
+  console.warn(`No auth token available when making request to: ${req.url}`);
+  loadingService.hide();
+  
+  return next(req).pipe(
+    finalize(() => loadingService.hide())
+  );
 };

@@ -32,7 +32,7 @@
         </div>
 
         <div class="wallet-actions">
-          <button class="btn btn-primary" routerLink="/profile">
+          <button class="btn btn-primary" [routerLink]="['/profile', authService.currentUserValue?.id]">
             <span class="material-icons">account_balance_wallet</span>
             Go to Dashboard
           </button>

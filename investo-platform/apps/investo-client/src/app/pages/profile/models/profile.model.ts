@@ -1,5 +1,5 @@
 export interface User {
-  id: number;
+  id: string;
   name: string;
   email: string;
   avatarUrl?: string;
@@ -11,7 +11,7 @@ export interface User {
 }
 
 export interface Investment {
-  id: number;
+  id: string;
   propertyName: string;
   location: string;
   imageUrl: string;
