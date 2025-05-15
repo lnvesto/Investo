@@ -18,7 +18,7 @@
     font-weight: 700;
     color: $text-color-dark;
     margin: 0 0 0.5rem 0;
-    background: linear-gradient(90deg, $text-color-dark 0%, rgba(255, 255, 255, 0.8) 100%);
+    background: linear-gradient(90deg, $text-color-dark 0%, $white-80 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -28,7 +28,7 @@
     width: 80px;
     background: linear-gradient(90deg, $primary-color 0%, $accent-color 100%);
     border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(80, 150, 255, 0.3);
+    box-shadow: 0 2px 8px $accent-30;
   }
 }
 
@@ -40,8 +40,8 @@
   padding: 1.25rem;
   background: $dark-card-bg-gradient;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid $white-10;
+  box-shadow: 0 8px 25px $black-30;
   backdrop-filter: blur(10px);
   
   .filter-buttons {
@@ -51,16 +51,16 @@
     .filter-btn {
       padding: 0.75rem 1.5rem;
       border-radius: 2rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.7);
+      background: $white-05;
+      border: 1px solid $white-10;
+      color: $white-70;
       font-size: 0.9rem;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       
       &:hover {
-        background: rgba(255, 255, 255, 0.1);
+        background: $white-10;
         color: $text-color-dark;
         transform: translateY(-2px);
       }
@@ -69,7 +69,7 @@
         background: linear-gradient(135deg, $primary-color 0%, $accent-color 100%);
         color: $text-color-dark;
         border-color: transparent;
-        box-shadow: 0 4px 15px rgba(80, 150, 255, 0.3);
+        box-shadow: 0 4px 15px $accent-30;
         transform: translateY(-2px);
       }
     }
@@ -86,14 +86,14 @@
       align-items: center;
       justify-content: center;
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.7);
+      background: $white-05;
+      border: 1px solid $white-10;
+      color: $white-70;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       
       &:hover {
-        background: rgba(255, 255, 255, 0.1);
+        background: $white-10;
         color: $text-color-dark;
         transform: translateY(-2px);
       }
@@ -102,7 +102,7 @@
         background: linear-gradient(135deg, $primary-color 0%, $accent-color 100%);
         color: $text-color-dark;
         border-color: transparent;
-        box-shadow: 0 4px 15px rgba(80, 150, 255, 0.3);
+        box-shadow: 0 4px 15px $accent-30;
         transform: translateY(-2px);
       }
       
@@ -132,8 +132,8 @@
 .investments-table {
   background: $dark-card-bg-gradient;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid $white-10;
+  box-shadow: 0 8px 25px $black-30;
   backdrop-filter: blur(10px);
   overflow: hidden;
   
@@ -144,13 +144,13 @@
     th, td {
       padding: 1.25rem;
       text-align: left;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid $white-10;
     }
     
     th {
       font-size: 0.9rem;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.7);
+      color: $white-70;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -168,7 +168,7 @@
           height: 50px;
           border-radius: 8px;
           object-fit: cover;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 4px 12px $black-20;
         }
       }
       
@@ -181,21 +181,21 @@
         letter-spacing: 0.5px;
         
         &.status-active {
-          background: rgba(16, 185, 129, 0.1);
-          color: #10b981;
-          box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+          background: $success-alt-10;
+          color: $success-alt;
+          box-shadow: 0 2px 8px rgba($success-alt, 0.2);
         }
         
         &.status-pending {
-          background: rgba(245, 158, 11, 0.1);
-          color: #f59e0b;
-          box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+          background: $warning-alt-10;
+          color: $warning-alt;
+          box-shadow: 0 2px 8px rgba($warning-alt, 0.2);
         }
         
         &.status-completed {
-          background: rgba(80, 150, 255, 0.1);
+          background: $accent-10;
           color: $accent-color;
-          box-shadow: 0 2px 8px rgba(80, 150, 255, 0.2);
+          box-shadow: 0 2px 8px $accent-20;
         }
       }
       
@@ -210,17 +210,17 @@
           align-items: center;
           justify-content: center;
           border-radius: 10px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: rgba(255, 255, 255, 0.7);
+          background: $white-05;
+          border: 1px solid $white-10;
+          color: $white-70;
           cursor: pointer;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           
           &:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: $white-10;
             color: $text-color-dark;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px $black-20;
           }
           
           .material-icons {
@@ -237,19 +237,19 @@
   text-align: center;
   background: $dark-card-bg-gradient;
   border-radius: 16px;
-  border: 1px dashed rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border: 1px dashed $white-10;
+  box-shadow: 0 8px 25px $black-30;
   backdrop-filter: blur(10px);
   
   .material-icons {
     font-size: 4rem;
-    color: rgba(255, 255, 255, 0.2);
+    color: $white-20;
     margin-bottom: 1.5rem;
   }
   
   p {
     font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: $white-50;
     margin-bottom: 2rem;
   }
   
@@ -266,7 +266,7 @@
     
     &:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(80, 150, 255, 0.4);
+      box-shadow: 0 8px 20px $accent-40;
     }
     
     .material-icons {
@@ -288,7 +288,7 @@
       overflow-x: auto;
       padding-bottom: 0.75rem;
       scrollbar-width: thin;
-      scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+      scrollbar-color: $white-20 transparent;
       
       &::-webkit-scrollbar {
         height: 6px;
@@ -299,7 +299,7 @@
       }
       
       &::-webkit-scrollbar-thumb {
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: $white-20;
         border-radius: 3px;
       }
     }

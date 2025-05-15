@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
   right: 0;
-  background: rgba($black, 0.1);
+  background: $black-10;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: none;
@@ -15,36 +15,36 @@
   transition: all 0.3s ease;
 
   &.scrolled {
-    background: rgba($black, 0.85);
-    box-shadow: 0 1px 15px rgba($primary-color, 0.2);
+    background: $black-80;
+    box-shadow: 0 1px 15px $primary-20;
 
     .nav-link {
       color: $white;
 
       &:after {
-        background: rgba($primary-color, 0.8);
+        background: $primary-80;
       }
 
       &:hover {
-        color: rgba($primary-color, 0.9);
+        color: $primary-90;
       }
     }
 
     .btn-glass {
-      background: rgba($white, 0.05);
-      border-color: rgba($white, 0.1);
+      background: $white-05;
+      border-color: $white-10;
       
       &:hover {
-        background: rgba($white, 0.1);
-        border-color: rgba($primary-color, 0.3);
+        background: $white-10;
+        border-color: $primary-30;
       }
     }
 
     .btn-glow {
-      background: rgba($primary-color, 0.9);
+      background: $primary-90;
       
       &:hover {
-        background: rgba($primary-color, 1);
+        background: $primary-color;
       }
     }
 
@@ -57,22 +57,22 @@
     }
     
     .wallet-button {
-      background: rgba($white, 0.05);
-      border-color: rgba($white, 0.1);
+      background: $white-05;
+      border-color: $white-10;
       
       &:hover {
-        background: rgba($white, 0.1);
-        border-color: rgba($primary-color, 0.3);
+        background: $white-10;
+        border-color: $primary-30;
       }
     }
     
     .account-button {
-      background: rgba($white, 0.05);
-      border-color: rgba($white, 0.1);
+      background: $white-05;
+      border-color: $white-10;
       
       &:hover {
-        background: rgba($white, 0.1);
-        border-color: rgba($primary-color, 0.3);
+        background: $white-10;
+        border-color: $primary-30;
       }
     }
   }
@@ -114,7 +114,7 @@
       margin-left: 0.6rem;
       letter-spacing: 0.02em;
       transition: color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      text-shadow: 0 1px 3px rgba($black, 0.3);
+      text-shadow: 0 1px 3px $black-30;
       
       @media (max-width: $breakpoint-md) {
         display: none;
@@ -181,7 +181,7 @@
       padding: 0.3rem 0;
       transition: color 0.3s ease;
       letter-spacing: 0.03em;
-      text-shadow: 0 1px 4px rgba($black, 0.3);
+      text-shadow: 0 1px 4px $black-30;
 
       &:after {
         content: '';
@@ -190,12 +190,12 @@
         left: 0;
         width: 0;
         height: 1px;
-        background: rgba($primary-color, 0.8);
+        background: $primary-80;
         transition: width 0.3s ease;
       }
 
       &:hover {
-        color: rgba($primary-color, 0.9);
+        color: $primary-90;
 
         &:after {
           width: 100%;
@@ -240,23 +240,23 @@
       }
 
       &-glass {
-        background: rgba($white, 0.1);
+        background: $white-10;
         color: $white;
-        border: 1px solid rgba($white, 0.2);
+        border: 1px solid $white-20;
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
-        box-shadow: 0 2px 10px rgba($black, 0.1);
+        box-shadow: 0 2px 10px $black-10;
 
         &:hover {
-          background: rgba($white, 0.15);
+          background: $white-15;
           color: $white;
           transform: translateY(-2px);
-          border-color: rgba($primary-color, 0.4);
-          box-shadow: 0 5px 15px rgba($black, 0.15);
+          border-color: $primary-40;
+          box-shadow: 0 5px 15px $black-15;
         }
         
         .material-icons {
-          color: rgba($primary-color, 0.9);
+          color: $primary-90;
         }
       }
 
@@ -264,7 +264,7 @@
         background: linear-gradient(135deg, $secondary-color 0%, $primary-color 100%);
         color: $white;
         border: none;
-        box-shadow: 0 4px 15px rgba($primary-color, 0.3);
+        box-shadow: 0 4px 15px $primary-30;
         position: relative;
         overflow: hidden;
         z-index: 1;
@@ -284,7 +284,7 @@
 
         &:hover {
           transform: translateY(-2px);
-          box-shadow: 0 5px 20px rgba($primary-color, 0.4);
+          box-shadow: 0 5px 20px $primary-40;
           
           &:before {
             opacity: 1;
@@ -321,7 +321,7 @@
       transition: color 0.3s ease;
       z-index: 1001;
       position: relative;
-      text-shadow: 0 1px 4px rgba($black, 0.5);
+      text-shadow: 0 1px 4px $black-50;
 
       @media (max-width: $breakpoint-md) {
         display: flex;
@@ -330,10 +330,10 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background: rgba($primary-color, 0.15);
+        background: $primary-15;
         
         &:hover {
-          background: rgba($primary-color, 0.25);
+          background: $primary-25;
         }
       }
 
@@ -347,8 +347,8 @@
       display: flex;
       align-items: center;
       padding: 0.6rem 0.8rem 0.6rem 0.6rem;
-      background: rgba($white, 0.1);
-      border: 1px solid rgba($white, 0.2);
+      background: $white-10;
+      border: 1px solid $white-20;
       border-radius: 50px;
       color: $white;
       font-size: 0.95rem;
@@ -357,17 +357,17 @@
       transition: all 0.3s ease;
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
-      box-shadow: 0 2px 10px rgba($black, 0.1);
+      box-shadow: 0 2px 10px $black-10;
       
       @media (max-width: $breakpoint-md) {
         display: none;
       }
       
       &:hover {
-        background: rgba($white, 0.15);
+        background: $white-15;
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba($black, 0.2);
-        border-color: rgba($primary-color, 0.4);
+        box-shadow: 0 5px 15px $black-20;
+        border-color: $primary-40;
       }
       
       .wallet-icon {
@@ -379,7 +379,7 @@
         border-radius: 50%;
         background: linear-gradient(135deg, $secondary-color 0%, $primary-color 100%);
         margin-right: 8px;
-        box-shadow: 0 2px 8px rgba($primary-color, 0.3);
+        box-shadow: 0 2px 8px $primary-30;
         
         .material-icons {
           font-size: 16px;
@@ -420,8 +420,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba($white, 0.1);
-    border: 1px solid rgba($white, 0.2);
+    background: $white-10;
+    border: 1px solid $white-20;
     border-radius: 50px;
     padding: 0.5rem 0.8rem 0.5rem 0.5rem;
     cursor: pointer;
@@ -431,9 +431,9 @@
     -webkit-backdrop-filter: blur(5px);
     
     &:hover {
-      background: rgba($white, 0.15);
+      background: $white-15;
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba($black, 0.15);
+      box-shadow: 0 5px 15px $black-15;
     }
     
     .avatar-wrapper {
@@ -444,8 +444,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 8px rgba($primary-color, 0.3);
-      border: 2px solid rgba($white, 0.2);
+      box-shadow: 0 2px 8px $primary-30;
+      border: 2px solid $white-20;
       
       .material-icons {
         font-size: 16px;
@@ -473,10 +473,10 @@
     top: calc(100% + 15px);
     right: 0;
     min-width: 280px;
-    background: linear-gradient(135deg, rgba($black, 0.95) 0%, rgba($black, 0.97) 100%);
+    background: linear-gradient(135deg, $black-95 0%, $black-97 100%);
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba($black, 0.3);
-    border: 1px solid rgba($primary-color, 0.15);
+    box-shadow: 0 10px 30px $black-30;
+    border: 1px solid $primary-15;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
@@ -493,10 +493,10 @@
       right: 20px;
       width: 16px;
       height: 16px;
-      background: rgba($black, 0.95);
+      background: $black-95;
       transform: rotate(45deg);
-      border-top: 1px solid rgba($primary-color, 0.15);
-      border-left: 1px solid rgba($primary-color, 0.15);
+      border-top: 1px solid $primary-15;
+      border-left: 1px solid $primary-15;
     }
     
     .user-info {
@@ -504,8 +504,8 @@
       align-items: center;
       gap: 15px;
       padding: 20px;
-      border-bottom: 1px solid rgba($white, 0.08);
-      background: linear-gradient(135deg, rgba($primary-color, 0.15) 0%, rgba($primary-color, 0.05) 100%);
+      border-bottom: 1px solid $white-08;
+      background: linear-gradient(135deg, $primary-15 0%, $primary-05 100%);
       
       .user-avatar {
         width: 50px;
@@ -515,8 +515,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 5px 15px rgba($primary-color, 0.3);
-        border: 2px solid rgba($white, 0.2);
+        box-shadow: 0 5px 15px $primary-30;
+        border: 2px solid $white-20;
         flex-shrink: 0;
         
         .material-icons {
@@ -538,16 +538,16 @@
           display: flex;
           align-items: center;
           font-size: 0.85rem;
-          color: rgba($white, 0.7);
+          color: $white-70;
           
           .status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #4ade80;
+            background: $success-bright;
             margin-right: 6px;
             display: inline-block;
-            box-shadow: 0 0 5px rgba(74, 222, 128, 0.7);
+            box-shadow: 0 0 5px $success-bright-70;
           }
         }
       }
@@ -561,12 +561,12 @@
         align-items: center;
         padding: 12px 20px;
         text-decoration: none;
-        color: rgba($white, 0.85);
+        color: $white-85;
         transition: all 0.3s ease;
         position: relative;
         
         &:hover {
-          background: rgba($primary-color, 0.1);
+          background: $primary-10;
           color: $white;
           
           .material-icons {
@@ -580,22 +580,22 @@
         .material-icons {
           font-size: 20px;
           margin-right: 12px;
-          color: rgba($primary-color, 0.9);
+          color: $primary-90;
           transition: all 0.3s ease;
         }
         
         &.logout-link {
-          color: rgba($white, 0.75);
+          color: $white-75;
           
           .material-icons {
-            color: rgba(255, 77, 79, 0.9);
+            color: $error-dark-90;
           }
           
           &:hover {
-            background: rgba(255, 77, 79, 0.1);
+            background: $error-alt-10;
             
             .material-icons {
-              background: linear-gradient(135deg, #ff7d7f 0%, #ff4d4f 100%);
+              background: $error-gradient;
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
             }
@@ -605,7 +605,7 @@
       
       .menu-divider {
         height: 1px;
-        background: rgba($white, 0.08);
+        background: $white-08;
         margin: 8px 0;
       }
     }
@@ -644,8 +644,8 @@
     width: 85%;
     max-width: 350px;
     height: 100%;
-    background: linear-gradient(135deg, rgba($black, 0.95) 0%, rgba($black, 0.98) 100%);
-    box-shadow: -5px 0 25px rgba($black, 0.5);
+    background: linear-gradient(135deg, $black-95 0%, $black-98 100%);
+    box-shadow: -5px 0 25px $black-50;
     padding: 1.5rem;
     transform: translateX(100%);
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -653,23 +653,23 @@
     flex-direction: column;
     overflow-y: auto;
     z-index: 2001;
-    border-left: 1px solid rgba($white, 0.1);
+    border-left: 1px solid $white-10;
     
     &::-webkit-scrollbar {
       width: 6px;
     }
     
     &::-webkit-scrollbar-track {
-      background: rgba($white, 0.05);
+      background: $white-05;
       border-radius: 3px;
     }
     
     &::-webkit-scrollbar-thumb {
-      background: rgba($white, 0.3);
+      background: $white-30;
       border-radius: 3px;
       
       &:hover {
-        background: rgba($white, 0.5);
+        background: $white-50;
       }
     }
     
@@ -685,7 +685,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba($black, 0.7);
+    background: $black-70;
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
     opacity: 0;
@@ -700,7 +700,7 @@
   justify-content: space-between;
   padding: 0.5rem 0 1.5rem;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgba($white, 0.1);
+  border-bottom: 1px solid $white-10;
   
   .logo {
     flex: 1;
@@ -712,7 +712,7 @@
   }
   
   .close-menu {
-    background: rgba($white, 0.1);
+    background: $white-10;
     border: none;
     color: $white;
     padding: 0.5rem;
@@ -726,7 +726,7 @@
     transition: all 0.2s ease;
     
     &:hover {
-      background: rgba($white, 0.2);
+      background: $white-20;
       transform: rotate(90deg);
     }
     
@@ -761,14 +761,14 @@
   &-link {
     display: flex;
     align-items: center;
-    color: rgba($white, 0.85);
+    color: $white-85;
     font-size: 1.15rem;
     font-weight: 500;
     padding: 0.9rem 1rem;
     text-decoration: none;
     transition: all 0.3s ease;
     border-radius: 10px;
-    background: rgba($white, 0.03);
+    background: $white-03;
     margin-bottom: 0.5rem;
     border-left: 3px solid transparent;
     
@@ -777,16 +777,16 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: rgba($white, 0.6);
+      background: $white-60;
       margin-right: 1rem;
       transition: all 0.3s ease;
     }
     
     &:hover, &:active {
       color: $white;
-      background: rgba($white, 0.1);
+      background: $white-10;
       transform: translateX(5px);
-      border-left: 3px solid rgba($white, 0.8);
+      border-left: 3px solid $white-80;
       
       &:before {
         background: $white;
@@ -828,27 +828,27 @@
     }
     
     &.login {
-      background: rgba($white, 0.05);
+      background: $white-05;
       color: $white;
-      border: 1px solid rgba($white, 0.2);
+      border: 1px solid $white-20;
       
       &:hover {
-        background: rgba($white, 0.15);
-        border-color: rgba($white, 0.3);
+        background: $white-15;
+        border-color: $white-30;
         transform: translateY(-2px);
       }
     }
     
     &.signup {
-      background: rgba($white, 0.1);
+      background: $white-10;
       color: $white;
-      border: 1px solid rgba($white, 0.2);
-      box-shadow: 0 4px 15px rgba($black, 0.3);
+      border: 1px solid $white-20;
+      box-shadow: 0 4px 15px $black-30;
       
       &:hover {
-        background: rgba($white, 0.2);
+        background: $white-20;
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba($black, 0.4);
+        box-shadow: 0 6px 20px $black-40;
       }
     }
   }
@@ -864,22 +864,22 @@
     align-items: center;
     gap: 1rem;
     padding: 1.5rem;
-    background: rgba($white, 0.05);
+    background: $white-05;
     border-radius: 16px;
     margin-bottom: 1.5rem;
-    border: 1px solid rgba($white, 0.1);
-    box-shadow: 0 5px 15px rgba($black, 0.1);
+    border: 1px solid $white-10;
+    box-shadow: 0 5px 15px $black-10;
     
     .mobile-avatar {
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background: rgba($white, 0.1);
+      background: $white-10;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 10px rgba($black, 0.3);
-      border: 2px solid rgba($white, 0.2);
+      box-shadow: 0 4px 10px $black-30;
+      border: 2px solid $white-20;
       
       .material-icons {
         font-size: 1.8rem;
@@ -892,7 +892,7 @@
       font-weight: 600;
       font-size: 1.1rem;
       letter-spacing: 0.01em;
-      text-shadow: 0 1px 2px rgba($black, 0.3);
+      text-shadow: 0 1px 2px $black-30;
       display: flex;
       flex-direction: column;
       
@@ -903,7 +903,7 @@
       small {
         font-size: 0.8rem;
         font-weight: 400;
-        color: rgba($white, 0.7);
+        color: $white-70;
         display: flex;
         align-items: center;
         
@@ -913,9 +913,9 @@
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          background: #4ade80; // Keep green for status
+          background: $success-bright; // Status indicator
           margin-right: 6px;
-          box-shadow: 0 0 5px rgba(74, 222, 128, 0.7);
+          box-shadow: 0 0 5px $success-bright-70;
         }
       }
     }
@@ -931,23 +931,23 @@
       align-items: center;
       gap: 1rem;
       padding: 1rem 1.2rem;
-      background: rgba($white, 0.05);
+      background: $white-05;
       border-radius: 12px;
-      color: rgba($white, 0.9);
+      color: $white-90;
       text-decoration: none;
       transition: all 0.3s ease;
       border-left: 3px solid transparent;
       
       &:hover {
-        background: rgba($white, 0.1);
+        background: $white-10;
         transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba($black, 0.1);
-        border-left: 3px solid rgba($white, 0.5);
+        box-shadow: 0 5px 15px $black-10;
+        border-left: 3px solid $white-50;
       }
       
       .material-icons {
         font-size: 1.3rem;
-        color: rgba($white, 0.7);
+        color: $white-70;
         transition: all 0.3s ease;
       }
       
@@ -963,18 +963,18 @@
       
       &.logout {
         margin-top: 1rem;
-        background: rgba(255, 77, 79, 0.1);
+        background: $error-dark-10;
         
         .material-icons {
-          color: rgba(255, 77, 79, 0.9);
+          color: $error-dark-90;
         }
         
         &:hover {
-          background: rgba(255, 77, 79, 0.15);
-          border-left: 3px solid rgba(255, 77, 79, 0.8);
+          background: $error-dark-15;
+          border-left: 3px solid $error-dark-80;
           
           .material-icons {
-            color: rgba(255, 77, 79, 1);
+            color: $error-dark-100;
           }
         }
       }
@@ -1036,7 +1036,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.95);
+      background: $black-95;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       padding: 5.5rem 2rem 2rem;
@@ -1106,13 +1106,13 @@
           
           .user-info {
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid $white-10;
             padding: 10px 0 15px;
             margin-bottom: 15px;
           }
 
           a {
-            color: rgba(255, 255, 255, 0.8);
+            color: $white-80;
             padding: 10px 0;
             justify-content: center;
             font-size: 1.1rem;
@@ -1123,7 +1123,7 @@
 
             &:hover {
               background-color: transparent;
-              color: #fff;
+              color: $white;
             }
           }
         }

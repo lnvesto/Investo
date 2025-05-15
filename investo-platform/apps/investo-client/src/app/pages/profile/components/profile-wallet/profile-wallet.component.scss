@@ -18,14 +18,14 @@
 .wallet-card {
   background: $dark-card-bg;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid $card-border-color;
   padding: 1.5rem;
   transition: all 0.3s ease;
   
   &:hover {
     transform: translateY(-5px);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 25px rgba(80, 150, 255, 0.15);
+    border-color: $card-border-color-hover;
+    box-shadow: 0 10px 25px $accent-15;
   }
   
   .wallet-balance {
@@ -34,7 +34,7 @@
     h3 {
       font-size: 1rem;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.7);
+      color: $white-70;
       margin-bottom: 0.5rem;
     }
     
@@ -42,7 +42,7 @@
       font-size: 2rem;
       font-weight: 600;
       color: $text-color-dark;
-      background: linear-gradient(90deg, $text-color-dark 0%, rgba(255, 255, 255, 0.8) 100%);
+      background: linear-gradient(90deg, $text-color-dark 0%, $white-80 100%);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -70,17 +70,17 @@
         
         &:hover {
           transform: translateY(-2px);
-          box-shadow: 0 4px 15px rgba(80, 150, 255, 0.3);
+          box-shadow: 0 4px 15px $accent-30;
         }
       }
       
       &.withdraw {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.7);
+        background: $white-05;
+        border: 1px solid $white-10;
+        color: $white-70;
         
         &:hover {
-          background: rgba(255, 255, 255, 0.1);
+          background: $white-10;
           color: $text-color-dark;
         }
       }
@@ -95,14 +95,14 @@
 .token-card {
   background: $dark-card-bg;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid $card-border-color;
   padding: 1.5rem;
   transition: all 0.3s ease;
   
   &:hover {
     transform: translateY(-5px);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 25px rgba(80, 150, 255, 0.15);
+    border-color: $card-border-color-hover;
+    box-shadow: 0 10px 25px $accent-15;
   }
   
   .token-balance {
@@ -117,7 +117,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255, 255, 255, 0.05);
+      background: $white-05;
       border-radius: 50%;
       
       .material-icons {
@@ -132,7 +132,7 @@
       h3 {
         font-size: 1rem;
         font-weight: 500;
-        color: rgba(255, 255, 255, 0.7);
+        color: $white-70;
         margin-bottom: 0.25rem;
       }
       
@@ -145,7 +145,7 @@
       
       .token-value {
         font-size: 0.875rem;
-        color: rgba(255, 255, 255, 0.5);
+        color: $white-50;
       }
     }
   }
@@ -163,13 +163,13 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.7);
+      background: $white-05;
+      border: 1px solid $white-10;
+      color: $white-70;
       transition: all 0.3s ease;
       
       &:hover {
-        background: rgba(255, 255, 255, 0.1);
+        background: $white-10;
         color: $text-color-dark;
       }
       
@@ -183,12 +183,12 @@
 .wallet-transactions {
   background: $dark-card-bg;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid $white-10;
   overflow: hidden;
   
   .card-header {
     padding: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid $white-10;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -204,15 +204,15 @@
       .filter-select {
         padding: 0.5rem 1rem;
         border-radius: 8px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.7);
+        background: $white-05;
+        border: 1px solid $white-10;
+        color: $white-70;
         font-size: 0.875rem;
         cursor: pointer;
         transition: all 0.3s ease;
         
         &:hover {
-          background: rgba(255, 255, 255, 0.1);
+          background: $white-10;
         }
         
         &:focus {
@@ -230,7 +230,7 @@
       display: flex;
       align-items: center;
       padding: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid $white-05;
       
       &:last-child {
         border-bottom: none;
@@ -246,23 +246,23 @@
         margin-right: 1rem;
         
         &.deposit {
-          background: rgba(16, 185, 129, 0.1);
+          background: $success-alt-10;
           
           .material-icons {
-            color: #10b981;
+            color: $success-alt;
           }
         }
         
         &.withdrawal {
-          background: rgba(239, 68, 68, 0.1);
+          background: $error-alt-10;
           
           .material-icons {
-            color: #ef4444;
+            color: $error-alt;
           }
         }
         
         &.investment {
-          background: rgba(80, 150, 255, 0.1);
+          background: $accent-10;
           
           .material-icons {
             color: $accent-color;
@@ -270,10 +270,10 @@
         }
         
         &.return {
-          background: rgba(245, 158, 11, 0.1);
+          background: $warning-alt-10;
           
           .material-icons {
-            color: #f59e0b;
+            color: $warning-alt;
           }
         }
         
@@ -294,7 +294,7 @@
         
         .transaction-date {
           font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.5);
+          color: $white-50;
         }
       }
       
@@ -306,18 +306,18 @@
         font-weight: 600;
         
         &.status-completed {
-          background: rgba(16, 185, 129, 0.1);
-          color: #10b981;
+          background: $success-alt-10;
+          color: $success-alt;
         }
         
         &.status-pending {
-          background: rgba(245, 158, 11, 0.1);
-          color: #f59e0b;
+          background: $warning-alt-10;
+          color: $warning-alt;
         }
         
         &.status-failed {
-          background: rgba(239, 68, 68, 0.1);
-          color: #ef4444;
+          background: $error-alt-10;
+          color: $error-alt;
         }
       }
       
@@ -325,11 +325,11 @@
         font-weight: 600;
         
         &.positive {
-          color: #10b981;
+          color: $success-alt;
         }
         
         &.negative {
-          color: #ef4444;
+          color: $error-alt;
         }
       }
     }
@@ -340,13 +340,13 @@
       
       .material-icons {
         font-size: 3rem;
-        color: rgba(255, 255, 255, 0.2);
+        color: $white-20;
         margin-bottom: 1rem;
       }
       
       p {
         font-size: 1.1rem;
-        color: rgba(255, 255, 255, 0.5);
+        color: $white-50;
       }
     }
   }

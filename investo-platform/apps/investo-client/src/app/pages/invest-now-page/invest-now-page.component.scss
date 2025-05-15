@@ -3,12 +3,12 @@
 .invest-now-container {
   margin: 0 auto;
   padding: 24px;
-  background: linear-gradient(135deg, #000000 0%, #0a0e17 100%);
+  background: $dark-gradient;
   min-height: 100vh;
   margin-top: 0;
   padding-top: 7rem;
   font-family: $font-family;
-  color: #fff;
+  color: $white;
   position: relative;
   
   &::before {
@@ -18,7 +18,7 @@
     left: 0;
     width: 100%;
     height: 150px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2), transparent);
+    background: $transparent-black-gradient;
     pointer-events: none;
     z-index: 1;
   }
@@ -26,13 +26,13 @@
 
 // Investment Summary Header
 .investment-summary {
-  background: rgba(255, 255, 255, 0.02);
+  background: $card-bg-transparent;
   backdrop-filter: blur(10px);
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  box-shadow: $card-shadow;
   margin-bottom: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid $card-border-color;
   position: relative;
   z-index: 2;
 
@@ -52,7 +52,7 @@
       border-radius: 16px;
       overflow: hidden;
       flex-shrink: 0;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 25px $black-30;
       position: relative;
       
       &::before {
@@ -62,7 +62,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+        background: $overlay-black-vertical;
         z-index: 1;
       }
       
@@ -78,15 +78,15 @@
         margin: 0;
         font-size: 32px;
         font-weight: 700;
-        color: #fff;
+        color: $white;
         margin-bottom: 8px;
-        background: linear-gradient(90deg, #fff 0%, #cccccc 100%);
+        background: linear-gradient(90deg, $white 0%, $gray-medium 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
       
       .location {
-        color: rgba(255, 255, 255, 0.7);
+        color: $white-70;
         font-size: 18px;
         margin-bottom: 16px;
         display: flex;
@@ -101,15 +101,15 @@
           .highlight-label {
             display: block;
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
+            color: $white-60;
             margin-bottom: 4px;
           }
           
           .highlight-value {
             font-size: 22px;
             font-weight: 700;
-            color: #ffffff;
-            text-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
+            color: $white;
+            text-shadow: 0 2px 5px $white-20;
           }
         }
       }
@@ -147,18 +147,18 @@
 
 // Form styling
 .form-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: $card-bg-transparent;
   backdrop-filter: blur(10px);
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: $card-shadow;
+  border: 1px solid $card-border-color;
   
   h2 {
     font-size: 24px;
     margin: 0 0 24px;
-    color: #fff;
-    background: linear-gradient(90deg, #fff 0%, #cccccc 100%);
+    color: $white;
+    background: $text-gradient-light;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -166,12 +166,12 @@
   .form-section {
     margin-bottom: 24px;
     padding-bottom: 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid $white-10;
     
     h3 {
       font-size: 20px;
       margin: 0 0 16px;
-      color: #fff;
+      color: $white;
     }
   }
   
@@ -190,29 +190,29 @@
       label {
         display: block;
         font-size: 14px;
-        color: rgba(255, 255, 255, 0.7);
+        color: $white-70;
         margin-bottom: 8px;
       }
       
       .form-control {
         width: 100%;
         padding: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid $white-20;
         border-radius: 8px;
         font-size: 14px;
-        background: rgba(255, 255, 255, 0.05);
-        color: #fff;
+        background: $white-05;
+        color: $white;
         
         &:focus {
           outline: none;
-          border-color: rgba(255, 255, 255, 0.4);
-          background: rgba(255, 255, 255, 0.1);
-          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+          border-color: $white-40;
+          background: $white-10;
+          box-shadow: 0 0 0 2px $white-10;
         }
       }
       
       .error-message {
-        color: #ff5c5c;
+        color: $error-color;
         font-size: 12px;
         margin-top: 4px;
       }
@@ -225,7 +225,7 @@
   
   .investment-note {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
+    color: $white-70;
     margin-bottom: 16px;
     line-height: 1.5;
   }
@@ -236,7 +236,7 @@
     label {
       display: block;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
+      color: $white-70;
       margin-bottom: 8px;
     }
     
@@ -249,17 +249,17 @@
         flex: 1;
         padding: 14px 16px;
         text-align: center;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid $white-20;
         border-radius: 0;
         font-size: 18px;
-        background: rgba(255, 255, 255, 0.03);
-        color: #fff;
+        background: $white-05;
+        color: $white;
         transition: all 0.3s ease;
         
         &:focus {
           outline: none;
-          border-color: rgba(255, 255, 255, 0.4);
-          background: rgba(255, 255, 255, 0.05);
+          border-color: $white-40;
+          background: $white-05;
         }
         
         &::-webkit-inner-spin-button, 
@@ -278,10 +278,10 @@
         align-items: center;
         justify-content: center;
         font-size: 20px;
-        background-color: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background-color: $white-05;
+        border: 1px solid $white-20;
         cursor: pointer;
-        color: #fff;
+        color: $white;
         transition: all 0.3s ease;
         user-select: none;
         
@@ -294,7 +294,7 @@
         }
         
         &:hover {
-          background-color: rgba(255, 255, 255, 0.1);
+          background-color: $white-10;
         }
         
         &:active {
@@ -311,18 +311,18 @@
       
       .quick-amount-btn {
         padding: 8px 12px;
-        background: rgba(255, 255, 255, 0.03);
-        color: #fff;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: $white-05;
+        color: $white;
+        border: 1px solid $white-20;
         border-radius: 12px;
         font-size: 14px;
         cursor: pointer;
         transition: all 0.3s ease;
         
         &:hover {
-          background: rgba(255, 255, 255, 0.1);
+          background: $white-10;
           transform: translateY(-2px);
-          border-color: rgba(255, 255, 255, 0.3);
+          border-color: $white-30;
         }
         
         &:active {
@@ -332,7 +332,7 @@
     }
     
     .error-message {
-      color: #ff5c5c;
+      color: $error-color;
       font-size: 12px;
       margin-top: 8px;
     }
@@ -344,7 +344,7 @@
     label {
       display: block;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
+      color: $white-70;
       margin-bottom: 12px;
     }
     
@@ -356,21 +356,21 @@
       .payment-option {
         display: flex;
         align-items: center;
-        background: rgba(255, 255, 255, 0.02);
+        background: $white-02;
         padding: 14px;
         border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid $white-10;
         transition: all 0.3s ease;
         
         &:hover {
-          background: rgba(255, 255, 255, 0.05);
-          border-color: rgba(255, 255, 255, 0.2);
+          background: $white-05;
+          border-color: $white-20;
           transform: translateY(-2px);
         }
         
         input[type="radio"] {
           margin-right: 12px;
-          accent-color: #ffffff;
+          accent-color: $white;
           width: 18px;
           height: 18px;
         }
@@ -378,14 +378,14 @@
         label {
           margin-bottom: 0;
           font-size: 16px;
-          color: #fff;
+          color: $white;
           display: flex;
           align-items: center;
           
           .material-icons {
             margin-right: 10px;
             font-size: 20px;
-            color: #ffffff;
+            color: $white;
           }
         }
       }
@@ -399,10 +399,10 @@
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      background: rgba(255, 255, 255, 0.02);
+      background: $white-02;
       padding: 16px;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid $white-10;
       
       input[type="checkbox"] {
         margin-top: 3px;
@@ -413,24 +413,24 @@
       
       label {
         font-size: 14px;
-        color: rgba(255, 255, 255, 0.8);
+        color: $white-80;
         line-height: 1.6;
         
         a {
-          color: #ffffff;
+          color: $white;
           text-decoration: none;
           transition: all 0.2s ease;
           
           &:hover {
             text-decoration: underline;
-            color: #ffffff;
+            color: $white;
           }
         }
       }
     }
     
     .error-message {
-      color: #ff5c5c;
+      color: $error-color;
       font-size: 12px;
       margin-top: 8px;
     }
@@ -439,8 +439,8 @@
   .submit-btn {
     width: 100%;
     padding: 16px;
-    background: linear-gradient(90deg, #ffffff 0%, #cccccc 100%);
-    color: #000;
+    background: $white-gradient;
+    color: $text-color-black;
     border: none;
     border-radius: 50px;
     font-size: 16px;
@@ -449,11 +449,11 @@
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px $white-20;
     
     &:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 25px $white-30;
     }
     
     &:active {
@@ -461,7 +461,7 @@
     }
     
     &:disabled {
-      background: linear-gradient(90deg, #333333 0%, #555555 100%);
+      background: $gray-gradient;
       cursor: not-allowed;
       box-shadow: none;
       transform: none;
@@ -471,20 +471,20 @@
 
 // Summary card styling
 .summary-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: $card-bg-transparent;
   backdrop-filter: blur(10px);
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  box-shadow: $card-shadow;
   position: sticky;
   top: 100px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid $card-border-color;
   
   h2 {
     font-size: 24px;
     margin: 0 0 24px;
-    color: #fff;
-    background: linear-gradient(90deg, #fff 0%, #cccccc 100%);
+    color: $white;
+    background: $text-gradient-light;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -496,13 +496,13 @@
     
     .summary-label {
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.6);
+      color: $white-60;
     }
     
     .summary-value {
       font-size: 16px;
       font-weight: 600;
-      color: #fff;
+      color: $white;
     }
     
     &.total {
@@ -511,7 +511,7 @@
       .summary-label, .summary-value {
         font-size: 18px;
         font-weight: 700;
-        color: #fff;
+        color: $white;
       }
       
       .summary-value {
@@ -521,7 +521,7 @@
     
     &.returns {
       .summary-label, .summary-value {
-        color: rgba(255, 255, 255, 0.9);
+        color: $white-90;
       }
       
       .summary-value {
@@ -532,7 +532,7 @@
   
   .summary-divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: $transparent-white-light-gradient;
     margin: 20px 0;
   }
   
@@ -541,18 +541,18 @@
     
     .info-text {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.7);
+      color: $white-70;
       margin-bottom: 16px;
       line-height: 1.6;
     }
     
     .warning-text {
       font-size: 13px;
-      color: rgba(255, 92, 92, 0.9);
-      background: rgba(255, 92, 92, 0.1);
+      color: $error-90;
+      background: $error-10;
       padding: 12px;
       border-radius: 8px;
-      border-left: 3px solid rgba(255, 92, 92, 0.5);
+      border-left: 3px solid $error-50;
     }
   }
   

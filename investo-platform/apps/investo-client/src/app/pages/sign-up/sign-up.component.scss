@@ -38,11 +38,11 @@
   align-items: center;
   min-height: 100vh;
   padding: 24px;
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  background: $dark-gradient;
   margin-top: 0;
   padding-top: 7rem;
   font-family: $font-family;
-  color: #fff;
+  color: $white;
   position: relative;
   overflow: hidden;
   
@@ -67,7 +67,7 @@
     transform: translate(-50%, -50%);
     width: 80%;
     height: 80%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+    background: $glow-white-subtle;
     filter: blur(60px);
     z-index: 0;
   }
@@ -77,19 +77,19 @@
   width: 100%;
   max-width: 520px;
   padding: 40px;
-  background: rgba(255, 255, 255, 0.03);
+  background: $white-05;
   backdrop-filter: blur(10px);
   border-radius: 50px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: $card-shadow;
+  border: 1px solid $white-20;
   position: relative;
   z-index: 2;
   animation: fadeIn 0.8s ease-out;
   transition: all 0.3s ease;
   
   &:hover {
-    border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 255, 255, 0.1);
+    border-color: $white-40;
+    box-shadow: $card-shadow-with-glow;
     transform: translateY(-5px);
   }
 }
@@ -102,18 +102,18 @@
   h1 {
     font-size: 40px;
     font-weight: 800;
-    color: #fff;
+    color: $white;
     margin: 0 0 8px 0;
-    background: linear-gradient(90deg, #fff 0%, #cccccc 100%);
+    background: $text-gradient-light;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 20px $white-20;
   }
   
   .signup-subtitle {
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.8);
+    color: $white-80;
     margin: 0;
   }
 }
@@ -127,9 +127,9 @@
   align-items: center;
   
   &.error {
-    background: rgba(255, 92, 92, 0.1);
-    color: #ff5c5c;
-    border-left: 3px solid #ff5c5c;
+    background: $error-10;
+    color: $error-color;
+    border-left: 3px solid $error-color;
     
     .material-icons {
       margin-right: 8px;
@@ -145,7 +145,7 @@
     label {
       display: block;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
+      color: $white-70;
       margin-bottom: 8px;
     }
     
@@ -165,14 +165,14 @@
         border: none;
         padding: 4px;
         cursor: pointer;
-        color: rgba(255, 255, 255, 0.5);
+        color: $white-50;
         transition: color 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
         
         &:hover {
-          color: rgba(255, 255, 255, 0.8);
+          color: $white-80;
         }
         
         .material-icons {
@@ -198,8 +198,8 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: $white-05;
+            border: 1px solid $white-20;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -207,23 +207,23 @@
             .material-icons {
               font-size: 24px;
               margin-bottom: 8px;
-              color: rgba(255, 255, 255, 0.7);
+              color: $white-70;
             }
             
             &:hover {
-              border-color: rgba(255, 255, 255, 0.4);
-              background: rgba(255, 255, 255, 0.05);
+              border-color: $white-40;
+              background: $white-05;
               transform: translateY(-2px);
             }
           }
           
           &:checked + label {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            background: $white-10;
+            border-color: $white-60;
+            box-shadow: 0 0 15px $white-10;
             
             .material-icons {
-              color: #ffffff;
+              color: $white;
             }
           }
         }
@@ -233,32 +233,32 @@
     .form-control {
       width: 100%;
       padding: 14px 16px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid $white-20;
       border-radius: 8px;
       font-size: 16px;
-      background: rgba(255, 255, 255, 0.03);
-      color: #fff;
+      background: $white-05;
+      color: $white;
       transition: all 0.3s ease;
       
       &:focus {
         outline: none;
-        border-color: rgba(255, 255, 255, 0.5);
-        background: rgba(255, 255, 255, 0.05);
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+        border-color: $white-50;
+        background: $white-05;
+        box-shadow: 0 0 0 2px $white-10;
         transform: translateY(-2px);
       }
       
       &.is-invalid {
-        border-color: #ff5c5c;
+        border-color: $error-color;
       }
       
       &::placeholder {
-        color: rgba(255, 255, 255, 0.3);
+        color: $white-30;
       }
     }
     
     .error-message {
-      color: #ff5c5c;
+      color: $error-color;
       font-size: 13px;
       margin-top: 6px;
     }
@@ -274,11 +274,11 @@
       input[type="checkbox"] {
         width: 16px;
         height: 16px;
-        accent-color: #ffffff;
+        accent-color: $white;
         appearance: none;
         -webkit-appearance: none;
-        background-color: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.4);
+        background-color: $white-05;
+        border: 1px solid $white-40;
         border-radius: 4px;
         cursor: pointer;
         position: relative;
@@ -286,7 +286,7 @@
         margin-right: 8px;
         
         &:checked {
-          background-color: rgba(255, 255, 255, 0.8);
+          background-color: $white-80;
           border-color: transparent;
           
           &:after {
@@ -295,33 +295,33 @@
             left: 4px;
             width: 5px;
             height: 9px;
-            border: solid #000000;
+            border: solid $black;
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
           }
         }
         
         &:hover {
-          border-color: rgba(255, 255, 255, 0.8);
-          box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+          border-color: $white-80;
+          box-shadow: 0 0 5px $white-20;
         }
         
         &:focus {
           outline: none;
-          border-color: rgba(255, 255, 255, 0.9);
-          box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+          border-color: $white-90;
+          box-shadow: 0 0 8px $white-30;
         }
       }
       
       label {
         font-size: 14px;
-        color: rgba(255, 255, 255, 0.7);
+        color: $white-70;
         display: flex;
         align-items: center;
       }
       
       .terms-link {
-        color: #ffffff;
+        color: $white;
         text-decoration: none;
         margin: 0 4px;
         position: relative;
@@ -333,7 +333,7 @@
           left: 0;
           width: 0;
           height: 1px;
-          background: rgba(255, 255, 255, 0.8);
+          background: $white-80;
           transition: width 0.3s ease;
         }
         
@@ -349,8 +349,8 @@
   .signup-button {
     width: 100%;
     padding: 16px;
-    background: linear-gradient(90deg, #ffffff 0%, #cccccc 100%);
-    color: #000;
+    background: $white-gradient;
+    color: $black;
     border: none;
     border-radius: 50px;
     font-size: 16px;
@@ -359,7 +359,7 @@
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px $white-30;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -372,11 +372,11 @@
     
     &:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 25px $white-50;
     }
     
     &:disabled {
-      background: linear-gradient(90deg, #666666 0%, #888888 100%);
+      background: $gray-light-gradient;
       cursor: not-allowed;
       box-shadow: none;
       transform: none;
@@ -391,12 +391,12 @@
   
   p {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
+    color: $white-70;
     margin: 0;
   }
   
   .login-link {
-    color: #ffffff;
+    color: $white;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -409,13 +409,13 @@
       left: 0;
       width: 0;
       height: 1px;
-      background: rgba(255, 255, 255, 0.8);
+      background: $white-80;
       transition: width 0.3s ease;
     }
     
     &:hover {
       text-decoration: none;
-      color: #ffffff;
+      color: $white;
       
       &:after {
         width: 100%;
