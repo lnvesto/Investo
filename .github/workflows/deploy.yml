@@ -42,6 +42,7 @@ jobs:
 
       - name: Build
         run: cd investo-platform && yarn nx build investo-client --configuration=production --base-href=./ --skip-nx-cache
+
         
       - name: Prepare for GitHub Pages
         run: |
@@ -90,4 +91,4 @@ jobs:
           folder: investo-platform/dist/apps/investo-client/browser
           branch: gh-pages
           clean: false
-          token: ${{ github.token }}
+          token: ${{ github.token }} 
