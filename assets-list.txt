@@ -1,4 +1,3 @@
-./main.3eba10bba3aad7f9.js
 ./runtime.f2d8ecea5867a069.js
 ./assets-list.txt
 ./assets/fonts/ClashDisplay-Medium.woff
@@ -28,5 +27,6 @@
 ./3rdpartylicenses.txt
 ./environments/environment.prod.ts
 ./environments/environment.ts
+./main.f058154644b224dc.js
 ./polyfills.ba6be0ce6f970b6a.js
 ./index.html

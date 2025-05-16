@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.investo.app', 
+  apiUrl: 'investo-api.azurewebsites.net', 
   blockchainNetwork: 'testnet', 
   contractAddress: '0x1234567890123456789012345678901234567890', 
   infuraProjectId: 'your-infura-project-id',
