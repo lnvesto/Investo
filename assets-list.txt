@@ -27,6 +27,6 @@
 ./3rdpartylicenses.txt
 ./environments/environment.prod.ts
 ./environments/environment.ts
-./main.a7b937434d3be395.js
+./main.8b187805db4ed2b1.js
 ./polyfills.ba6be0ce6f970b6a.js
 ./index.html
