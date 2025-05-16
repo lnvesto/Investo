@@ -1,4 +1,9 @@
+./ClashDisplay-Regular.285d44360adb7279.woff2
+./ClashDisplay-Regular.0a8af53faac264c2.woff
+./styles.2f24ec472bc905b3.css
+./ClashDisplay-Bold.271f77516f49b23e.woff2
 ./runtime.f2d8ecea5867a069.js
+./ClashDisplay-Medium.b4029a771f1a281e.woff
 ./assets-list.txt
 ./assets/fonts/ClashDisplay-Medium.woff
 ./assets/fonts/ClashDisplay-Light.woff
@@ -22,7 +27,8 @@
 ./assets/images/walletconnect.svg
 ./assets/images/metamask.svg
 ./assets/images/Investo.png
-./styles.5067da93e3cbc3b6.css
+./ClashDisplay-Semibold.02d655c1dbb838f4.woff2
+./ClashDisplay-Bold.eb853a67e431d047.woff
 ./404.html
 ./3rdpartylicenses.txt
 ./environments/environment.prod.ts
@@ -30,3 +36,5 @@
 ./main.8b187805db4ed2b1.js
 ./polyfills.ba6be0ce6f970b6a.js
 ./index.html
+./ClashDisplay-Semibold.cffe86e99bf1e93e.woff
+./ClashDisplay-Medium.086a70ddba625929.woff2
