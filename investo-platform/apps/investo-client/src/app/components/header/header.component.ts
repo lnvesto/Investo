@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   isDarkPage = false;
   isTablet = false;
 
-  // Breakpoints for responsive design
+  
   private readonly MOBILE_BREAKPOINT = 768;
   private readonly TABLET_BREAKPOINT = 1024;
 
@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
-    // Close user menu when clicking outside
+    
     if (this.isUserMenuOpen) {
       const userAccountEl = this.el.nativeElement.querySelector('.user-account');
       if (userAccountEl && !userAccountEl.contains(event.target)) {
@@ -68,8 +68,8 @@ export class HeaderComponent implements OnInit {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
         this.checkCurrentRoute(event.url);
-        this.closeMenu(); // Close menu on navigation
-        this.isUserMenuOpen = false; // Close user menu on navigation
+        this.closeMenu(); 
+        this.isUserMenuOpen = false; 
       });
       
     this.onWindowScroll();
@@ -112,6 +112,18 @@ export class HeaderComponent implements OnInit {
   toggleUserMenu(event: Event) {
     event.stopPropagation();
     this.isUserMenuOpen = !this.isUserMenuOpen;
+    
+    
+    if (this.isUserMenuOpen) {
+      setTimeout(() => {
+        const menuLinks = this.el.nativeElement.querySelectorAll('.account-dropdown .menu-link');
+        menuLinks.forEach((link: HTMLElement, index: number) => {
+          setTimeout(() => {
+            link.classList.add('animate-in');
+          }, 50 * index); 
+        });
+      }, 150); 
+    }
   }
 
   closeMenu() {

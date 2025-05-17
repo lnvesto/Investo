@@ -1,13 +1,31 @@
-<div class="real-estate-card" (click)="navigateToDetails()" [attr.aria-label]="'View details of ' + realEstate.title">
-  <div class="card-image" [style.background-image]="'url(' + realEstate.images[0].image_url + ')'" role="img" [attr.aria-label]="realEstate.title + ' property image'"></div>
+<div class="real-estate-card" 
+     (click)="navigateToDetails()" 
+     [attr.aria-label]="'View details of ' + realEstate.title"
+     role="article"
+     tabindex="0">
+  <div class="card-image" 
+       [style.background-image]="'url(' + realEstate.images[0].image_url + ')'" 
+       role="img" 
+       [attr.aria-label]="realEstate.title + ' property image'">
+    <div class="image-overlay"></div>
+  </div>
   <div class="card-content">
     <div class="card-info">
-      <p class="category">{{ realEstate.category }}</p>
-      <p class="location">{{ realEstate.location }}</p>
+      <p class="category" [attr.aria-label]="'Property category: ' + realEstate.category">
+        {{ realEstate.category }}
+      </p>
+      <p class="location" [attr.aria-label]="'Property location: ' + realEstate.location">
+        {{ realEstate.location }}
+      </p>
     </div>
     <h3 class="card-title" [title]="realEstate.title">{{ realEstate.title }}</h3>
     <div class="card-footer">
-      <span class="price">{{ formatPrice(realEstate.price) }}</span>
+      <span class="price" [attr.aria-label]="'Property price: ' + formatPrice(realEstate.price)">
+        {{ formatPrice(realEstate.price) }}
+      </span>
+      <span class="roi" *ngIf="realEstate.expectedRoi" [attr.aria-label]="'Expected ROI: ' + realEstate.expectedRoi + '%'">
+        {{ realEstate.expectedRoi }}% ROI
+      </span>
     </div>
   </div>
 </div>

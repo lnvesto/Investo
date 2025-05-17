@@ -4,18 +4,29 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { SupportChatComponent } from './pages/support-chat/support-chat.component';
+import { ToastService } from './services/toast.service';
+import { ToastNotificationComponent } from './components/toast-notification/toast-notification.component';
+import { CommonModule } from '@angular/common';
+import { CookieComponent } from './components/cookie/cookie.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, MainPageComponent, SupportChatComponent],
-  template: `
-    <app-header></app-header>
-    <router-outlet></router-outlet>
-    <app-footer></app-footer>
-    <app-support-chat></app-support-chat>
-  `
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    HeaderComponent,
+    FooterComponent,
+    MainPageComponent,
+    SupportChatComponent,
+    ToastNotificationComponent,
+    CookieComponent
+  ],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'investo-client';
+
+  constructor(public toastService: ToastService) {}
 }

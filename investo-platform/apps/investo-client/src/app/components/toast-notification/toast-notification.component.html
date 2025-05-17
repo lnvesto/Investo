@@ -1,0 +1,36 @@
+<div class="toast-root" [ngClass]="getToastClasses()">
+  <div class="toast-icon">
+    <svg *ngIf="toast.type === 'success'" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 6L9 17L4 12" stroke="#43A047" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
+    <svg *ngIf="toast.type === 'error'" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#FF4D4F" stroke-width="2"/>
+      <path d="M15 9L9 15" stroke="#FF4D4F" stroke-width="2" stroke-linecap="round"/>
+      <path d="M9 9L15 15" stroke="#FF4D4F" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+
+    <svg *ngIf="toast.type === 'warning'" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#F59E42" stroke-width="2"/>
+      <path d="M12 8V12" stroke="#F59E42" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="12" cy="16" r="1" fill="#F59E42"/>
+    </svg>
+
+    <svg *ngIf="toast.type === 'info' || !toast.type" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#5096FF" stroke-width="2"/>
+      <path d="M12 16V12" stroke="#5096FF" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="12" cy="8" r="1" fill="#5096FF"/>
+    </svg>
+  </div>
+  
+  <div class="toast-content">
+    <div class="toast-message">{{ toast.message }}</div>
+    <div class="toast-subtext" *ngIf="toast.subText">{{ toast.subText }}</div>
+  </div>
+  
+  <button class="toast-close" (click)="onClose()" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div> 

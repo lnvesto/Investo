@@ -1,0 +1,14 @@
+.toast-container {
+  position: fixed;
+  top: 100px;
+  right: 32px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  pointer-events: none;
+}
+
+.toast-container app-toast-notification {
+  pointer-events: all;
+}

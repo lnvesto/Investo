@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-login-page',
@@ -23,7 +24,8 @@ export class LoginPageComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -66,12 +68,16 @@ export class LoginPageComponent implements OnInit {
     
     this.authService.login(credentials).subscribe({
       next: (response) => {
-        console.log('Login successful, navigating to:', this.returnUrl);
-        this.router.navigateByUrl(this.returnUrl);
+        this.toastService.show({
+          message: 'Login successful!',
+          subText: 'Welcome to the system!',
+          type: 'success'
+        });
+
+          this.router.navigateByUrl(this.returnUrl);
         this.isSubmitting = false;
       },
       error: (err) => {
-        console.error('Login error:', err);
         this.errorMessage = err.error?.message || 'Invalid email or password. Please try again.';
         this.isSubmitting = false;
       }
