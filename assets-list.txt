@@ -5,7 +5,6 @@
 ./runtime.f2d8ecea5867a069.js
 ./ClashDisplay-Medium.b4029a771f1a281e.woff
 ./assets-list.txt
-./main.0cfee1f16beebd27.js
 ./assets/fonts/ClashDisplay-Medium.woff
 ./assets/fonts/ClashDisplay-Light.woff
 ./assets/fonts/ClashDisplay-Semibold.woff2
@@ -31,6 +30,7 @@
 ./assets/images/Investo.png
 ./ClashDisplay-Semibold.02d655c1dbb838f4.woff2
 ./ClashDisplay-Bold.eb853a67e431d047.woff
+./main.c76847e8c497910f.js
 ./404.html
 ./3rdpartylicenses.txt
 ./environments/environment.prod.ts
