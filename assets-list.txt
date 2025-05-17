@@ -5,6 +5,7 @@
 ./runtime.f2d8ecea5867a069.js
 ./ClashDisplay-Medium.b4029a771f1a281e.woff
 ./assets-list.txt
+./main.0cfee1f16beebd27.js
 ./assets/fonts/ClashDisplay-Medium.woff
 ./assets/fonts/ClashDisplay-Light.woff
 ./assets/fonts/ClashDisplay-Semibold.woff2
@@ -32,7 +33,6 @@
 ./ClashDisplay-Bold.eb853a67e431d047.woff
 ./404.html
 ./3rdpartylicenses.txt
-./main.459c673cb59b5b11.js
 ./environments/environment.prod.ts
 ./environments/environment.ts
 ./polyfills.ba6be0ce6f970b6a.js
