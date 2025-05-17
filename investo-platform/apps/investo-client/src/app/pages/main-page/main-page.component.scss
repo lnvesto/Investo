@@ -486,7 +486,7 @@ p.hero-description {
 
     .real-estate-cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
       margin-bottom: 3rem;
 
@@ -1050,8 +1050,20 @@ p.hero-description {
       }
       
       .real-estate-cards {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 1.5rem;
+      }
+    }
+  }
+}
+
+// Tablet portrait and smaller tablets
+@media (max-width: 768px) {
+  .real-estate-section {
+    .real-estate-content {
+      .real-estate-cards {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.25rem;
       }
     }
   }
@@ -1076,7 +1088,10 @@ p.hero-description {
   .real-estate-section {
     .real-estate-content {
       .real-estate-cards {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(220px, 1fr);
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
       }
     }
   }

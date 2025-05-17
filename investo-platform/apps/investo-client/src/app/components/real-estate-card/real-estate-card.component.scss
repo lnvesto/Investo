@@ -148,6 +148,8 @@
       margin-top: auto;
       padding-top: 20px;
       border-top: 1px solid $white-10;
+      flex-wrap: wrap;
+      gap: 10px;
 
       .price {
         font-size: 24px;
@@ -167,6 +169,11 @@
           font-size: 18px;
           opacity: 0.8;
         }
+      }
+      
+      .roi {
+        font-weight: 600;
+        color: $white-90;
       }
     }
   }
@@ -265,7 +272,7 @@
     }
     
     .card-content {
-      padding: 20px;
+      padding: 16px;
       
       .card-info {
         margin-bottom: 12px;
@@ -284,8 +291,63 @@
         margin-bottom: 12px;
       }
       
-      .card-footer .price {
-        font-size: 20px;
+      .card-footer {
+        padding-top: 15px;
+        
+        .price {
+          font-size: 18px;
+          padding-left: 16px;
+          
+          &::before {
+            font-size: 16px;
+          }
+        }
+        
+        .roi {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+// Super Extra Small Screens (Mobile Portrait)
+@media (max-width: 375px) {
+  .real-estate-card {
+    .card-content {
+      padding: 12px;
+      
+      .card-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        
+        p:last-child {
+          font-size: 11px;
+        }
+      }
+      
+      .card-title {
+        font-size: 16px;
+        -webkit-line-clamp: 2;
+        margin-bottom: 10px;
+      }
+      
+      .card-footer {
+        padding-top: 12px;
+        
+        .price {
+          font-size: 16px;
+          padding-left: 14px;
+          
+          &::before {
+            font-size: 14px;
+          }
+        }
+        
+        .roi {
+          font-size: 12px;
+        }
       }
     }
   }
