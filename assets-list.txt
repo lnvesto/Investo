@@ -1,10 +1,10 @@
 ./styles.31924991350c2507.css
+./main.eeebe51956b2a4cb.js
 ./ClashDisplay-Regular.285d44360adb7279.woff2
 ./ClashDisplay-Regular.0a8af53faac264c2.woff
 ./ClashDisplay-Bold.271f77516f49b23e.woff2
 ./runtime.f2d8ecea5867a069.js
 ./ClashDisplay-Medium.b4029a771f1a281e.woff
-./main.dd6747a8b1535c7b.js
 ./assets-list.txt
 ./assets/fonts/ClashDisplay-Medium.woff
 ./assets/fonts/ClashDisplay-Light.woff
