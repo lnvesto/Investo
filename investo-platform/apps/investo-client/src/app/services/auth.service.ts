@@ -25,6 +25,11 @@ export class AuthService {
   public currentUser$ = this.currentUserSubject.asObservable();
   private tokenExpirationTimer: any;
   
+  
+  private cachedToken: string | null = null;
+  private tokenCacheTime: number = 0;
+  private readonly TOKEN_CACHE_DURATION = 30000; 
+  
   constructor(
     private http: HttpClient,
     private errorHandler: ErrorHandlerService,
@@ -83,6 +88,8 @@ export class AuthService {
           
           localStorage.setItem('currentUser', JSON.stringify(userData));
           this.cookieService.setCookie('jwt', response.token, 1);
+
+          this.setCachedToken(response.token);
           
           this.currentUserSubject.next(userData);
           
@@ -120,6 +127,8 @@ export class AuthService {
           
           localStorage.setItem('currentUser', JSON.stringify(userData));
           this.cookieService.setCookie('jwt', response.token, 1);
+
+          this.setCachedToken(response.token);
           
           this.currentUserSubject.next(userData);
           
@@ -142,6 +151,9 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     this.cookieService.deleteCookie('jwt');
     this.currentUserSubject.next(null);
+
+    this.clearCachedToken();
+    
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
@@ -178,19 +190,43 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
   
+  
+  private setCachedToken(token: string): void {
+    this.cachedToken = token;
+    this.tokenCacheTime = Date.now();
+  }
+  
+  private clearCachedToken(): void {
+    this.cachedToken = null;
+    this.tokenCacheTime = 0;
+  }
+  
+  private isTokenCacheValid(): boolean {
+    return !!this.cachedToken && 
+           (Date.now() - this.tokenCacheTime) < this.TOKEN_CACHE_DURATION;
+  }
+  
   getAuthToken(): string | null {
+    
+    if (this.isTokenCacheValid()) {
+      return this.cachedToken;
+    }
+    
+    
     const cookieToken = this.cookieService.getCookie('jwt');
     if (cookieToken) {
       console.log('Token found in cookie');
+      this.setCachedToken(cookieToken);
       return cookieToken;
     }
 
+    
     const userJson = localStorage.getItem('currentUser');
     if (userJson) {
       try {
         const user = JSON.parse(userJson);
         if (user.token) {
-          console.log('Token found in localStorage');
+          this.setCachedToken(user.token);
           return user.token;
         }
       } catch (e) {
@@ -199,7 +235,6 @@ export class AuthService {
       }
     }
     
-
     return null;
   }
   
@@ -250,6 +285,9 @@ export class AuthService {
       tap(response => {
         if (response.success && response.token) {
           this.cookieService.setCookie('jwt', response.token, 1);
+          
+          
+          this.setCachedToken(response.token);
           
           const userJson = localStorage.getItem('currentUser');
           if (userJson) {
