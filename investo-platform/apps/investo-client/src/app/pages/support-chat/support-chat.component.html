@@ -1,6 +1,6 @@
 <div class="support-chat-container" [class.active]="isChatOpen">
   <button class="chat-toggle-btn" (click)="toggleChat()" aria-label="Toggle support chat" #chatToggleBtn>
-    <span class="button-text" *ngIf="!isChatOpen">Investo Support</span>
+    <span class="material-icons chat-icon" *ngIf="!isChatOpen">chat</span>
     <span class="material-icons close-icon" *ngIf="isChatOpen">close</span>
   </button>
   
