@@ -1,5 +1,7 @@
 @import 'variables';
 
+
+
 // Animation Keyframes
 @keyframes fadeIn {
   from {
@@ -45,15 +47,28 @@
   }
 }
 
+// Hero LCP specific animations 
+// These ensure the important content is visible immediately
+@keyframes subtleFadeUp {
+  from {
+    opacity: 0.95;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes blockchainPulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 0 $white-40;
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    box-shadow: 0 0 0 10px $white-0;
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    box-shadow: 0 0 0 0 $white-0;
   }
 }
 
@@ -69,12 +84,87 @@
   }
 }
 
+// Additional modern animations
+@keyframes floatUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: -100px;
+  }
+  60%, 100% {
+    background-position: 320px;
+  }
+}
+
+// Mouse wheel animation
+@keyframes scrollWheel {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+}
+
+// Arrow down animation
+@keyframes arrowBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) rotate(45deg);
+  }
+  40% {
+    transform: translateY(-10px) rotate(45deg);
+  }
+  60% {
+    transform: translateY(-5px) rotate(45deg);
+  }
+}
+
+// Unified SVG styling variables
+
+
 // Main Page Styles
 .main-page {
   font-family: $font-family;
-  background: #000000;
-  color: #fff;
+  background: $dark-bg;
+  color: $text-color-dark;
   overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+// CRITICAL: Fix LCP element by ensuring hero title is visible on initial load
+h1.hero-main-title {
+  opacity: 1 !important; // Force visibility
+  transform: translateY(0) !important; // Force position
+  animation: subtleFadeUp 0.5s ease-out; // Optional subtle animation that doesn't delay visibility
+}
+
+p.hero-description {
+  opacity: 1 !important; 
+  transform: translateY(0) !important;
+  animation: subtleFadeUp 0.5s ease-out 0.1s;
 }
 
 // Scroll Animation Classes
@@ -83,6 +173,7 @@
   transition: all 0.6s ease;
 }
 
+// Normal animations for non-hero elements
 .scroll-fade-in {
   opacity: 0;
   transform: translateY(30px);
@@ -127,297 +218,7 @@
   }
 }
 
-// Hero Section
-.hero-section {
-  padding: 10rem 2rem 6rem;
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-  color: #fff;
-  text-align: center;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('/assets/images/grid-pattern.svg');
-    opacity: 0.05;
-    background-size: cover;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    height: 80%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
-    filter: blur(60px);
-    z-index: 0;
-  }
-
-  .hero-content-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-
-    .hero-main-title {
-      font-size: 4.5rem;
-      font-weight: 800;
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-      background: linear-gradient(90deg, #fff 0%, #cccccc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    }
-
-    .hero-description {
-      font-size: 1.4rem;
-      margin-bottom: 2.5rem;
-      opacity: 0.9;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .hero-action-buttons {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-
-      .btn {
-        padding: 1rem 2.5rem;
-        border-radius: 50px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-size: 1.1rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        border: none;
-
-        &-primary {
-          background: linear-gradient(90deg, #ffffff 0%, #cccccc 100%);
-          color: #000;
-          box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-
-          &:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.5);
-          }
-        }
-
-        &-secondary {
-          background: rgba(255, 255, 255, 0.05);
-          color: #fff;
-          border: 1px solid rgba(255, 255, 255, 0.5);
-          backdrop-filter: blur(5px);
-
-          &:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-            border-color: rgba(255, 255, 255, 0.7);
-          }
-        }
-      }
-    }
-  }
-}
-
-// Stats Section
-.stats-section {
-  padding: 5rem 2rem;
-  background: transparent;
-  position: relative;
-  z-index: 2;
-
-  .stats-grid {
-    display: flex;
-    justify-content: space-around;
-    max-width: $container-max-width;
-    margin: 0 auto;
-    gap: 3rem;
-
-    .stat-card {
-      text-align: center;
-      padding: 2rem;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.3s ease;
-      
-      &:hover {
-        transform: translateY(-5px);
-        border-color: rgba(255, 255, 255, 0.6);
-        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
-      }
-
-      .stat-number {
-        font-size: 3.5rem;
-        font-weight: 800;
-        color: #ffffff;
-        margin-bottom: 0.5rem;
-      }
-
-      .stat-text {
-        font-size: 1.2rem;
-        color: rgba(255, 255, 255, 0.7);
-        font-weight: 500;
-      }
-    }
-  }
-}
-
-// Features Section
-.features-section {
-  padding: 6rem 2rem;
-  background: #0a0a0a;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  }
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2.5rem;
-    max-width: $container-max-width;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-
-    .feature-card {
-      padding: 2.5rem;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.3s ease;
-
-      &:hover {
-        transform: translateY(-10px);
-        border-color: rgba(255, 255, 255, 0.5);
-        box-shadow: 0 15px 35px rgba(255, 255, 255, 0.1);
-      }
-
-      .feature-icon-wrapper {
-        font-size: 3rem;
-        color: #ffffff;
-        margin-bottom: 1.5rem;
-        background: rgba(255, 255, 255, 0.1);
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .feature-title {
-        font-size: 1.8rem;
-        font-weight: 700;
-        margin-bottom: 1.2rem;
-        color: #fff;
-        text-align: center;
-      }
-
-      .feature-description {
-        color: rgba(255, 255, 255, 0.7);
-        line-height: 1.8;
-        font-weight: 400;
-        font-size: 1.1rem;
-        text-align: center;
-      }
-    }
-  }
-}
-
-// Investment Options Section
-.investment-options-section {
-  padding: 6rem 2rem;
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-  color: #fff;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('/assets/images/hex-pattern.svg');
-    opacity: 0.05;
-    background-size: cover;
-  }
-
-  .investment-content {
-    max-width: $container-max-width;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-
-    h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      background: linear-gradient(90deg, #fff 0%, #cccccc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    h2 {
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      color: #ffffff;
-    }
-
-    p {
-      font-size: 1.3rem;
-      margin-bottom: 3rem;
-      color: rgba(255, 255, 255, 0.8);
-      font-weight: 400;
-      line-height: 1.6;
-    }
-  }
-}
 
 .investment-cards {
   display: flex;
@@ -434,12 +235,12 @@
     flex: 1;
     max-width: 500px;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid $white-20;
 
     &:hover {
       transform: translateY(-5px);
-      border-color: rgba(255, 255, 255, 0.5);
-      box-shadow: 0 15px 35px rgba(255, 255, 255, 0.15);
+      border-color: $white-50;
+      box-shadow: 0 15px 35px $white-15;
     }
 
     .btn {
@@ -452,12 +253,12 @@
       max-width: 350px;
       transition: all 0.3s ease;
       border: none;
-      background: linear-gradient(90deg, #ffffff 0%, #cccccc 100%);
-      color: #000;
+      background: $white-gradient;
+      color: $black;
       
       &:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+        box-shadow: 0 8px 25px $white-40;
       }
     }
 
@@ -465,12 +266,12 @@
       font-size: 1.1rem;
       line-height: 1.6;
       margin: 0;
-      color: rgba(255, 255, 255, 0.8);
+      color: $white-80;
     }
   }
 
   .crypto-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: $white-05;
     position: relative;
     overflow: hidden;
     
@@ -481,13 +282,13 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+      background: $glow-white-8;
       z-index: -1;
     }
   }
 
   .fiat-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: $white-05;
     position: relative;
     overflow: hidden;
     
@@ -498,7 +299,7 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+      background: $glow-white-5;
       z-index: -1;
     }
   }
@@ -507,8 +308,8 @@
 // Blockchain Section
 .blockchain-section {
   padding: 6rem 2rem;
-  background: #0a0a0a;
-  color: #fff;
+  background: rgba(28, 39, 60, 0.8);
+  color: white;
   position: relative;
   overflow: hidden;
 
@@ -520,6 +321,16 @@
     width: 100%;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  }
+  
+  .blockchain-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(80, 150, 255, 0.1), transparent 60%);
+    z-index: 0;
   }
 
   .blockchain-content {
@@ -535,12 +346,15 @@
     .blockchain-text {
       flex: 1;
       text-align: left;
+      // Force initial visibility for critical elements
+      opacity: 1 !important;
+      transform: translateX(0) !important;
 
       h1 {
         font-size: 2.8rem;
         font-weight: 800;
         margin-bottom: 1.5rem;
-        background: linear-gradient(90deg, #fff 0%, #cccccc 100%);
+        background: linear-gradient(90deg, white 0%, #a5c2f7 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
@@ -549,6 +363,31 @@
         font-size: 1.1rem;
         line-height: 1.8;
         color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 1.5rem;
+      }
+      
+      .learn-more-link {
+        display: inline-flex;
+        align-items: center;
+        color: $white;
+        font-weight: 600;
+        gap: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        svg {
+          transition: transform 0.3s ease;
+          fill: $white;
+        }
+        
+        &:hover {
+          color: $blue;
+          
+          svg {
+            transform: translateX(5px);
+            fill: $blue;
+          }
+        }
       }
     }
 
@@ -557,6 +396,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      // Force initial visibility for critical elements
+      opacity: 1 !important;
+      transform: translateX(0) !important;
 
       .blockchain-animation {
         position: relative;
@@ -569,7 +411,11 @@
         img {
           max-width: 100%;
           height: auto;
+          width: 100%;
+          min-height: 400px;
+          min-width: 400px;
           animation: floatingBlocks 6s ease-in-out infinite;
+          object-fit: contain;
         }
 
         &::after {
@@ -578,7 +424,7 @@
           width: 200px;
           height: 200px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(80, 150, 255, 0.1);
           filter: blur(40px);
           z-index: -1;
           animation: blockchainPulse 2s infinite;
@@ -591,8 +437,8 @@
 // Real Estate Section
 .real-estate-section {
   padding: 6rem 2rem;
-  background: linear-gradient(135deg, #000000 0%, #0a0e17 100%);
-  color: #fff;
+  background: linear-gradient(180deg, rgba(14, 21, 37, 1) 0%, rgba(28, 39, 60, 0.8) 100%);
+  color: white;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -605,17 +451,7 @@
     width: 100%;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100px;
-    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
-    z-index: 0;
+    z-index: 1;
   }
 
   .real-estate-content {
@@ -628,7 +464,7 @@
       font-size: 3rem;
       font-weight: 800;
       margin-bottom: 1rem;
-      background: linear-gradient(90deg, #fff 0%, #cccccc 100%);
+      background: linear-gradient(90deg, #ffffff 0%, #a5c2f7 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -682,6 +518,10 @@
       margin-top: 2rem;
       
       .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
         padding: 1rem 2.5rem;
         border-radius: 50px;
         font-weight: 600;
@@ -691,15 +531,24 @@
         text-transform: uppercase;
         letter-spacing: 0.5px;
         background: rgba(255, 255, 255, 0.05);
-        color: #fff;
+        color: white;
         border: 1px solid rgba(255, 255, 255, 0.3);
         backdrop-filter: blur(5px);
+
+        svg {
+          transition: transform 0.3s ease;
+          fill: $svg-light-color;
+        }
 
         &:hover {
           background: rgba(255, 255, 255, 0.1);
           transform: translateY(-3px);
           border-color: rgba(255, 255, 255, 0.5);
           box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+          
+          svg {
+            transform: translateX(5px);
+          }
         }
       }
     }
@@ -709,8 +558,8 @@
 // Final CTA Section
 .cta-section {
   padding: 6rem 2rem;
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-  color: #fff;
+  background: linear-gradient(180deg, rgba(28, 39, 60, 0.8) 0%, rgba(14, 21, 37, 1) 100%);
+  color: white;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -732,7 +581,7 @@
     left: 0;
     right: 0;
     height: 200px;
-    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+    background: radial-gradient(ellipse at bottom, rgba(80, 150, 255, 0.1), transparent 70%);
     z-index: 0;
   }
 
@@ -746,7 +595,7 @@
       font-size: 3.5rem;
       font-weight: 800;
       margin-bottom: 1.5rem;
-      background: linear-gradient(90deg, #fff 0%, #cccccc 100%);
+      background: linear-gradient(90deg, white 0%, #a5c2f7 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -760,28 +609,41 @@
     }
 
     .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       padding: 1.2rem 4rem;
       font-size: 1.2rem;
       font-weight: 600;
-      background: linear-gradient(90deg, #ffffff 0%, #cccccc 100%);
-      color: #000;
+      background: linear-gradient(90deg, #5096ff 0%, #7863ff 100%);
+      color: white;
       border: none;
       border-radius: 50px;
       cursor: pointer;
       transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 1px;
-      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 15px rgba(80, 150, 255, 0.3);
+
+      svg {
+        transition: transform 0.3s ease;
+        fill: $svg-light-color;
+      }
 
       &:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 8px 25px rgba(80, 150, 255, 0.5);
+        
+        svg {
+          transform: translateX(5px);
+        }
       }
     }
   }
 }
 
-// Improved container style for better consistency
+// Container style
 .container {
   width: 100%;
   max-width: $container-max-width;
@@ -791,7 +653,7 @@
   z-index: 1;
 }
 
-// Enhanced section headers
+// Section headers
 .section-header {
   margin-bottom: 4rem;
   
@@ -799,14 +661,14 @@
     font-size: 2.8rem;
     font-weight: 800;
     margin-bottom: 1rem;
-    background: linear-gradient(90deg, #fff 0%, #cccccc 100%);
+    background: linear-gradient(90deg, $white 0%, #cccccc 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   
   p {
     font-size: 1.3rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: $white-80;
     max-width: 700px;
     margin: 0 auto;
     line-height: 1.6;
@@ -817,98 +679,331 @@
   text-align: center;
 }
 
-// Responsive Design
-@media (max-width: $mobile) {
-  .hero-section {
-    padding: 8rem 1.5rem 4rem;
-    
-    .hero-content-wrapper {
-      .hero-main-title {
-        font-size: 2.5rem;
-      }
-      
-      .hero-description {
-        font-size: 1.2rem;
-      }
+// Modern Link Button
+.modern-link-button {
+  padding: 8px 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  --button-text-color: #{$white-80};
+  --button-hover-color: #{$svg-primary-color};
+
+  position: relative;
+  display: inline-flex;
+  font-weight: 600;
+  font-size: 1.1rem;
+  gap: 0.5rem;
+  align-items: center;
+  color: var(--button-text-color);
+  text-decoration: none;
+
+  p,
+  span.link-text {
+    margin: 0;
+    position: relative;
+    font-size: inherit;
+    color: var(--button-text-color);
+    transition: color 0.3s ease-out;
+  }
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 0;
+    left: 0;
+    bottom: -2px;
+    background: var(--button-hover-color);
+    height: 2px;
+    transition: width 0.3s ease-out;
+  }
+
+  &:hover {
+    p,
+    span.link-text {
+      color: var(--button-hover-color);
+    }
+    &::after {
+      width: 100%;
+    }
+    svg {
+      transform: translateX(4px);
+      fill: var(--button-hover-color);
+      stroke: var(--button-hover-color);
     }
   }
 
-  .stats-section {
-    padding: 3rem 1.5rem;
+  svg {
+    fill: var(--button-text-color);
+    stroke: var(--button-text-color);
+    transition: transform 0.2s 0.2s, fill 0.3s ease-out, stroke 0.3s ease-out;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  &.on-light-bg {
+    --button-text-color: #{$light-text-secondary};
+    --button-hover-color: #{$svg-primary-color};
+    svg { 
+      fill: var(--button-text-color);
+      stroke: var(--button-text-color);
+    }
+    &:hover svg { 
+      fill: var(--button-hover-color);
+      stroke: var(--button-hover-color);
+    }
+  }
+}
+
+// Animated Button (for CTA section)
+.animated-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 14px 34px;
+  border: 3px solid transparent;
+  font-size: 1rem;
+  background-color: transparent;
+  border-radius: 100px;
+  font-weight: 600;
+  color: $svg-accent-color;
+  box-shadow: 0 0 0 2px $svg-accent-color;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  text-decoration: none;
+  min-height: 48px;
+  line-height: 1;
+
+  svg {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    fill: $svg-accent-color;
+    z-index: 9;
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .arr-1 {
+    right: 16px;
+  }
+
+  .arr-2 {
+    left: -25%;
+  }
+
+  .circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background-color: $svg-accent-color;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .text {
+    position: relative;
+    z-index: 1;
+    transform: translateX(-10px);
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    white-space: nowrap;
+  }
+
+  &:hover {
+    box-shadow: 0 0 0 10px transparent;
+    color: $svg-light-color;
+    border-radius: 10px;
+
+    .arr-1 {
+      right: -25%;
+    }
+
+    .arr-2 {
+      left: 16px;
+    }
+
+    .text {
+      transform: translateX(10px);
+    }
+
+    svg {
+      fill: $svg-light-color;
+    }
+
+    .circle {
+      width: 220px;
+      height: 220px;
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    scale: 0.95;
+    box-shadow: 0 0 0 3px $svg-accent-color;
+  }
+}
+
+// Improved responsive styles for mobile
+@media (max-width: $mobile) {
+  // Blockchain section responsive
+  .blockchain-section {
+    padding: 3rem 1rem;
     
-    .stats-grid {
+    .blockchain-content {
       flex-direction: column;
       gap: 2rem;
-    }
-  }
-
-  .features-section {
-    padding: 4rem 1.5rem;
-    
-    .features-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .investment-options-section {
-    padding: 4rem 1.5rem;
-    
-    .investment-content {
-      h1 {
-        font-size: 2.5rem;
+      
+      .blockchain-text {
+        text-align: center;
+        
+        h1 {
+          font-size: 1.8rem;
+          margin-bottom: 1rem;
+        }
+        
+        p {
+          font-size: 0.95rem;
+          line-height: 1.6;
+          margin-bottom: 1.2rem;
+        }
+        
+        .learn-more-link {
+          font-size: 1rem;
+        }
       }
       
-      h2 {
-        font-size: 1.5rem;
+      .blockchain-visual {
+        .blockchain-animation {
+          height: 200px;
+          
+          img {
+            max-width: 80%;
+          }
+          
+          &::after {
+            width: 150px;
+            height: 150px;
+          }
+        }
       }
-      
-      p {
-        font-size: 1.1rem;
-      }
-    }
-  }
-
-  .investment-cards {
-    flex-direction: column;
-    gap: 2rem;
-    
-    .investment-card {
-      padding: 2rem 1.5rem;
     }
   }
   
+  // Real estate section responsive
+  .real-estate-section {
+    padding: 3rem 1rem;
+    
+    .real-estate-content {
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+      
+      p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+      }
+      
+      .real-estate-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      
+      .view-more-container {
+        margin-top: 1rem;
+        
+        .modern-link-button {
+          font-size: 0.9rem;
+          
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+  
+  // CTA section responsive
+  .cta-section {
+    padding: 3rem 1rem;
+    
+    .cta-content {
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+      
+      p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .animated-button {
+        padding: 12px 25px;
+        
+        .text {
+          font-size: 0.9rem;
+        }
+        
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
   .blockchain-section {
+    padding: 5rem 2rem;
+    
     .blockchain-content {
-      flex-direction: column;
       gap: 3rem;
       
       .blockchain-text {
         h1 {
           font-size: 2.4rem;
-          text-align: center;
         }
         
         p {
-          text-align: center;
+          font-size: 1rem;
         }
       }
     }
   }
   
   .real-estate-section {
-    padding: 4rem 1.5rem;
+    padding: 5rem 2rem;
     
     .real-estate-content {
       h1 {
-        font-size: 2.3rem;
+        font-size: 2.5rem;
       }
       
       h2 {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
       }
       
       p {
         font-size: 1.1rem;
+        margin-bottom: 2.5rem;
       }
       
       .real-estate-cards {
@@ -916,208 +1011,42 @@
       }
     }
   }
-  
-  .cta-section {
-    .cta-content {
-      h2 {
-        font-size: 2.5rem;
-      }
-    }
-  }
-}
-
-// Enhanced responsive styles with multiple breakpoints
-@media (max-width: $breakpoint-xl) {
-  .hero-content-wrapper {
-    max-width: 700px;
-    
-    .hero-main-title {
-      font-size: 3.8rem;
-    }
-  }
-  
-  .blockchain-content {
-    gap: 2rem;
-  }
-  
-  .real-estate-cards {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: $breakpoint-lg) {
-  .hero-section {
-    padding: 8rem 2rem 5rem;
-    
-    .hero-content-wrapper {
-      .hero-main-title {
-        font-size: 3.2rem;
-      }
-      
-      .hero-description {
-        font-size: 1.3rem;
-      }
-    }
-  }
-  
-  .stats-section {
-    .stats-grid {
-      flex-wrap: wrap;
-      justify-content: center;
-      
-      .stat-card {
-        flex: 0 0 calc(33.333% - 2rem);
-        min-width: 200px;
-      }
-    }
-  }
-  
-  .features-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  }
-  
-  .real-estate-content {
-    .real-estate-cards {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  .blockchain-content {
-    flex-direction: column;
-    text-align: center;
-    
-    .blockchain-text {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-  }
-  
-  .cta-content h2 {
-    font-size: 3rem;
-  }
-  
-  .section-header {
-    margin-bottom: 3rem;
-    
-    h2 {
-      font-size: 2.4rem;
-    }
-    
-    p {
-      font-size: 1.2rem;
-    }
-  }
 }
 
 @media (max-width: $breakpoint-md) {
-  .hero-section {
-    padding: 7rem 1.5rem 4rem;
-    
-    .hero-content-wrapper {
-      .hero-main-title {
-        font-size: 2.8rem;
-      }
-      
-      .hero-description {
-        font-size: 1.2rem;
-        margin-bottom: 2rem;
-      }
-      
-      .hero-action-buttons {
-        flex-direction: row;
-        flex-wrap: wrap;
-        
-        .btn {
-          flex: 0 0 auto;
-          min-width: 180px;
-          margin: 0.5rem;
-          padding: 0.9rem 1.8rem;
-          font-size: 1rem;
-        }
-      }
-    }
-  }
-
-  .stats-section {
-    padding: 3.5rem 1.5rem;
-    
-    .stats-grid {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      
-      .stat-card {
-        flex: 0 0 calc(50% - 1.5rem);
-        min-width: 0;
-        
-        .stat-number {
-          font-size: 3rem;
-        }
-        
-        .stat-text {
-          font-size: 1.1rem;
-        }
-      }
-    }
-  }
-  
-  .features-section {
-    padding: 4.5rem 1.5rem;
-  }
-  
-  .investment-options-section {
-    padding: 4.5rem 1.5rem;
-    
-    .investment-content {
-      h1 {
-        font-size: 2.6rem;
-      }
-      
-      h2 {
-        font-size: 1.6rem;
-      }
-    }
-  }
-  
-  .investment-cards {
-    flex-direction: column;
-    gap: 2rem;
-    
-    .investment-card {
-      max-width: 100%;
-      padding: 2.5rem 2rem;
-    }
-  }
-  
   .blockchain-section {
-    padding: 4.5rem 1.5rem;
+    padding: 4rem 1.5rem;
     
     .blockchain-content {
+      gap: 2.5rem;
+      
       .blockchain-text {
         h1 {
-          font-size: 2.6rem;
+          font-size: 2.2rem;
         }
       }
       
-      .blockchain-visual {
-        .blockchain-animation {
-          height: 250px;
-        }
+      .blockchain-visual .blockchain-animation {
+        height: 250px;
       }
     }
   }
   
   .real-estate-section {
-    padding: 4.5rem 1.5rem;
+    padding: 4rem 1.5rem;
     
     .real-estate-content {
       h1 {
-        font-size: 2.6rem;
+        font-size: 2.2rem;
       }
       
       h2 {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
+      }
+      
+      p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
       }
       
       .real-estate-cards {
@@ -1126,234 +1055,28 @@
       }
     }
   }
-  
-  .cta-section {
-    padding: 4.5rem 1.5rem;
-    
-    .cta-content {
-      h2 {
-        font-size: 2.8rem;
-      }
-      
-      p {
-        font-size: 1.2rem;
-        margin-bottom: 2rem;
-      }
-      
-      .btn {
-        padding: 1rem 3rem;
-      }
-    }
-  }
-  
-  .section-header {
-    margin-bottom: 2.5rem;
-    
-    h2 {
-      font-size: 2.2rem;
-    }
-    
-    p {
-      font-size: 1.1rem;
-    }
-  }
 }
 
 @media (max-width: $breakpoint-sm) {
-  .hero-section {
-    padding: 6rem 1rem 3rem;
-    
-    .hero-content-wrapper {
-      .hero-main-title {
-        font-size: 2.2rem;
-        margin-bottom: 1rem;
-      }
-      
-      .hero-description {
-        font-size: 1.1rem;
-        margin-bottom: 1.8rem;
-      }
-      
-      .hero-action-buttons {
-        flex-direction: column;
-        width: 100%;
-        max-width: 280px;
-        margin: 0 auto;
-        
-        .btn {
-          width: 100%;
-          margin: 0.5rem 0;
-        }
-      }
-    }
-  }
-  
-  .stats-section {
-    padding: 3rem 1rem;
-    
-    .stats-grid {
+  .blockchain-section {
+    .blockchain-content {
       flex-direction: column;
-      gap: 1.5rem;
-      
-      .stat-card {
-        flex: 0 0 100%;
-        width: 100%;
-        
-        .stat-number {
-          font-size: 2.8rem;
-        }
-      }
-    }
-  }
-  
-  .features-section {
-    padding: 4rem 1rem;
-    
-    .features-grid {
-      grid-template-columns: 1fr;
       gap: 2rem;
       
-      .feature-card {
-        padding: 2rem;
-        
-        .feature-title {
-          font-size: 1.6rem;
-        }
-        
-        .feature-description {
-          font-size: 1rem;
-        }
-      }
-    }
-  }
-  
-  .investment-options-section {
-    padding: 4rem 1rem;
-    
-    .investment-content {
-      h1 {
-        font-size: 2.2rem;
-      }
-      
-      h2 {
-        font-size: 1.4rem;
-      }
-      
-      p {
-        font-size: 1rem;
-        margin-bottom: 2rem;
-      }
-    }
-  }
-  
-  .blockchain-section {
-    padding: 4rem 1rem;
-    
-    .blockchain-content {
       .blockchain-text {
-        h1 {
-          font-size: 2.2rem;
-        }
+        text-align: center;
         
-        p {
-          font-size: 1rem;
+        h1 {
+          font-size: 2rem;
         }
       }
     }
   }
   
   .real-estate-section {
-    padding: 4rem 1rem;
-    
     .real-estate-content {
-      h1 {
-        font-size: 2.2rem;
-      }
-      
-      h2 {
-        font-size: 1.4rem;
-      }
-      
-      p {
-        font-size: 1rem;
-      }
-      
       .real-estate-cards {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-      
-      .view-more-container {
-        .btn-secondary {
-          width: 100%;
-          max-width: 280px;
-        }
-      }
-    }
-  }
-  
-  .cta-section {
-    padding: 4rem 1rem;
-    
-    .cta-content {
-      h2 {
-        font-size: 2.2rem;
-      }
-      
-      p {
-        font-size: 1rem;
-      }
-      
-      .btn {
-        padding: 1rem 2rem;
-        width: 100%;
-        max-width: 280px;
-      }
-    }
-  }
-  
-  .container {
-    padding: 0 0.8rem;
-  }
-  
-  .section-header {
-    margin-bottom: 2rem;
-    
-    h2 {
-      font-size: 1.8rem;
-    }
-    
-    p {
-      font-size: 1rem;
-    }
-  }
-}
-
-// Fix for mobile landscape mode
-@media (max-height: 500px) and (orientation: landscape) {
-  .hero-section {
-    min-height: auto;
-    padding: 5rem 2rem 3rem;
-  }
-  
-  .stats-section {
-    padding: 2rem;
-    
-    .stats-grid {
-      flex-direction: row;
-      flex-wrap: wrap;
-      
-      .stat-card {
-        flex: 0 0 calc(33.333% - 1rem);
-        padding: 1rem;
-        
-        .stat-number {
-          font-size: 2.2rem;
-        }
-        
-        .stat-text {
-          font-size: 0.9rem;
-        }
       }
     }
   }

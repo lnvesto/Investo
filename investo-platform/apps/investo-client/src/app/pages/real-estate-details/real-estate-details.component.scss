@@ -3,12 +3,12 @@
 .real-estate-details-container {
   margin: 0 auto;
   padding: 24px;
-  background: linear-gradient(135deg, #000000 0%, #0a0e17 100%);
+  background: $dark-gradient;
   min-height: 100vh;
   margin-top: 0;
   padding-top: 7rem;
   font-family: $font-family;
-  color: #fff;
+  color: $white;
   position: relative;
   
   &::before {
@@ -18,7 +18,7 @@
     left: 0;
     width: 100%;
     height: 150px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2), transparent);
+    background: $transparent-black-gradient;
     pointer-events: none;
     z-index: 1;
   }
@@ -59,7 +59,7 @@
     border-radius: 20px;
     overflow: hidden;
     margin-bottom: 16px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 35px $black-30;
     position: relative;
     
     &::before {
@@ -69,7 +69,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+      background: $overlay-black-vertical;
       z-index: 1;
     }
     
@@ -93,7 +93,7 @@
       opacity: 0.7;
       transition: all 0.3s ease;
       border: 2px solid transparent;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 5px 15px $black-20;
       
       &:hover {
         opacity: 0.9;
@@ -102,7 +102,7 @@
       
       &.active {
         opacity: 1;
-        border-color: #5096ff;
+        border-color: $accent-color;
         transform: translateY(-3px);
       }
       
@@ -117,27 +117,27 @@
 
 // Property details
 .property-details {
-  background: rgba(255, 255, 255, 0.02);
+  background: $card-bg-transparent;
   backdrop-filter: blur(10px);
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 35px $black-20;
   margin-bottom: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid $white-10;
   
   h1 {
     margin: 0;
     font-size: 32px;
     font-weight: 700;
-    color: #fff;
+    color: $white;
     margin-bottom: 12px;
-    background: linear-gradient(90deg, #fff 0%, #cccccc 100%);
+    background: linear-gradient(90deg, $white 0%, $gray-medium 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   
   .location {
-    color: rgba(255, 255, 255, 0.7);
+    color: $white-70;
     font-size: 18px;
     margin-bottom: 24px;
     display: flex;
@@ -145,7 +145,7 @@
     
     .material-icons {
       margin-right: 6px;
-      color: #ffffff;
+      color: $white;
       font-size: 18px;
     }
   }
@@ -153,17 +153,17 @@
   h2 {
     font-size: 24px;
     margin: 32px 0 16px;
-    color: #ffffff;
+    color: $white;
   }
   
   h3 {
     font-size: 20px;
     margin: 24px 0 16px;
-    color: #fff;
+    color: $white;
   }
   
   .description {
-    color: rgba(255, 255, 255, 0.8);
+    color: $white-80;
     line-height: 1.7;
     margin-bottom: 24px;
     font-size: 16px;
@@ -173,16 +173,16 @@
 // Quick stats
 .quick-stats {
   display: flex;
-  background: rgba(255, 255, 255, 0.02);
+  background: $card-bg-transparent;
   border-radius: 16px;
   padding: 20px;
   margin: 24px 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid $white-10;
   
   .stat-item {
     flex: 1;
     text-align: center;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid $white-10;
     padding: 0 12px;
     
     &:last-child {
@@ -192,15 +192,15 @@
     .stat-label {
       display: block;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.6);
+      color: $white-60;
       margin-bottom: 8px;
     }
     
     .stat-value {
       font-size: 22px;
       font-weight: 700;
-      color: #ffffff;
-      text-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
+      color: $white;
+      text-shadow: 0 2px 5px $white-20;
     }
   }
 }
@@ -219,21 +219,21 @@
     gap: 10px;
     padding: 12px;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.02);
+    background: $card-bg-transparent;
     transition: all 0.3s ease;
     
     &:hover {
       transform: translateY(-3px);
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.2);
+      background: $white-05;
+      border-color: $white-20;
     }
     
     .feature-icon {
-      color: #fff;
+      color: $white;
       font-weight: bold;
       width: 24px;
       height: 24px;
-      background: rgba(255, 255, 255, 0.05);
+      background: $white-05;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -244,20 +244,20 @@
 
 // Investment card
 .investment-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: $card-bg-transparent;
   backdrop-filter: blur(10px);
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 35px $black-20;
   position: sticky;
   top: 100px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid $white-10;
   
   h2 {
     font-size: 24px;
     margin: 0 0 24px;
-    color: #fff;
-    background: linear-gradient(90deg, #fff 0%, #cccccc 100%);
+    color: $white;
+    background: $text-gradient-light;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -270,14 +270,14 @@
       
       .price-label {
         font-size: 14px;
-        color: rgba(255, 255, 255, 0.6);
+        color: $white-60;
       }
       
       .price-value {
         display: block;
         font-size: 28px;
         font-weight: 700;
-        color: #fff;
+        color: $white;
         margin-top: 5px;
       }
     }
@@ -285,14 +285,14 @@
     .token-price {
       .price-label {
         font-size: 14px;
-        color: rgba(255, 255, 255, 0.6);
+        color: $white-60;
       }
       
       .price-value {
         display: block;
         font-size: 20px;
         font-weight: 600;
-        color: #fff;
+        color: $white;
         margin-top: 5px;
       }
     }
@@ -302,33 +302,33 @@
     margin-bottom: 30px;
     padding: 20px;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: $card-bg-transparent;
+    border: 1px solid $white-10;
     
     .progress-info {
       display: flex;
       justify-content: space-between;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
+      color: $white-70;
       margin-bottom: 12px;
       
       .bold {
         font-weight: 600;
-        color: #fff;
+        color: $white;
       }
     }
     
     .progress-bar {
       height: 8px;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: $white-10;
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 8px;
       
       .progress-fill {
         height: 100%;
-        background: linear-gradient(90deg, #ffffff 0%, #cccccc 100%);
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        background: $text-gradient-light;
+        box-shadow: 0 0 10px $white-20;
       }
     }
     
@@ -336,7 +336,7 @@
       text-align: right;
       font-size: 16px;
       font-weight: 600;
-      color: #fff;
+      color: $white;
     }
   }
   
@@ -345,14 +345,14 @@
     
     .token-label {
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.6);
+      color: $white-60;
     }
     
     .token-value {
       display: block;
       font-size: 18px;
       font-weight: 600;
-      color: #fff;
+      color: $white;
       margin-top: 5px;
     }
   }
@@ -366,7 +366,7 @@
       label {
         display: block;
         font-size: 14px;
-        color: rgba(255, 255, 255, 0.7);
+        color: $white-70;
         margin-bottom: 8px;
       }
       
@@ -378,17 +378,17 @@
           flex: 1;
           padding: 14px 16px;
           text-align: center;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid $white-20;
           border-radius: 0;
           font-size: 18px;
-          background: rgba(255, 255, 255, 0.03);
-          color: #fff;
+          background: $white-05;
+          color: $white;
           transition: all 0.3s ease;
           
           &:focus {
             outline: none;
-            border-color: rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.05);
+            border-color: $white-30;
+            background: $white-05;
           }
           
           &::-webkit-outer-spin-button,
@@ -407,10 +407,10 @@
           align-items: center;
           justify-content: center;
           font-size: 20px;
-          background-color: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          background-color: $white-05;
+          border: 1px solid $white-20;
           cursor: pointer;
-          color: #fff;
+          color: $white;
           transition: all 0.3s ease;
           user-select: none;
           
@@ -423,7 +423,7 @@
           }
           
           &:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: $white-10;
           }
           
           &:active {
@@ -438,14 +438,14 @@
       justify-content: space-between;
       align-items: center;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
+      color: $white-70;
       margin-top: 12px;
       
       .investment-sum {
         font-size: 22px;
         font-weight: 700;
         color: #ffffff;
-        text-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
+        text-shadow: 0 2px 5px $white-20;
       }
     }
   }
@@ -464,11 +464,11 @@
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px $white-20;
     
     &:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 25px $white-30;
     }
     
     &:active {
@@ -479,9 +479,9 @@
   .wishlist-btn {
     width: 100%;
     padding: 16px;
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: $white-05;
+    color: $white;
+    border: 1px solid $white-20;
     border-radius: 50px;
     font-size: 16px;
     font-weight: 600;
@@ -498,10 +498,10 @@
     }
     
     &:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: $white-10;
       transform: translateY(-3px);
-      border-color: rgba(255, 255, 255, 0.3);
-      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+      border-color: $white-30;
+      box-shadow: 0 8px 25px $white-10;
     }
     
     &:active {
@@ -521,24 +521,24 @@
     margin-bottom: 16px;
     
     .status-badge {
-      background: rgba(255, 255, 255, 0.05);
-      color: #fff;
+      background: $white-05;
+      color: $white;
       padding: 8px 16px;
       border-radius: 50px;
       font-size: 14px;
       font-weight: 600;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid $white-20;
       
       &.completed {
-        background: rgba(255, 255, 255, 0.1);
-        color: #fff;
-        border-color: rgba(255, 255, 255, 0.3);
+        background: $white-10;
+        color: $white;
+        border-color: $white-30;
       }
     }
     
     .completion-date {
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.6);
+      color: $white-60;
     }
   }
   
@@ -547,21 +547,21 @@
     
     .progress-percentage-text {
       font-size: 16px;
-      color: #fff;
+      color: $white;
       font-weight: 600;
       margin-bottom: 10px;
     }
     
     .progress-bar {
       height: 10px;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: $white-10;
       border-radius: 8px;
       overflow: hidden;
       
       .progress-fill {
         height: 100%;
         background: linear-gradient(90deg, #ffffff 0%, #cccccc 100%);
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 10px $white-20;
       }
     }
   }
@@ -572,18 +572,18 @@
       margin-bottom: 20px;
       padding: 12px;
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.02);
+      background: $card-bg-transparent;
       border: 1px solid transparent;
       transition: all 0.3s ease;
       opacity: 0.7;
       
       &:hover {
-        background: rgba(255, 255, 255, 0.05);
+        background: $white-05;
       }
       
       &.completed {
         opacity: 1;
-        border-color: rgba(255, 255, 255, 0.2);
+        border-color: $white-20;
       }
       
       .stage-indicator {
@@ -593,18 +593,18 @@
           width: 30px;
           height: 30px;
           border-radius: 50%;
-          background-color: rgba(255, 255, 255, 0.05);
+          background-color: $white-05;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: rgba(255, 255, 255, 0.7);
+          color: $white-70;
           font-size: 14px;
         }
       }
       
       &.completed .stage-indicator .stage-icon {
-        background: rgba(255, 255, 255, 0.1);
-        color: #fff;
+        background: $white-10;
+        color: $white;
       }
       
       .stage-details {
@@ -612,12 +612,12 @@
           font-weight: 600;
           font-size: 16px;
           margin-bottom: 4px;
-          color: #fff;
+          color: $white;
         }
         
         .stage-description {
           font-size: 14px;
-          color: rgba(255, 255, 255, 0.6);
+          color: $white-60;
         }
       }
     }
@@ -680,7 +680,7 @@
     
     .stat-item {
       border-right: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid $white-10;
       padding-bottom: 20px;
       
       &:last-child {

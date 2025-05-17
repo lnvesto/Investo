@@ -75,17 +75,16 @@
       "executor": "@nx/angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "investo-client:build:production"
+          "buildTarget": "investo-client:build:production"
         },
         "development": {
-          "browserTarget": "investo-client:build:development"
+          "buildTarget": "investo-client:build:development"
         }
       },
       "defaultConfiguration": "development",
       "options": {
         "port": 4200,
-        "proxyConfig": "apps/investo-client/proxy.conf.json",
-        "historyApiFallback": true
+        "proxyConfig": "apps/investo-client/proxy.conf.json"
       }
     },
     "test": {
@@ -132,11 +131,11 @@
       "executor": "@angular-devkit/build-angular:ssr-dev-server",
       "configurations": {
         "development": {
-          "browserTarget": "investo-client:build:development",
+          "buildTarget": "investo-client:build:development",
           "serverTarget": "investo-client:server:development"
         },
         "production": {
-          "browserTarget": "investo-client:build:production",
+          "buildTarget": "investo-client:build:production",
           "serverTarget": "investo-client:server:production"
         }
       },
@@ -151,11 +150,11 @@
       },
       "configurations": {
         "development": {
-          "browserTarget": "investo-client:build:development",
+          "buildTarget": "investo-client:build:development",
           "serverTarget": "investo-client:server:development"
         },
         "production": {
-          "browserTarget": "investo-client:build:production",
+          "buildTarget": "investo-client:build:production",
           "serverTarget": "investo-client:server:production"
         }
       },

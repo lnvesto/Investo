@@ -24,13 +24,13 @@
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+    box-shadow: 0 0 0 0 $success-40;
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+    box-shadow: 0 0 0 10px $success-0;
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    box-shadow: 0 0 0 0 $success-0;
   }
 }
 
@@ -44,7 +44,7 @@
   align-items: center;
   justify-content: center;
   padding: 5rem 1rem;
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%); // Match main page background
+  background: $dark-gradient; // Match main page background
   position: relative;
   overflow: hidden;
   font-family: $font-family;
@@ -70,7 +70,7 @@
     transform: translate(-50%, -50%);
     width: 80%;
     height: 80%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+    background: $glow-white-8;
     filter: blur(60px);
     z-index: 0;
   }
@@ -84,13 +84,13 @@
 }
 
 .wallet-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: $card-bg-transparent;
   backdrop-filter: blur(12px);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid $card-border-color-hover;
   padding: 3rem;
   position: relative;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: $card-shadow-hover;
 
   &::before {
     content: '';
@@ -99,7 +99,7 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, rgba(0, 0, 0, 0) 65%);
+    background: $glow-white-06;
     z-index: -1;
     border-radius: inherit;
   }
@@ -131,10 +131,11 @@
     font-size: 2.6rem; 
     font-weight: 700; 
     margin-bottom: 1rem;
-    background: linear-gradient(90deg, #fff 0%, #e0e0e0 100%);
+    background: $text-gradient-light;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+    text-shadow: 0 0 15px $white-15;
 
     @media (max-width: $mobile) {
       font-size: 2rem;
@@ -143,7 +144,7 @@
 
   .subtitle {
     font-size: 1.15rem;
-    color: rgba(255, 255, 255, 0.75);
+    color: $white-75;
     line-height: 1.6;
     margin: 0 auto;
     max-width: 90%;
@@ -172,18 +173,18 @@
     gap: 0.6rem;
     padding: 0.6rem 1.3rem;
     border-radius: 50px;
-    background: rgba(76, 175, 80, 0.18); 
-    color: #4CAF50;
+    background: $success-18; 
+    color: $success-color;
     font-weight: 600;
-    box-shadow: 0 3px 10px rgba(76, 175, 80, 0.2);
-    border: 1px solid rgba(76, 175, 80, 0.25);
+    box-shadow: 0 3px 10px $success-20;
+    border: 1px solid $success-25;
     font-size: 1rem;
 
     .status-dot {
       width: 9px;
       height: 9px;
       border-radius: 50%;
-      background-color: #4CAF50;
+      background-color: $success-color;
       position: relative;
 
       &::after {
@@ -192,7 +193,7 @@
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        background-color: #4CAF50;
+        background-color: $success-color;
         animation: pulse 1.8s infinite;
       }
     }
@@ -202,25 +203,25 @@
 .wallet-info-display {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.04);
+  background: $card-bg-transparent-light;
   backdrop-filter: blur(8px);
   border-radius: 16px;
   padding: 1.8rem;
   margin-bottom: 2.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid $card-border-color;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  box-shadow: $card-shadow-ultra-light;
 
   &:hover {
-    border-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: $card-border-color-hover;
+    box-shadow: $card-shadow-ultra-light-hover;
     transform: translateY(-2px);
   }
 
   .wallet-icon {
     width: 55px;
     height: 55px;
-    background: rgba(255, 255, 255, 0.08);
+    background: $card-bg-transparent-lighter;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -243,7 +244,7 @@
     h3 {
       font-size: 1.25rem;
       font-weight: 600;
-      color: #fff;
+      color: $white;
       margin-bottom: 0.5rem;
       white-space: nowrap;
       overflow: hidden;
@@ -256,7 +257,7 @@
       font-family: monospace;
       font-size: 1rem;
       letter-spacing: 0.01em;
-      color: rgba(255, 255, 255, 0.65);
+      color: $white-65;
       gap: 0.7rem;
       overflow: hidden;
 
@@ -268,9 +269,9 @@
       }
 
       .copy-btn {
-        background: rgba(255, 255, 255, 0.06);
+        background: $white-06;
         border: none;
-        color: rgba(255, 255, 255, 0.6);
+        color: $white-60;
         cursor: pointer;
         padding: 0.4rem;
         transition: all 0.2s ease;
@@ -281,9 +282,9 @@
         flex-shrink: 0;
 
         &:hover {
-          background: rgba(255, 255, 255, 0.12);
+          background: $white-10;
           transform: scale(1.05);
-          color: #fff;
+          color: $white;
         }
 
         .material-icons {
@@ -324,27 +325,27 @@
   }
 
   .btn-disconnect {
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: $white-05;
+    color: $white;
+    border: 1px solid $white-40;
     backdrop-filter: blur(5px);
 
     &:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: $white-15;
       transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.6);
+      border-color: $white-60;
     }
   }
 
   .btn-primary {
-    background: linear-gradient(90deg, #ffffff 0%, #cccccc 100%);
-    color: #000;
+    background: $white-gradient;
+    color: $black;
     border: none;
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 12px $white-25;
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 6px 20px $white-40;
     }
   }
 }
@@ -359,7 +360,7 @@
   margin-bottom: 2rem;
 
   h3 {
-    color: rgba(255, 255, 255, 0.85);
+    color: $white-85;
     font-size: 1.25rem;
     font-weight: 600;
     position: relative;
@@ -374,7 +375,7 @@
       left: 0;
       width: 50px;
       height: 2px;
-      background: linear-gradient(90deg, #fff, #ccc);
+      background: $text-gradient-light;
       border-radius: 2px;
       transition: width 0.3s ease;
     }
@@ -391,9 +392,9 @@
 .wallet-option {
   padding: 1.3rem 1.5rem;
   border-radius: 12px; 
-  background: rgba(255, 255, 255, 0.04);
+  background: $white-03;
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid $white-08;
   transition: all 0.25s ease-out;
   cursor: pointer;
   display: flex;
@@ -401,21 +402,21 @@
   align-items: center;
 
   &.popular {
-    border-color: rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.05);
+    border-color: $white-15;
+    background: $white-05;
   }
 
   &.connecting {
-    background: rgba(255, 255, 255, 0.06);
+    background: $white-06;
     cursor: default;
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: $white-20;
   }
 
   &:hover:not(.connecting) {
     transform: translateY(-3px) scale(1.01);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.06);
+    border-color: $white-30;
+    box-shadow: 0 10px 25px $black-10;
+    background: $white-06;
   }
 
   .option-content {
@@ -432,7 +433,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.05);
+    background: $white-05;
     border-radius: 8px;
     padding: 0.5rem;
     flex-shrink: 0;
@@ -456,7 +457,7 @@
     h4 {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #fff;
+      color: $white;
       margin-bottom: 0.2rem;
       white-space: nowrap;
       overflow: hidden;
@@ -465,7 +466,7 @@
 
     p {
       font-size: 0.9rem; 
-      color: rgba(255, 255, 255, 0.65);
+      color: $white-65;
       margin: 0;
       white-space: nowrap;
       overflow: hidden;
@@ -484,21 +485,21 @@
       font-size: 0.7rem;
       padding: 0.25rem 0.6rem;
       border-radius: 50px;
-      background: rgba(255, 255, 255, 0.08);
-      color: rgba(255, 255, 255, 0.8);
+      background: $white-08;
+      color: $white-80;
       font-weight: 500;
       white-space: nowrap;
     }
 
     .connect-icon {
-      color: rgba(255, 255, 255, 0.4);
+      color: $white-40;
       font-size: 1.1rem;
       transition: transform 0.2s ease, color 0.2s ease;
     }
 
     .wallet-option:hover:not(.connecting) & .connect-icon {
       transform: translateX(3px);
-      color: rgba(255, 255, 255, 0.8);
+      color: $white-80;
     }
   }
 }
@@ -507,8 +508,8 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.25);
-  border-top-color: #fff;
+  border: 2px solid $white-25;
+  border-top-color: $white;
   animation: spin 0.8s linear infinite;
 }
 
@@ -517,11 +518,11 @@
   margin-top: 2rem;
 
   p {
-    color: rgba(255, 255, 255, 0.55);
+    color: $white-55;
     font-size: 0.9rem;
 
     a {
-      color: rgba(255, 255, 255, 0.8);
+      color: $white-80;
       font-weight: 500;
       text-decoration: none;
       position: relative;
@@ -534,12 +535,12 @@
         left: 0;
         width: 0;
         height: 1px;
-        background: #fff;
+        background: $white;
         transition: width 0.3s ease;
       }
 
       &:hover {
-        color: #fff;
+        color: $white;
 
         &::after {
           width: 100%;
@@ -570,7 +571,7 @@
     font-size: 0.95rem;
     font-weight: 500;
     animation: slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 18px $black-20;
     backdrop-filter: blur(10px);
     pointer-events: auto;
     width: auto;
@@ -582,15 +583,15 @@
     }
 
     &.success {
-      background: rgba(76, 175, 80, 0.25);
-      color: #66bb6a;
-      border: 1px solid rgba(76, 175, 80, 0.35);
+      background: $success-25;
+      color: $green-light;
+      border: 1px solid $success-35;
     }
 
     &.error {
-      background: rgba(244, 67, 54, 0.25);
-      color: #ef5350;
-      border: 1px solid rgba(244, 67, 54, 0.35);
+      background: $error-25;
+      color: $red-darker;
+      border: 1px solid $error-35;
     }
   }
 }

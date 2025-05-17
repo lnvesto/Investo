@@ -199,7 +199,7 @@ export class AuthService {
       }
     }
     
-    console.warn('No token found in cookies or localStorage');
+
     return null;
   }
   

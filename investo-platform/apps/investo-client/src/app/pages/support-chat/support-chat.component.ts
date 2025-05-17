@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewChecked, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -15,13 +15,21 @@ interface ChatMessage {
   templateUrl: './support-chat.component.html',
   styleUrl: './support-chat.component.scss'
 })
-export class SupportChatComponent implements OnInit, AfterViewChecked {
+export class SupportChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
+  @ViewChild('chatWindow') private chatWindow!: ElementRef;
+  @ViewChild('chatToggleBtn') private chatToggleBtn!: ElementRef;
   
   isChatOpen = false;
   isAgentTyping = false;
   newMessage = '';
   messages: ChatMessage[] = [];
+  unreadMessages = 0;
+  
+  agent = {
+    avatar: 'assets/images/support-agent.png',
+    role: 'Investment Advisor'
+  };
   
   private botResponses: string[] = [
     'Thank you for contacting Investo support. How can I help you today?',
@@ -36,20 +44,53 @@ export class SupportChatComponent implements OnInit, AfterViewChecked {
     'Is there anything else I can help you with today?'
   ];
   
-  constructor() { }
+  constructor(private elementRef: ElementRef) { }
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.addBotMessage('Hello! Welcome to Investo. How can I assist you today?');
+      this.addBotMessage('Hello! 👋 Welcome to Investo. How can I assist you with your investment journey today?');
+      this.incrementUnreadMessages();
     }, 1000);
   }
   
   ngAfterViewChecked(): void {
     this.scrollToBottom();
   }
+
+  ngOnDestroy(): void {
+    // Clean up any resources if needed
+  }
   
   toggleChat(): void {
     this.isChatOpen = !this.isChatOpen;
+    
+    if (this.isChatOpen) {
+      // Reset unread count when chat is opened
+      this.unreadMessages = 0;
+    }
+  }
+  
+  // Close the chat when clicking outside of it
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.isChatOpen) return;
+
+    // Get the element that was clicked
+    const clickedElement = event.target as HTMLElement;
+    
+    // Check if the clicked element is within the chat component
+    const chatComponent = this.elementRef.nativeElement;
+    const isClickInsideChat = chatComponent.contains(clickedElement);
+    
+    // If click is outside the chat component, close the chat
+    if (!isClickInsideChat) {
+      this.isChatOpen = false;
+    }
+  }
+  
+  // Stop propagation on the chat window to prevent closing when clicking inside
+  onChatWindowClick(event: Event): void {
+    event.stopPropagation();
   }
   
   sendMessage(): void {
@@ -60,7 +101,8 @@ export class SupportChatComponent implements OnInit, AfterViewChecked {
     
     this.isAgentTyping = true;
     
-    const responseTime = Math.floor(Math.random() * 2000) + 1000;
+    // Simulate different typing durations based on message length
+    const responseTime = Math.min(Math.floor(Math.random() * 2000) + 1000, 3000);
     setTimeout(() => {
       this.isAgentTyping = false;
       this.getAutomatedResponse();
@@ -77,6 +119,16 @@ export class SupportChatComponent implements OnInit, AfterViewChecked {
   
   private addBotMessage(text: string): void {
     this.addMessage(text, 'agent');
+    
+    if (!this.isChatOpen) {
+      this.incrementUnreadMessages();
+    }
+  }
+  
+  private incrementUnreadMessages(): void {
+    if (!this.isChatOpen) {
+      this.unreadMessages++;
+    }
   }
   
   private getAutomatedResponse(): void {

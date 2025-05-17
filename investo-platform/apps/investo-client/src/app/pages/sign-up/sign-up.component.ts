@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { userTypeId } from '../../models/user-type.enum';
 import { AuthResponse } from '../../models/auth.types';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -25,7 +26,8 @@ export class SignUpComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {
     this.signUpForm = this.fb.group({
       FirstName: ['', [Validators.required, Validators.minLength(3)]],
@@ -59,6 +61,11 @@ export class SignUpComponent implements OnInit {
   onSubmit(): void {
     if (this.signUpForm.invalid) {
       this.markFormGroupTouched(this.signUpForm);
+      this.toastService.show({
+        message: 'Please fill in all required fields correctly',
+        type: 'error',
+        duration: 3000
+      });
       return;
     }
 
@@ -73,6 +80,11 @@ export class SignUpComponent implements OnInit {
     this.authService.register(formData).subscribe({
       next: (response) => {
         if (response.token) {
+          this.toastService.show({
+            message: 'Registration successful! Logging you in...',
+            type: 'success',
+            duration: 3000
+          });
           
           const loginCredentials = {
             email: formData.email,
@@ -85,6 +97,11 @@ export class SignUpComponent implements OnInit {
             },
             error: (error) => {
               console.error('Auto-login after registration failed:', error);
+              this.toastService.show({
+                message: 'Registration successful! Please log in manually.',
+                type: 'info',
+                duration: 3000
+              });
               this.router.navigate(['/login'], { 
                 queryParams: { 
                   registered: 'true',
@@ -94,7 +111,11 @@ export class SignUpComponent implements OnInit {
             }
           });
         } else {
-          
+          this.toastService.show({
+            message: 'Registration successful! Please log in to continue.',
+            type: 'info',
+            duration: 3000
+          });
           this.router.navigate(['/login'], { 
             queryParams: { 
               registered: 'true',
@@ -105,7 +126,13 @@ export class SignUpComponent implements OnInit {
       },
       error: (error) => {
         console.error('Registration error:', error);
-        this.errorMessage = error.error?.message || 'An error occurred during registration';
+        const errorMsg = error.error?.message || 'An error occurred during registration';
+        this.errorMessage = errorMsg;
+        this.toastService.show({
+          message: errorMsg,
+          type: 'error',
+          duration: 3000
+        });
         this.isSubmitting = false;
       }
     });

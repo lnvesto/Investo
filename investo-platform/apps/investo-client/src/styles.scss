@@ -37,7 +37,7 @@
   font-display: swap;
 }
 
-// Reset and base styles
+
 * {
   margin: 0;
   padding: 0;
@@ -57,18 +57,15 @@ body {
   min-height: 100vh;
 }
 
-main {
-  padding-top: 80px; 
-}
 
-// Common styles
+
 .container {
   max-width: $container-max-width;
   margin: 0 auto;
   padding: $container-padding;
 }
 
-// Responsive utilities
+
 @mixin mobile {
   @media (max-width: $mobile) {
     @content;
@@ -99,14 +96,14 @@ button {
   outline: none;
 }
 
-// Common card styles
+
 .card {
   background: $card-bg;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid $white-10;
 }
 
-// Dark text for light backgrounds, light text for dark backgrounds
+
 .dark-theme {
   color: $text-color-dark;
   background-color: $dark-bg;
