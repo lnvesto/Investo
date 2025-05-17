@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, HostListener, ElementRef } from '@angular/core';
+import { Component, Input, HostListener, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { RealEstate } from '../../models/real-estate.model';
 
@@ -10,7 +10,7 @@ import { RealEstate } from '../../models/real-estate.model';
   templateUrl: './real-estate-card.component.html',
   styleUrl: './real-estate-card.component.scss'
 })
-export class RealEstateCardComponent {
+export class RealEstateCardComponent implements OnInit, OnDestroy {
   @Input() realEstate: RealEstate = {
     id: 1,
     publisher_id: 101,
@@ -43,10 +43,30 @@ export class RealEstateCardComponent {
   };
 
   private isTouchDevice = false;
+  public isMobile = false;
 
   constructor(private router: Router, private el: ElementRef) {
     // Detect if we're on a touch device
     this.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }
+
+  ngOnInit(): void {
+    this.checkScreenSize();
+    window.addEventListener('resize', () => {
+      this.checkScreenSize();
+    });
+  }
+
+  ngOnDestroy(): void {
+
+  }
+
+  private checkScreenSize(): void {
+
+    const mobileBreakpoint = 768;
+    
+    const windowWidth = window.innerWidth;
+    this.isMobile = windowWidth <= mobileBreakpoint;
   }
 
   @HostListener('touchstart')
@@ -65,10 +85,18 @@ export class RealEstateCardComponent {
     }
   }
 
-  formatPrice(price: number): string  {
+  formatPrice(price: number): string {
+ 
+    if (this.isMobile && price >= 1000000) {
+      if (price % 1000000 === 0) {
+        return (price / 1000000) + 'M';
+      }
+
+      return (price / 1000000).toFixed(1) + 'M';
+    }
+    
     return price.toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
+      style: 'decimal',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
     });
