@@ -32,9 +32,9 @@
 ./ClashDisplay-Bold.eb853a67e431d047.woff
 ./404.html
 ./3rdpartylicenses.txt
+./main.459c673cb59b5b11.js
 ./environments/environment.prod.ts
 ./environments/environment.ts
-./main.19f5b77b67e1dc13.js
 ./polyfills.ba6be0ce6f970b6a.js
 ./index.html
 ./ClashDisplay-Semibold.cffe86e99bf1e93e.woff
