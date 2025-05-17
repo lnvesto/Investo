@@ -1,0 +1,19 @@
+<section class="faq-section">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2 class="scroll-fade-in">Frequently Asked Questions</h2>
+      <p class="scroll-fade-in">Find answers to common questions about Investo, our platform, and blockchain investments.</p>
+    </div>
+    <div class="faq-list scroll-fade-in">
+      <div class="faq-item" *ngFor="let item of faqs" [class.open]="item.isOpen">
+        <div class="faq-question" (click)="toggleFaq(item)">
+          <h3>{{ item.question }}</h3>
+          <span class="material-icons">{{ item.isOpen ? 'remove' : 'add' }}</span>
+        </div>
+        <div class="faq-answer">
+          <p>{{ item.answer }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

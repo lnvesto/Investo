@@ -1,6 +1,15 @@
 <app-header></app-header>
 <main>
+  <div class="toast-container">
+    <ng-container *ngFor="let toast of toastService.toasts">
+      <app-toast-notification
+        [toast]="toast"
+        (close)="toastService.remove(toast)">
+      </app-toast-notification>
+    </ng-container>
+  </div>
   <router-outlet></router-outlet>
 </main>
 <app-footer></app-footer>
 <app-support-chat></app-support-chat>
+<app-cookie></app-cookie>

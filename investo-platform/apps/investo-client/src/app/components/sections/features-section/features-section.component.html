@@ -1,0 +1,17 @@
+<section class="features-section">
+  <div class="container">
+    <div class="section-header text-center scroll-fade-in">
+      <h2>Our Key Features</h2>
+      <p>Discover why Investo leads the blockchain investment revolution</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card scroll-scale-in" *ngFor="let feature of features; let i = index">
+        <div class="feature-icon-wrapper">
+          <span class="material-icons">{{feature.icon}}</span>
+        </div>
+        <h3 class="feature-title">{{feature.title}}</h3>
+        <p class="feature-description">{{feature.description}}</p>
+      </div>
+    </div>
+  </div>
+</section> 
