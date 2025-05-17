@@ -32,8 +32,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'yarn'
-          cache-dependency-path: './investo-platform/yarn.lock'
+
+      - name: Cache Yarn
+        uses: actions/cache@v3
+        with:
+          path: |
+            .yarn/cache
+            .yarn/unplugged
+            .yarn/build-state.yml
+            .yarn/install-state.gz
+            investo-platform/yarn.lock
+          key: ${{ runner.os }}-yarn-${{ hashFiles('investo-platform/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Use correct Yarn version
+        run: corepack prepare yarn@4.1.1 --activate
+
+      - name: Check Yarn version
+        run: yarn --version
 
       - name: Install dependencies
         run: |
@@ -42,7 +62,6 @@ jobs:
 
       - name: Build
         run: cd investo-platform && yarn nx build investo-client --configuration=production --base-href=./ --skip-nx-cache
-
         
       - name: Prepare for GitHub Pages
         run: |
@@ -91,4 +110,4 @@ jobs:
           folder: investo-platform/dist/apps/investo-client/browser
           branch: gh-pages
           clean: false
-          token: ${{ github.token }} 
+          token: ${{ github.token }}
