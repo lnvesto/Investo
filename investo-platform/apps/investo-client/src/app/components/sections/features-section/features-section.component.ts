@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 interface Feature {
   title: string;
@@ -14,7 +14,7 @@ interface Feature {
   templateUrl: './features-section.component.html',
   styleUrls: ['./features-section.component.scss']
 })
-export class FeaturesSectionComponent {
+export class FeaturesSectionComponent implements OnInit {
   @Input() features: Feature[] = [
     {
       title: 'Smart Contract Investment',
@@ -32,4 +32,43 @@ export class FeaturesSectionComponent {
       icon: 'security'
     }
   ];
-} 
+
+  ngOnInit() {
+    
+    window.addEventListener('scroll', this.checkScrollAnimation);
+    
+    this.checkScrollAnimation();
+  }
+
+  
+  private checkScrollAnimation = () => {
+    const animatedElements = document.querySelectorAll(
+      '.scroll-fade-in, .scroll-scale-in'
+    );
+    
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+            observer.unobserve(entry.target); 
+          }
+        });
+      }, { threshold: 0.1 }); 
+
+      animatedElements.forEach(element => observer.observe(element));
+    } else {
+      
+      animatedElements.forEach((element) => {
+        const elementPosition = element.getBoundingClientRect();
+        const isInViewport = 
+          elementPosition.top < window.innerHeight - 100 && 
+          elementPosition.bottom >= 0;
+        
+        if (isInViewport) {
+          element.classList.add('animate');
+        }
+      });
+    }
+  }
+}

@@ -18,6 +18,24 @@ export class FooterComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     // Initialize component
+    this.setupInputFixes();
+  }
+  
+  /**
+   * Apply fixes for touch devices and input fields
+   */
+  private setupInputFixes(): void {
+    // Fix for iOS devices to prevent zoom on input focus
+    const viewportMeta = document.querySelector('meta[name="viewport"]');
+    if (viewportMeta) {
+      // Keep the current settings but ensure user-scalable=no is included
+      let content = viewportMeta.getAttribute('content') || '';
+      if (!content.includes('user-scalable=no')) {
+        if (content) content += ', ';
+        content += 'user-scalable=no, maximum-scale=1.0';
+        viewportMeta.setAttribute('content', content);
+      }
+    }
   }
 
   ngAfterViewInit(): void {
@@ -45,6 +63,16 @@ export class FooterComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.subscribeSuccess = false;
     }, 5000);
+  }
+
+  // Fix for mobile devices to make input fields more reliable
+  focusEmailInput(event: Event): void {
+    // Prevent any default handling that might interfere
+    event.preventDefault();
+    // Get the input element
+    const inputElement = event.target as HTMLInputElement;
+    // Ensure it's focused
+    inputElement.focus();
   }
 
   private initScrollAnimations(): void {

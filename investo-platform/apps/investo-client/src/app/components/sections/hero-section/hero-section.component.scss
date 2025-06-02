@@ -2,107 +2,6 @@
 
 
 
-
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-
-@keyframes floatUpDown {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0); }
-}
-
-@keyframes rotateSlowly {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes pulseGlow {
-  0% { opacity: 0.2; }
-  50% { opacity: 0.5; }
-  100% { opacity: 0.2; }
-}
-
-@keyframes moveLeftRight {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(20px); }
-  100% { transform: translateX(0); }
-}
-
-@keyframes dashOffset {
-  from { stroke-dashoffset: 0; }
-  to { stroke-dashoffset: -100; }
-}
-
-
-@keyframes scrollWheel {
-  0% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(10px);
-  }
-}
-
-
-@keyframes arrowBounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0) rotate(45deg);
-  }
-  40% {
-    transform: translateY(-10px) rotate(45deg);
-  }
-  60% {
-    transform: translateY(-5px) rotate(45deg);
-  }
-}
-
-
 .scroll-animation {
   opacity: 0;
   transition: all 0.6s ease;
@@ -459,27 +358,39 @@
 
 .scroll-indicator {
   position: absolute;
-  bottom: 40px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 2;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: initialBounce 1.5s ease-in-out;
+  
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(30px);
+  }
   
   .mouse {
-    width: 26px;
-    height: 42px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 15px;
+    width: 22px;
+    height: 34px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
     position: relative;
     
     .wheel {
       width: 4px;
       height: 8px;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 1);
       position: absolute;
-      top: 8px;
+      top: 6px;
       left: 50%;
       transform: translateX(-50%);
       border-radius: 2px;
@@ -488,12 +399,12 @@
   }
   
   .arrow-down {
-    width: 16px;
-    height: 16px;
-    border-right: 2px solid rgba(255, 255, 255, 0.5);
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid rgba(255, 255, 255, 0.7);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.7);
     transform: rotate(45deg);
-    margin-top: 12px;
+    margin-top: 8px;
     animation: arrowBounce 2s infinite;
   }
 }
@@ -668,8 +579,7 @@
     }
     
     .scroll-indicator {
-      bottom: 20px;
-      display: none; 
+      display: none;
     }
   }
 }
@@ -735,6 +645,70 @@
   }
 }
 
+/* iPad Air (820px width) in portrait mode - specific styling */
+@media (min-width: 768px) and (max-width: 834px) {
+  .hero-section {
+    min-height: 100vh;
+    height: 100vh;
+    padding: 6rem 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    .hero-content-wrapper {
+      max-width: 650px;
+      margin-bottom: 2rem;
+      
+      .hero-main-title {
+        font-size: 3.2rem;
+      }
+      
+      .hero-description {
+        font-size: 1.2rem;
+        padding: 0 1rem;
+      }
+      
+      .hero-stats {
+        margin: 2rem auto;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        
+        .stat-item {
+          min-width: 160px;
+          padding: 1rem;
+        }
+      }
+      
+      .hero-action-buttons {
+        flex-direction: row;
+        gap: 1.5rem;
+        max-width: none;
+        justify-content: center;
+        
+        .animated-button {
+          width: auto;
+        }
+      }
+    }
+    
+    .scroll-indicator {
+      bottom: 15px;
+      position: absolute;
+      
+      .mouse {
+        width: 22px;
+        height: 34px;
+      }
+      
+      .arrow-down {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+}
+
 @media (max-width: $breakpoint-sm) {
   .hero-section {
     padding: 5rem 1rem 3rem;
@@ -770,6 +744,38 @@
         }
       }
     }
+    
+    .scroll-indicator {
+      display: none;
+    }
+  }
+}
+
+/* General tablet styles for vertical height adjustments */
+@media (min-height: 900px) and (max-height: 1200px) {
+  .hero-section {    
+    .scroll-indicator {
+      bottom: 30px;
+      position: absolute;
+    }
+  }
+}
+
+/* Fix for medium-sized tablets with taller displays */
+@media (min-width: 600px) and (max-width: 900px) and (min-height: 1000px) {
+  .hero-section {
+    min-height: 100vh;
+    height: 100vh;
+    padding-top: 7rem;
+    padding-bottom: 4rem;
+    
+    .hero-content-wrapper {
+      margin-bottom: 2.5rem;
+    }
+    
+    .scroll-indicator {
+      bottom: 25px;
+    }
   }
 }
 
@@ -782,6 +788,66 @@
     
     .scroll-indicator {
       display: none;
+    }
+  }
+}
+
+/* iPad Air (1180px width) in landscape mode */
+@media (min-width: 1024px) and (max-width: 1180px) and (max-height: 820px) and (orientation: landscape) {
+  .hero-section {
+    min-height: 100vh;
+    height: 100vh;
+    padding: 4rem 3rem 2.5rem;
+    
+    .hero-content-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 85%;
+      margin-bottom: 1.5rem;
+      
+      .hero-main-title {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .hero-description {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .hero-stats {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 1.5rem auto;
+        
+        .stat-item {
+          padding: 0.8rem 1.2rem;
+          min-width: 160px;
+        }
+      }
+      
+      .hero-action-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+    }
+    
+    .scroll-indicator {
+      bottom: 12px;
+      position: absolute;
+      
+      .mouse {
+        width: 20px;
+        height: 32px;
+      }
+      
+      .arrow-down {
+        width: 12px;
+        height: 12px;
+        margin-top: 8px;
+      }
     }
   }
 } 

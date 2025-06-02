@@ -2,7 +2,7 @@
 
 
 
-// Animation Keyframes
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -47,8 +47,8 @@
   }
 }
 
-// Hero LCP specific animations 
-// These ensure the important content is visible immediately
+
+
 @keyframes subtleFadeUp {
   from {
     opacity: 0.95;
@@ -84,7 +84,7 @@
   }
 }
 
-// Additional modern animations
+
 @keyframes floatUp {
   0% {
     transform: translateY(20px);
@@ -117,7 +117,7 @@
   }
 }
 
-// Mouse wheel animation
+
 @keyframes scrollWheel {
   0% {
     opacity: 1;
@@ -129,7 +129,7 @@
   }
 }
 
-// Arrow down animation
+
 @keyframes arrowBounce {
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0) rotate(45deg);
@@ -142,10 +142,10 @@
   }
 }
 
-// Unified SVG styling variables
 
 
-// Main Page Styles
+
+
 .main-page {
   font-family: $font-family;
   background: $dark-bg;
@@ -154,11 +154,11 @@
   scroll-behavior: smooth;
 }
 
-// CRITICAL: Fix LCP element by ensuring hero title is visible on initial load
+
 h1.hero-main-title {
-  opacity: 1 !important; // Force visibility
-  transform: translateY(0) !important; // Force position
-  animation: subtleFadeUp 0.5s ease-out; // Optional subtle animation that doesn't delay visibility
+  opacity: 1 !important; 
+  transform: translateY(0) !important; 
+  animation: subtleFadeUp 0.5s ease-out; 
 }
 
 p.hero-description {
@@ -167,13 +167,13 @@ p.hero-description {
   animation: subtleFadeUp 0.5s ease-out 0.1s;
 }
 
-// Scroll Animation Classes
+
 .scroll-animation {
   opacity: 0;
   transition: all 0.6s ease;
 }
 
-// Normal animations for non-hero elements
+
 .scroll-fade-in {
   opacity: 0;
   transform: translateY(30px);
@@ -305,7 +305,7 @@ p.hero-description {
   }
 }
 
-// Blockchain Section
+
 .blockchain-section {
   padding: 6rem 2rem;
   background: rgba(28, 39, 60, 0.8);
@@ -346,7 +346,7 @@ p.hero-description {
     .blockchain-text {
       flex: 1;
       text-align: left;
-      // Force initial visibility for critical elements
+      
       opacity: 1 !important;
       transform: translateX(0) !important;
 
@@ -396,7 +396,7 @@ p.hero-description {
       display: flex;
       justify-content: center;
       align-items: center;
-      // Force initial visibility for critical elements
+      
       opacity: 1 !important;
       transform: translateX(0) !important;
 
@@ -434,7 +434,7 @@ p.hero-description {
   }
 }
 
-// Real Estate Section
+
 .real-estate-section {
   padding: 6rem 2rem;
   background: linear-gradient(180deg, rgba(14, 21, 37, 1) 0%, rgba(28, 39, 60, 0.8) 100%);
@@ -555,7 +555,7 @@ p.hero-description {
   }
 }
 
-// Final CTA Section
+
 .cta-section {
   padding: 6rem 2rem;
   background: linear-gradient(180deg, rgba(28, 39, 60, 0.8) 0%, rgba(14, 21, 37, 1) 100%);
@@ -643,7 +643,7 @@ p.hero-description {
   }
 }
 
-// Container style
+
 .container {
   width: 100%;
   max-width: $container-max-width;
@@ -653,7 +653,7 @@ p.hero-description {
   z-index: 1;
 }
 
-// Section headers
+
 .section-header {
   margin-bottom: 4rem;
   
@@ -679,7 +679,7 @@ p.hero-description {
   text-align: center;
 }
 
-// Modern Link Button
+
 .modern-link-button {
   padding: 8px 0;
   margin: 0;
@@ -757,7 +757,7 @@ p.hero-description {
   }
 }
 
-// Animated Button (for CTA section)
+
 .animated-button {
   position: relative;
   display: inline-flex;
@@ -819,7 +819,7 @@ p.hero-description {
 
   &:hover {
     box-shadow: 0 0 0 10px transparent;
-    color: $svg-light-color;
+    color: $blue;
     border-radius: 10px;
 
     .arr-1 {
@@ -835,7 +835,7 @@ p.hero-description {
     }
 
     svg {
-      fill: $svg-light-color;
+      fill: $blue;
     }
 
     .circle {
@@ -851,9 +851,9 @@ p.hero-description {
   }
 }
 
-// Improved responsive styles for mobile
+
 @media (max-width: $mobile) {
-  // Blockchain section responsive
+  
   .blockchain-section {
     padding: 3rem 1rem;
     
@@ -897,7 +897,7 @@ p.hero-description {
     }
   }
   
-  // Real estate section responsive
+  
   .real-estate-section {
     padding: 3rem 1rem;
     
@@ -939,7 +939,7 @@ p.hero-description {
     }
   }
   
-  // CTA section responsive
+  
   .cta-section {
     padding: 3rem 1rem;
     
@@ -1037,7 +1037,7 @@ p.hero-description {
     
     .real-estate-content {
       h1 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
       }
       
       h2 {
@@ -1057,7 +1057,7 @@ p.hero-description {
   }
 }
 
-// Tablet portrait and smaller tablets
+
 @media (max-width: 768px) {
   .real-estate-section {
     .real-estate-content {
