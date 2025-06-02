@@ -1,8 +1,8 @@
 <header class="header" [class.scrolled]="isScrolled || isDarkPage">
   <div class="container">
     <div class="header-content">
-      <a routerLink="/" class="logo">
-        <img src="assets/images/Investo.png" alt="INVESTO Logo" class="logo-img">
+      <a routerLink="/" class="logo" click="scrollToTop()">
+        <img src="assets/images/Investo.png" alt="INVESTO Logo" class="logo-img" click="scrollToTop()">
       </a>
       
       
@@ -74,7 +74,7 @@
                   <span class="material-icons">settings</span>
                   <span>Settings</span>
                 </a>
-                <a href="javascript:void(0)" (click)="logout()" class="menu-link logout-link">
+                <a  (click)="logout()" class="menu-link logout-link">
                   <span class="material-icons">logout</span>
                   <span>Logout</span>
                 </a>
@@ -168,7 +168,7 @@
           <span class="material-icons">settings</span>
           <span>Settings</span>
         </a>
-        <a href="javascript:void(0)" class="mobile-user-link logout" (click)="logout()">
+        <a  class="mobile-user-link logout" (click)="logout()">
           <span class="material-icons">logout</span>
           <span>Logout</span>
         </a>

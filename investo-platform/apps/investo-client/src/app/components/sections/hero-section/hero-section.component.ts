@@ -13,6 +13,7 @@ export class HeroSectionComponent implements OnInit, AfterViewInit, OnDestroy {
   private particles: any[] = [];
   private animationFrame: number | null = null;
   private resizeListener: (() => void) | null = null;
+  private scrollListener: (() => void) | null = null;
 
   constructor(
     private renderer: Renderer2,
@@ -29,6 +30,7 @@ export class HeroSectionComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.initParticles();
     this.startParticleAnimation();
+    this.setupScrollIndicator();
     
     this.resizeListener = this.renderer.listen('window', 'resize', () => {
       this.updateParticles();
@@ -38,6 +40,10 @@ export class HeroSectionComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     if (this.resizeListener) {
       this.resizeListener();
+    }
+    
+    if (this.scrollListener) {
+      this.scrollListener();
     }
     
     if (this.animationFrame) {
@@ -61,11 +67,20 @@ export class HeroSectionComponent implements OnInit, AfterViewInit, OnDestroy {
     const containerHeight = window.innerHeight;
     
     
-    for (let i = 0; i < 50; i++) {
+    let particleCount = 50;
+    
+    
+    if (window.innerWidth <= 768) {
+      particleCount = 25; 
+    } else if (window.innerWidth <= 1024) {
+      particleCount = 35; 
+    }
+    
+    for (let i = 0; i < particleCount; i++) {
       const particle = this.renderer.createElement('div');
       
       
-      const size = Math.random() * 5 + 1;
+      const size = Math.random() * (window.innerWidth <= 768 ? 3 : 5) + 1;
       const posX = Math.random() * containerWidth;
       const posY = Math.random() * containerHeight;
       const opacity = Math.random() * 0.5 + 0.1;
@@ -84,12 +99,14 @@ export class HeroSectionComponent implements OnInit, AfterViewInit, OnDestroy {
       this.renderer.appendChild(particlesContainer, particle);
       
       
+      const speedFactor = window.innerWidth <= 768 ? 0.3 : 0.5;
+      
       this.particles.push({
         element: particle,
         size,
         posX,
         posY,
-        speed: Math.random() * 0.5 + 0.1,
+        speed: Math.random() * speedFactor + 0.1,
         direction: Math.random() * 360
       });
     }
@@ -145,6 +162,44 @@ export class HeroSectionComponent implements OnInit, AfterViewInit, OnDestroy {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
+    });
+  }
+  
+  private setupScrollIndicator() {
+    const scrollIndicator = this.el.nativeElement.querySelector('.scroll-indicator');
+    if (!scrollIndicator) return;
+    
+    
+    if (window.innerWidth <= 768) {
+      this.renderer.addClass(scrollIndicator, 'hidden');
+      return;
+    }
+    
+    
+    if (window.scrollY > 20) {
+      this.renderer.addClass(scrollIndicator, 'hidden');
+    } else {
+      this.renderer.removeClass(scrollIndicator, 'hidden');
+    }
+    
+    
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    
+    this.scrollListener = this.renderer.listen('window', 'scroll', () => {
+      lastScrollY = window.scrollY;
+      
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (lastScrollY > 20) {
+            this.renderer.addClass(scrollIndicator, 'hidden');
+          } else {
+            this.renderer.removeClass(scrollIndicator, 'hidden');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     });
   }
 } 

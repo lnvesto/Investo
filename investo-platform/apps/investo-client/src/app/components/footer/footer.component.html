@@ -4,7 +4,7 @@
     <div class="glow glow-2"></div>
 
     <div class="footer-content">
-      <!-- First column with branding -->
+      
       <div class="footer-branding scroll-fade-in">
         <a routerLink="/" class="logo">
           <img src="assets/images/Investo.png" alt="INVESTO" />
@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <!-- Column with links -->
+      
       <div class="footer-links scroll-slide-left hide-mobile">
         <h3>Menu</h3>
         <ul class="hide-mobile">
@@ -42,7 +42,7 @@
         </ul>
       </div>
 
-      <!-- Column with links -->
+      
       <div class="footer-links scroll-slide-left hide-mobile">
         <h3>Assets</h3>
         <ul class="hide-mobile">
@@ -53,7 +53,7 @@
         </ul>
       </div>
 
-      <!-- Column with contacts -->
+      
       <div class="footer-links scroll-slide-right hide-mobile">
         <h3>Contact</h3>
         <div class="contact-item">
@@ -77,7 +77,7 @@
       </div>
     </div>
 
-    <!-- Newsletter subscription block -->
+
     <div class="newsletter scroll-scale-in">
       <h3>Newsletter</h3>
       <p class="hide-mobile">Get updates about new investment opportunities</p>
@@ -87,6 +87,11 @@
           placeholder="Your email" 
           [(ngModel)]="emailAddress" 
           [class.error]="subscribeError"
+          name="email"
+          autocomplete="email"
+          aria-label="Email address for newsletter"
+          (click)="focusEmailInput($event)"
+          (touchstart)="focusEmailInput($event)"
         >
         <button (click)="subscribeToNewsletter()">Subscribe</button>
       </div>
@@ -108,7 +113,7 @@
       </div>
     </div>
 
-    <!-- Footer bottom part -->
+  
     <div class="footer-bottom">
       <div class="footer-bottom-wrapper hide-mobile">
         <div class="copyright">
