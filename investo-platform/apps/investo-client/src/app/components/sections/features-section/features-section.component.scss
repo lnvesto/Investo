@@ -4,25 +4,38 @@
 
 
 
-.scroll-fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease;
-  
-  &.animate {
-    opacity: 1;
-    transform: translateY(0);
+// Анімації для десктопів
+@media (min-width: 768px) {
+  .scroll-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+    
+    &.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .scroll-scale-in {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.6s ease;
+    
+    &.animate {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }
 
-.scroll-scale-in {
-  opacity: 0;
-  transform: scale(0.8);
-  transition: all 0.6s ease;
-  
-  &.animate {
+// Для мобільних пристроїв - відключаємо анімації
+@media (max-width: 767px) {
+  .scroll-fade-in, 
+  .scroll-scale-in {
     opacity: 1;
-    transform: scale(1);
+    transform: none;
+    transition: none;
   }
 }
 
@@ -131,6 +144,7 @@
         .material-icons {
           background: linear-gradient(90deg, $primary-color, lighten($primary-color, 10%));
           -webkit-background-clip: text;
+          background-clip: text;
           -webkit-text-fill-color: transparent;
           font-size: 32px;
           display: inline-block;

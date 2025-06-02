@@ -1,4 +1,4 @@
-// Animation Keyframes
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -20,6 +20,75 @@
     transform: translateX(0);
   }
 }
+
+
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+@keyframes floatUpDown {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes rotateSlowly {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulseGlow {
+  0% { opacity: 0.2; }
+  50% { opacity: 0.5; }
+  100% { opacity: 0.2; }
+}
+
+@keyframes moveLeftRight {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes dashOffset {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -100; }
+}
+
+
+@keyframes scrollWheel {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+}
+
+
+@keyframes arrowBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) rotate(45deg);
+  }
+  40% {
+    transform: translateY(-10px) rotate(45deg);
+  }
+  60% {
+    transform: translateY(-5px) rotate(45deg);
+  }
+}
+
+
 
 @keyframes slideInRight {
   from {
@@ -94,7 +163,7 @@
   }
 }
 
-// Animation Classes
+
 .fade-in {
   animation: fadeIn 0.8s ease-out forwards;
 }
@@ -103,14 +172,14 @@
   animation: slideInLeft 0.6s ease-out forwards;
 }
 
-// Scroll Animation Classes
+
 .scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale-in {
-  // Default state is visible for better tab switching
+  
   opacity: 1;
   transform: translateY(0);
   transition: all 0.8s cubic-bezier(0.15, 0.85, 0.45, 1);
   
-  // Add delayed animation when the class is added
+  
   &.animate {
     animation-duration: 0.8s;
     animation-fill-mode: both;
@@ -118,7 +187,7 @@
   }
 }
 
-// Apply specific animations to each type
+
 .scroll-fade-in.animate {
   animation-name: fadeIn;
 }
