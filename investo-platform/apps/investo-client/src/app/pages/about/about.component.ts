@@ -73,22 +73,22 @@ export class AboutComponent implements OnInit, AfterViewInit {
 
   milestones: Milestone[] = [
     {
-      year: '2023',
+      year: '2025',
       title: 'Investo Launch',
       description: 'Launched the Investo platform with initial focus on tokenized real estate investments.'
     },
     {
-      year: '2023',
+      year: '2025',
       title: 'Series A Funding',
       description: 'Secured $5M in Series A funding from leading blockchain venture capital firms.'
     },
     {
-      year: '2024',
+      year: '2026',
       title: 'Multi-Chain Expansion',
       description: 'Expanded platform capabilities to support investments across Ethereum, Solana, and Polygon networks.'
     },
     {
-      year: '2024',
+      year: '2027',
       title: 'Regulatory Approval',
       description: 'Obtained regulatory approval in key markets to offer compliant tokenized securities.'
     }
