@@ -50,7 +50,8 @@ export class FeaturesSectionComponent implements OnInit {
   }
 
   
-  private handleScroll: () => void = () => {};
+  private observer: IntersectionObserver | undefined;
+  private handleScroll = () => {};
   
   private checkScrollAnimation = () => {
     
@@ -70,29 +71,42 @@ export class FeaturesSectionComponent implements OnInit {
     );
     
     if ('IntersectionObserver' in window) {
+      // Use intersection observer for better performance
+      if (this.observer) {
+        this.observer.disconnect();
+      }
       
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            
-            requestAnimationFrame(() => {
-              entry.target.classList.add('animate');
+      this.observer = new IntersectionObserver((entries) => {
+        // Process entries in batches with requestAnimationFrame to avoid layout thrashing
+        if (entries.length > 0) {
+          requestAnimationFrame(() => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                this.observer?.unobserve(entry.target);
+              }
             });
-            observer.unobserve(entry.target); 
-          }
-        });
+          });
+        }
       }, { 
-        threshold: 0.1,
+        threshold: 0.1, 
         rootMargin: '20px 0px' 
-      }); 
-
+      });
       
+      // Add elements to be observed
+      animatedElements.forEach(element => {
+        this.observer?.observe(element);
+      });
+    } else {
+      // Fallback for browsers that don't support IntersectionObserver
       let ticking = false;
-      
       
       this.handleScroll = () => {
         if (!ticking) {
           window.requestAnimationFrame(() => {
+            let elementsToAnimate: Element[] = [];
+            
+            // Batch DOM reads first
             animatedElements.forEach((element) => {
               const elementPosition = element.getBoundingClientRect();
               const isInViewport = 
@@ -100,17 +114,24 @@ export class FeaturesSectionComponent implements OnInit {
                 elementPosition.bottom >= 0;
               
               if (isInViewport) {
-                element.classList.add('animate');
+                elementsToAnimate.push(element);
               }
             });
+            
+            // Then batch DOM writes
+            elementsToAnimate.forEach(element => {
+              element.classList.add('animate');
+            });
+            
             ticking = false;
           });
           ticking = true;
         }
       };
       
-      this.handleScroll(); 
-      window.addEventListener('scroll', this.handleScroll, { passive: true });
+      this.handleScroll();
+      // Use the correct type annotation for window to prevent the TypeScript error
+      (window as Window).addEventListener('scroll', this.handleScroll, { passive: true });
     }
   }
 }

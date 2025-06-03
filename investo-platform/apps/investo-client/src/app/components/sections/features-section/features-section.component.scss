@@ -2,11 +2,13 @@
 
 
 
-@media (min-width: 768px) {
+
+@media (min-width: 1025px) {
   .scroll-fade-in {
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.6s ease;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: transform, opacity;
     
     &.animate {
       opacity: 1;
@@ -17,7 +19,8 @@
   .scroll-scale-in {
     opacity: 0;
     transform: scale(0.8);
-    transition: all 0.6s ease;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: transform, opacity;
     
     &.animate {
       opacity: 1;
@@ -26,13 +29,15 @@
   }
 }
 
-// Для мобільних пристроїв - відключаємо анімації
-@media (max-width: 767px) {
+
+@media (max-width: 1024px) {
   .scroll-fade-in, 
   .scroll-scale-in {
-    opacity: 1;
-    transform: none;
-    transition: none;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    will-change: auto;
   }
 }
 
@@ -111,17 +116,31 @@
       background: $light-bg;
       border: 1px solid $light-border-color;
       box-shadow: 0 6px 20px -5px $light-card-shadow;
-      transition: all 0.4s ease;
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                  box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+                  border-color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
       overflow: hidden;
+      
+      @media (max-width: 1024px) {
+        transition: none;
+      }
 
-      &:hover {
-        transform: translateY(-10px);
-        border-color: darken($light-border-color, 10%);
-        box-shadow: 0 10px 30px -8px $light-card-hover-shadow;
+      @media (min-width: 1025px) {
+        &:hover {
+          transform: translateY(-10px);
+          border-color: darken($light-border-color, 10%);
+          box-shadow: 0 10px 30px -8px $light-card-hover-shadow;
+        }
+      }
+      
+      @media (max-width: 1024px) {
+        &:hover {
+          transform: none;
+        }
       }
 
       .feature-icon-wrapper {
