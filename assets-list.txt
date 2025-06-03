@@ -30,7 +30,7 @@
 ./assets/images/blockchain-visual.svg
 ./assets/images/grid-pattern.svg
 ./assets/images/trustwallet.svg
-./main.d7d45fbb12570d52.js
+./main.5a5f873d65f68ae2.js
 ./ClashDisplay-Regular.285d44360adb7279.woff2
 ./ClashDisplay-Regular.0a8af53faac264c2.woff
 ./index.html
